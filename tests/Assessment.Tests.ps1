@@ -372,6 +372,7 @@ Describe 'Start-TenantConverge chains the steps' {
 
     It 'tells where the plan is' {
         Mock Invoke-TcAssessment -ModuleName TenantConverge { [pscustomobject]@{ Folder = 'run'; Snapshot = 'run/snapshot.json'; Plan = 'run/plan.json'; NotCollected = 0 } }
+        Mock Write-TcProjectOutput -ModuleName TenantConverge { [pscustomobject]@{ Report = $null; Workbook = $null } }
         Start-TenantConverge -Project $project | Out-Null
         Should -Invoke Write-TcMessage -ModuleName TenantConverge -ParameterFilter { $Message -like '*run/plan.json*' }
     }
