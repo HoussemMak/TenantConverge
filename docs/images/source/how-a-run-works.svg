@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 560" width="1280" height="560" role="img" aria-label="A run goes through five steps. Each step saves a file that the next step reads: project.json, snapshot.json, findings.json and plan.json, then the report and the workbook. When a read fails, nothing stops: the coverage says why, the rules say what they could not read, the task stays marked Unconfirmed, and the report shows a gap, never a zero.">
+  <title>How a run works</title>
+  <style>
+    text { font-family: 'Instrument Sans', 'Segoe UI', sans-serif; fill: #14242A; }
+    .mono { font-family: 'JetBrains Mono', Consolas, monospace; font-size: 15.5px; }
+    .title { font-size: 30px; font-weight: 600; }
+    .lead { font-size: 19px; fill: #3B4D53; }
+    .name { font-size: 22px; font-weight: 600; }
+    .sub { font-size: 17px; fill: #3B4D53; }
+    .side { font-size: 18px; font-weight: 600; fill: #5F7176; }
+    .card { fill: #FFFFFF; stroke: #BFCCC6; stroke-width: 1.5; }
+    .file { fill: #E9F1EF; stroke: #93ACA7; stroke-width: 1.5; }
+    .gap { fill: #E5EEF9; stroke: #245FA6; stroke-width: 1.5; }
+    .gap-t { font-size: 17px; fill: #1B3C66; }
+    .flow { stroke: #12333B; stroke-width: 2.5; fill: none; }
+    .fail { stroke: #245FA6; stroke-width: 2.5; fill: none; }
+  </style>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#12333B"/></marker>
+    <marker id="b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#245FA6"/></marker>
+  </defs>
+
+  <rect width="1280" height="560" fill="#EFF3F1"/>
+  <text x="48" y="54" class="title">One run, from your answers to the report</text>
+  <text x="48" y="86" class="lead">Start-TenantConverge chains these steps. Each one saves what it makes, and the next one reads it.</text>
+
+  <!-- Steps. Five columns of 212, 31 apart. -->
+  <rect x="48" y="112" width="212" height="112" rx="8" class="card"/>
+  <text x="66" y="148" class="name">Describe</text>
+  <text x="66" y="176" class="sub">Sources, target, waves,</text>
+  <text x="66" y="199" class="sub">sign-in mode</text>
+
+  <rect x="291" y="112" width="212" height="112" rx="8" class="card"/>
+  <text x="309" y="148" class="name">Collect</text>
+  <text x="309" y="176" class="sub">56 collectors read</text>
+  <text x="309" y="199" class="sub">every tenant</text>
+
+  <rect x="534" y="112" width="212" height="112" rx="8" class="card"/>
+  <text x="552" y="148" class="name">Analyse</text>
+  <text x="552" y="176" class="sub">117 rules find what</text>
+  <text x="552" y="199" class="sub">blocks and collides</text>
+
+  <rect x="777" y="112" width="212" height="112" rx="8" class="card"/>
+  <text x="795" y="148" class="name">Plan</text>
+  <text x="795" y="176" class="sub">Actions, settings,</text>
+  <text x="795" y="199" class="sub">tasks, decisions</text>
+
+  <rect x="1020" y="112" width="212" height="112" rx="8" fill="#12333B"/>
+  <text x="1038" y="148" class="name" style="fill:#E7EFEC">Deliver</text>
+  <text x="1038" y="176" class="sub" style="fill:#E7EFEC">The working files</text>
+  <text x="1038" y="199" class="sub" style="fill:#E7EFEC">of the project</text>
+
+  <!-- Files, under the step that saves them. -->
+  <path d="M154 224 V 266" class="flow" marker-end="url(#a)"/>
+  <path d="M397 224 V 266" class="flow" marker-end="url(#a)"/>
+  <path d="M640 224 V 266" class="flow" marker-end="url(#a)"/>
+  <path d="M883 224 V 266" class="flow" marker-end="url(#a)"/>
+  <path d="M1126 224 V 266" class="flow" marker-end="url(#a)"/>
+  <text x="166" y="252" class="sub">saves</text>
+
+  <rect x="48" y="272" width="212" height="52" rx="8" class="file"/>
+  <text x="154" y="304" class="mono" text-anchor="middle">project.json</text>
+  <rect x="291" y="272" width="212" height="52" rx="8" class="file"/>
+  <text x="397" y="304" class="mono" text-anchor="middle">snapshot.json</text>
+  <rect x="534" y="272" width="212" height="52" rx="8" class="file"/>
+  <text x="640" y="304" class="mono" text-anchor="middle">findings.json</text>
+  <rect x="777" y="272" width="212" height="52" rx="8" class="file"/>
+  <text x="883" y="304" class="mono" text-anchor="middle">plan.json</text>
+  <rect x="1020" y="272" width="212" height="52" rx="8" class="file"/>
+  <text x="1126" y="304" class="sub" text-anchor="middle" style="fill:#14242A">Report, workbook</text>
+
+  <!-- Each file feeds the next step. -->
+  <path d="M260 298 H 275.5 V 168 H 287" class="flow" marker-end="url(#a)"/>
+  <path d="M503 298 H 518.5 V 168 H 530" class="flow" marker-end="url(#a)"/>
+  <path d="M746 298 H 761.5 V 168 H 773" class="flow" marker-end="url(#a)"/>
+  <path d="M989 298 H 1004.5 V 168 H 1016" class="flow" marker-end="url(#a)"/>
+
+  <!-- The same steps, when a read fails. -->
+  <text x="48" y="404" class="side" style="fill:#245FA6">When a read fails</text>
+  <text x="48" y="430" class="sub">Refused access, missing</text>
+  <text x="48" y="453" class="sub">module, service down:</text>
+  <text x="48" y="476" class="sub">the run goes on.</text>
+
+  <path d="M397 326 V 382" class="fail" marker-end="url(#b)"/>
+  <rect x="291" y="388" width="212" height="104" rx="8" class="gap"/>
+  <text x="309" y="424" class="gap-t" style="font-weight:600">Coverage</text>
+  <text x="309" y="450" class="gap-t">says what was not read,</text>
+  <text x="309" y="473" class="gap-t">and why</text>
+
+  <path d="M503 440 H 530" class="fail" marker-end="url(#b)"/>
+  <rect x="534" y="388" width="212" height="104" rx="8" class="gap"/>
+  <text x="552" y="424" class="gap-t" style="font-weight:600">Findings</text>
+  <text x="552" y="450" class="gap-t">list the rules that</text>
+  <text x="552" y="473" class="gap-t">could not read a table</text>
+
+  <path d="M746 440 H 773" class="fail" marker-end="url(#b)"/>
+  <rect x="777" y="388" width="212" height="104" rx="8" class="gap"/>
+  <text x="795" y="424" class="gap-t" style="font-weight:600">Plan</text>
+  <text x="795" y="450" class="gap-t">keeps the task, marked</text>
+  <text x="795" y="473" class="gap-t">Unconfirmed</text>
+
+  <path d="M989 440 H 1016" class="fail" marker-end="url(#b)"/>
+  <rect x="1020" y="388" width="212" height="104" rx="8" class="gap"/>
+  <text x="1038" y="424" class="gap-t" style="font-weight:600">Report</text>
+  <text x="1038" y="450" class="gap-t">shows a gap,</text>
+  <text x="1038" y="473" class="gap-t">never a zero</text>
+
+  <text x="291" y="530" class="sub">Not collected and not used stay two different things, from the first read to the last page.</text>
+</svg>

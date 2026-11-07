@@ -1,0 +1,19 @@
+# Assessment output contains personal data
+output/
+*.project.local.json
+*.access.local.json
+*.log
+
+# Certificates and keys
+*.pfx
+*.cer
+*.key
+*.pem
+
+# Local tooling
+.claude/
+.superpowers/
+.serena/
+.vscode/
+testResults.xml
+*.stackdump

@@ -1,0 +1,5 @@
+#!/bin/sh
+# Runs the forbidden term check on the commit message when this clone has a private terms file.
+terms=$(git config --get tenantconverge.termsfile)
+[ -z "$terms" ] && exit 0
+exec pwsh -NoProfile -File tools/Test-TcForbiddenTerm.ps1 -TermsPath "$terms" -Path . -MessageFile "$1"

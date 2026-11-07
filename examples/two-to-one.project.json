@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "name": "Summit consolidation",
+  "target": {
+    "displayName": "Summit Holdings",
+    "primaryDomain": "summit.example",
+    "tenantId": null,
+    "state": "Production"
+  },
+  "sources": [
+    {
+      "role": "S1",
+      "displayName": "Alpine Group",
+      "primaryDomain": "alpine.example",
+      "tenantId": null,
+      "wave": 1
+    },
+    {
+      "role": "S2",
+      "displayName": "Birch Partners",
+      "primaryDomain": "birch.example",
+      "tenantId": null,
+      "wave": 2
+    }
+  ],
+  "access": {
+    "mode": "Browser"
+  },
+  "output": {
+    "path": "./output"
+  },
+  "team": []
+}

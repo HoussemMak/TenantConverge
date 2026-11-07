@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640" role="img" aria-label="TenantConverge runs on your computer and reads 1 to 3 source tenants and 1 target tenant without changing them. It writes a report, a workbook and a tracking file. Its 111 remediation scripts are separate, and write to a tenant only if you run one and confirm.">
+  <title>TenantConverge overview</title>
+  <style>
+    text { font-family: 'Instrument Sans', 'Segoe UI', sans-serif; fill: #14242A; }
+    .mono { font-family: 'JetBrains Mono', Consolas, monospace; }
+    .title { font-size: 46px; font-weight: 600; letter-spacing: -0.5px; }
+    .lead { font-size: 23px; fill: #3B4D53; }
+    .label { font-size: 18px; fill: #5F7176; font-weight: 600; }
+    .name { font-size: 20px; font-weight: 600; }
+    .sub { font-size: 17px; fill: #3B4D53; }
+    .card { fill: #FFFFFF; stroke: #BFCCC6; stroke-width: 1.5; }
+    .zone { fill: #F6F9F7; stroke: #93ACA7; stroke-width: 1.5; }
+    .zone-open { fill: none; stroke: #5F7176; stroke-width: 2; stroke-dasharray: 8 7; }
+    .read { stroke: #1B7A4A; stroke-width: 3.5; fill: none; }
+    .out { stroke: #12333B; stroke-width: 2.5; fill: none; }
+    .write { stroke: #B42E2A; stroke-width: 3; stroke-dasharray: 9 7; fill: none; }
+  </style>
+  <defs>
+    <marker id="a-read" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#1B7A4A"/></marker>
+    <marker id="a-out" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#12333B"/></marker>
+    <marker id="a-write" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#B42E2A"/></marker>
+  </defs>
+
+  <rect width="1280" height="640" fill="#EFF3F1"/>
+
+  <text x="56" y="80" class="title">TenantConverge</text>
+  <text x="56" y="120" class="lead">See what each Microsoft 365 tenant holds before you merge them.</text>
+  <text x="1224" y="70" class="sub" text-anchor="end">Free and open source</text>
+  <text x="1224" y="98" class="sub" text-anchor="end" style="fill:#B42E2A;font-weight:600">Beta: never run on a real tenant yet</text>
+
+  <!-- The tenants, as one zone: the read leaves it, the write comes back to it. -->
+  <rect x="56" y="156" width="240" height="346" rx="12" class="zone"/>
+  <text x="76" y="188" class="label">Your tenants</text>
+  <rect x="76" y="202" width="200" height="54" rx="8" class="card"/>
+  <text x="176" y="236" class="name" text-anchor="middle">Source 1</text>
+  <rect x="76" y="264" width="200" height="54" rx="8" class="card" stroke-dasharray="6 5"/>
+  <text x="176" y="298" class="name" text-anchor="middle">Source 2, optional</text>
+  <rect x="76" y="326" width="200" height="54" rx="8" class="card" stroke-dasharray="6 5"/>
+  <text x="176" y="360" class="name" text-anchor="middle">Source 3, optional</text>
+  <path d="M176 382 V 412" class="out" marker-end="url(#a-out)"/>
+  <rect x="76" y="428" width="200" height="56" rx="8" fill="#12333B"/>
+  <text x="176" y="463" class="name" text-anchor="middle" style="fill:#E7EFEC">Target</text>
+
+  <!-- The computer. -->
+  <rect x="404" y="156" width="820" height="452" rx="12" class="zone-open"/>
+  <text x="426" y="188" class="label">Your computer</text>
+
+  <path d="M296 322 H 428" class="read" marker-end="url(#a-read)"/>
+  <text x="350" y="310" text-anchor="middle" style="font-size:18px;font-weight:600;fill:#1B7A4A">reads only</text>
+
+  <rect x="426" y="202" width="256" height="262" rx="10" fill="#12333B"/>
+  <text x="450" y="250" style="font-size:25px;font-weight:600;fill:#E7EFEC">TenantConverge</text>
+  <text x="450" y="298" style="font-size:19px;fill:#E7EFEC">56 collectors</text>
+  <text x="450" y="330" style="font-size:19px;fill:#E7EFEC">117 rules</text>
+  <text x="450" y="362" style="font-size:19px;fill:#E7EFEC">a plan of actions</text>
+  <text x="450" y="416" style="font-size:17px;fill:#A9C2BE">No telemetry.</text>
+  <text x="450" y="442" style="font-size:17px;fill:#A9C2BE">Not read shows as a gap.</text>
+
+  <path d="M682 240 H 760" class="out" marker-end="url(#a-out)"/>
+  <path d="M682 333 H 760" class="out" marker-end="url(#a-out)"/>
+  <path d="M682 426 H 760" class="out" marker-end="url(#a-out)"/>
+  <text x="716" y="226" class="sub" text-anchor="middle">writes</text>
+
+  <rect x="772" y="202" width="428" height="76" rx="8" class="card"/>
+  <text x="794" y="233" class="name">HTML report</text>
+  <text x="794" y="260" class="sub">What each tenant holds, what collides, the plan</text>
+  <rect x="772" y="295" width="428" height="76" rx="8" class="card"/>
+  <text x="794" y="326" class="name">Excel workbook</text>
+  <text x="794" y="353" class="sub">Steps, identity matrix, decisions</text>
+  <rect x="772" y="388" width="428" height="76" rx="8" class="card"/>
+  <text x="794" y="419" class="name">Tracking file</text>
+  <text x="794" y="446" class="sub">Statuses and notes your team shares</text>
+
+  <!-- The other path: separate, and it starts with a person. -->
+  <rect x="426" y="496" width="774" height="90" rx="8" fill="#FBEBEA" stroke="#B42E2A" stroke-width="1.5" stroke-dasharray="9 7"/>
+  <text x="448" y="532" style="font-size:20px;font-weight:600;fill:#B42E2A">111 remediation scripts, none ever run on a real tenant</text>
+  <text x="448" y="562" class="sub">Separate from the assessment. Each shows a preview unless you add -Apply and confirm.</text>
+  <path d="M426 541 H 176 V 508" class="write" marker-end="url(#a-write)"/>
+  <text x="172" y="572" style="font-size:18px;font-weight:600;fill:#B42E2A">writes, only if you run one</text>
+</svg>

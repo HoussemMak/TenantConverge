@@ -1,0 +1,1062 @@
+{
+  "schemaVersion": 1,
+  "rules": [
+    {
+      "id": "ENT-INACTIVE", "workload": "Entra ID", "severity": "High", "category": "Decision needed",
+      "title": "{count} active member account(s) with no sign-in for {days} days or more",
+      "finding": "Of {members} active member accounts in {tenant}, {count} have not signed in for at least {days} days, including {never} that never did.",
+      "action": "Decide each account in the identity matrix (Create or Exclude). Migrating only useful accounts reduces licenses and copy volume.",
+      "why": "Each migrated account uses a license, copy volume and support. A migrated inactive account is a risk with no value.",
+      "owner": "Customer", "moment": "Now", "effort": "Medium",
+      "question": "Which inactive accounts do we migrate, and which do we exclude in the identity matrix?",
+      "variants": { "target": { "severity": "Medium", "category": "Cleanup", "title": "{count} inactive member account(s) in {tenant}",
+        "finding": "{count} active member accounts have not signed in for at least {days} days, including {never} that never did.",
+        "action": "Have the customer validate the list, then disable and delete the accounts. This frees licenses for migrated accounts and reduces the attack surface." } }
+    },
+    {
+      "id": "ENT-DISABLED-LICENSED", "workload": "Entra ID", "severity": "Medium", "category": "Licenses and capacity",
+      "title": "{count} disabled account(s) keep licenses",
+      "finding": "{count} blocked accounts in {tenant} still use {licenses} license(s).",
+      "action": "Do not renew these licenses in the target. Check whether these are mailboxes to keep (litigation) or accounts to exclude.",
+      "why": "Licenses paid for with no use. In the target, they cover part of what migrated accounts need.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Low", "question": "",
+      "variants": { "target": { "action": "Remove these licenses, except for mailboxes on hold: they serve the migrated accounts." } }
+    },
+    {
+      "id": "ENT-GUESTS", "workload": "Entra ID", "severity": "Medium", "category": "Recreate in target",
+      "title": "{count} guest(s) in {tenant}, {stale} of them stale",
+      "finding": "Guest accounts do not migrate: their access (teams, sites, shares) goes away with the source tenant.",
+      "action": "Have owners confirm which guests are still needed, invite them again in the target after teams and sites are copied, and ignore the stale ones.",
+      "why": "Guests do not follow the migration: without a plan, customers and partners lose access to teams and sites.",
+      "owner": "Customer", "moment": "Before cutover", "effort": "Medium",
+      "question": "Which source guests must be invited again in the target?",
+      "variants": { "target": { "severity": "Low", "category": "Cleanup", "title": "{stale} stale guest(s) in {tenant}",
+        "finding": "Of {count} guests, {stale} never accepted the invitation or have been inactive for {days} days or more.",
+        "action": "Run an access review or delete them after validation, and turn on expiry for inactive guests." } }
+    },
+    {
+      "id": "ENT-ADMINS", "workload": "Entra ID", "severity": "Medium", "category": "Security",
+      "title": "{count} permanent Global Administrator(s) in {tenant}",
+      "finding": "{count} active Global Administrator assignments{external}.",
+      "action": "During the migration, keep only the accounts that are needed, and remove vendor accounts once responsibilities are handed over.",
+      "why": "Too many Global Administrators widen the attack surface just as domains and identities move.",
+      "owner": "Migration team and Customer", "moment": "Now", "effort": "Low", "question": "",
+      "parts": { "external": ", {count} of them external or vendor accounts" },
+      "variants": { "target": { "action": "Bring this down to two or three named accounts plus two emergency accounts, and move the others to targeted or eligible roles (PIM with a P2 license)." } }
+    },
+    {
+      "id": "ENT-MFA", "workload": "Entra ID", "severity": "High", "category": "Security",
+      "title": "No MFA requirement for all users in {tenant}",
+      "finding": "No active Conditional Access policy requires MFA for all, and security defaults are off. {reportOnly} policy(ies) in report-only mode.",
+      "action": "Risk during the migration: create no new access. Migrated accounts will inherit the target policies.",
+      "why": "The security baseline must be in place before the first cutover. Without MFA, migrated accounts arrive unprotected.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Medium", "question": "",
+      "variants": { "target": { "severity": "Critical", "action": "Required before the first cutover: create the MFA for all policy (emergency accounts excluded), watch it in report-only mode for a few days, then turn it on." } }
+    },
+    {
+      "id": "ENT-LEGACY-AUTH", "workload": "Entra ID", "severity": "High", "category": "Security",
+      "title": "Legacy authentication not blocked in {tenant}",
+      "finding": "No active policy blocks Exchange ActiveSync and other legacy clients, which bypass MFA.",
+      "action": "Create a policy that blocks the Exchange ActiveSync and Other clients client apps. Check legacy sign-ins in the logs first.",
+      "why": "Legacy authentication bypasses MFA: it is the first way Microsoft 365 accounts get compromised.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Medium", "question": ""
+    },
+    {
+      "id": "ENT-MFA-REGISTRATION", "workload": "Entra ID", "severity": "Info", "category": "Information",
+      "title": "{count} account(s) in {tenant} with no MFA registered",
+      "finding": "MFA methods do not migrate: every migrated account registers again in the target.",
+      "action": "Plan Temporary Access Passes for registration, and first-level support for the first working day after cutover.",
+      "why": "An account with no MFA method is blocked or exposed as soon as MFA becomes mandatory.",
+      "owner": "Customer", "moment": "Preparation", "effort": "Medium", "question": "",
+      "variants": { "target": { "severity": "High", "category": "Security", "title": "{count} active account(s) with no MFA method registered in {tenant}",
+        "finding": "These accounts will be blocked or exposed when MFA for all is turned on.",
+        "action": "Run a registration campaign (Authenticator or FIDO2 key) before turning on the policy, with Temporary Access Passes for difficult cases." } }
+    },
+    {
+      "id": "ENT-GROUP-CREATION", "workload": "Entra ID", "severity": "Medium", "category": "Governance",
+      "title": "Microsoft 365 group and team creation is open to everyone in {tenant}",
+      "finding": "Any user can create a group, and so a Teams team and a site.",
+      "action": "Limit creation to a security group (Group.Unified setting) and define a naming convention with prefixes, before migrated teams arrive.",
+      "why": "Migrated teams arrive prefixed. Without governance, users create duplicates from the first day.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Low",
+      "question": "Who can create teams and groups in the target?"
+    },
+    {
+      "id": "ENT-AUTHORIZATION", "workload": "Entra ID", "severity": "Low", "category": "Governance",
+      "title": "Broad user permissions in {tenant}",
+      "finding": "Finding: {details}.",
+      "action": "Limit invitations to members (or a role) and application registration to administrators.",
+      "why": "Broad permissions let applications and guests in with no control.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Low", "question": "",
+      "parts": { "anyoneInvites": "everyone, guests included, can invite guests", "usersRegisterApps": "users can register applications" }
+    },
+    {
+      "id": "ENT-SECRETS", "workload": "Entra ID", "severity": "Medium", "category": "Information",
+      "title": "{count} application(s) with an expired or expiring secret or certificate",
+      "finding": "Threshold: {days} days.",
+      "action": "Renew or delete the secrets. For applications to recreate in the target, do not renew them in the source.",
+      "why": "An expired secret stops an integration with no warning. During a migration, the outage would be blamed on the cutover.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Low", "question": ""
+    },
+    {
+      "id": "ENT-THIRD-PARTY-APPS", "workload": "Entra ID", "severity": "High", "category": "Recreate in target",
+      "title": "{count} third-party enterprise application(s) in {tenant}, {consented} with admin consent",
+      "finding": "Enterprise applications, their consents, single sign-on and provisioning belong to the tenant. They do not follow users.",
+      "action": "Identify with the customer the applications that are critical on cutover day, consent and configure them in the target before cutover, and warn the vendors (SSO, SCIM).",
+      "why": "Enterprise applications, their consents and their single sign-on belong to the tenant. They stop working for migrated accounts.",
+      "owner": "Migration team and Customer", "moment": "Before cutover", "effort": "High",
+      "question": "Which applications must work on the first working day after cutover?"
+    },
+    {
+      "id": "ENT-APP-REGISTRATIONS", "workload": "Entra ID", "severity": "Medium", "category": "Recreate in target",
+      "title": "{count} application registration(s) of {tenant}",
+      "finding": "An application registration does not move: its ID, secrets and redirect URLs change in the target.",
+      "action": "For each application still in use: create a new registration in the target, consent its permissions and update the configuration on the application side. Delete the others at closure.",
+      "why": "An application registration does not move: ID, secrets and URLs change.",
+      "owner": "Migration team", "moment": "Before cutover", "effort": "Medium", "question": ""
+    },
+    {
+      "id": "ENT-SYNC-SOURCE", "workload": "Entra ID", "severity": "High", "category": "Decision needed",
+      "title": "{tenant} is synchronized from an on-premises Active Directory",
+      "finding": "Last synchronization {days} day(s) ago.",
+      "action": "Before releasing the domains, stop source synchronization (accounts become cloud accounts). Otherwise on-premises AD rewrites UPNs and addresses.",
+      "why": "As long as on-premises AD syncs the source, it rewrites the identifiers and addresses that cutover must release.",
+      "owner": "Migration team", "moment": "Before cutover", "effort": "Medium",
+      "question": "When do we stop source synchronization?"
+    },
+    {
+      "id": "ENT-SYNC-TARGET", "workload": "Entra ID", "severity": "High", "category": "Security",
+      "title": "Entra Connect has not synchronized {tenant} for {days} day(s)",
+      "finding": "Target accounts come from on-premises AD: a sync outage blocks arrivals, departures and password changes.",
+      "action": "Check the Entra Connect server and its health before any cutover.",
+      "why": "The target depends on Entra Connect for its accounts. An outage blocks arrivals, departures and passwords.",
+      "owner": "Customer", "moment": "Now", "effort": "Low", "question": ""
+    },
+    {
+      "id": "ENT-LICENSE-ERRORS", "workload": "Entra ID", "severity": "Low", "category": "Licenses and capacity",
+      "title": "{count} account(s) with a license assignment error",
+      "finding": "Group licenses could not be assigned (conflicting plans or no license left).",
+      "action": "Fix the conflicts before using group licensing for migrated accounts.",
+      "why": "Group license errors prevent automatic licensing of migrated accounts.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Low", "question": ""
+    },
+    {
+      "id": "ENT-STALE-DEVICES", "workload": "Entra ID", "severity": "Low", "category": "Cleanup",
+      "title": "{count} device(s) with no sign-in for 90 days or more",
+      "finding": "Devices registered in Entra ID but inactive.",
+      "action": "Disable them, then delete them after validation. In a source, they go away with the tenant.",
+      "why": "Stale devices blur the inventory of workstations to re-enroll.",
+      "owner": "Customer", "moment": "Preparation", "effort": "Low", "question": ""
+    },
+    {
+      "id": "ENT-BUSINESS-CAP", "workload": "Entra ID", "severity": "High", "category": "Licenses and capacity",
+      "title": "Business plan at its 300-seat limit in {tenant}",
+      "finding": "{plans}. Microsoft limits each Business plan to 300 users.",
+      "action": "Migrated accounts will need licenses from the Enterprise family. Order them before target accounts are created.",
+      "why": "Microsoft limits each Business plan to 300 seats: migrated accounts need Enterprise licenses.",
+      "owner": "Customer", "moment": "Now", "effort": "Low",
+      "question": "Which Enterprise license do migrated accounts get, and when do we order it?"
+    },
+    {
+      "id": "ENT-LEGACY-SIGN-INS", "workload": "Entra ID", "severity": "High", "category": "Security",
+      "title": "{count} account(s) still sign in with legacy authentication in {tenant}",
+      "finding": "Clients: {clients}.",
+      "action": "These devices and programs must be reconfigured after cutover. Include the list in user communications.",
+      "why": "These accounts stop receiving mail as soon as legacy authentication is blocked or the mailbox changes tenant.",
+      "owner": "Migration team and Customer", "moment": "Preparation", "effort": "Medium", "question": "",
+      "variants": { "target": { "action": "Contact these users and replace the clients (modern Outlook, Outlook mobile) before blocking legacy authentication." } }
+    },
+    {
+      "id": "ENT-COUNTRIES", "workload": "Entra ID", "severity": "Info", "category": "Information",
+      "title": "Sign-ins from {count} countries outside {home} in {tenant}",
+      "finding": "Basis of a location-based Conditional Access policy.",
+      "action": "Validate the legitimate countries with the customer (travel, remote work) before blocking the others.",
+      "why": "The countries people really sign in from decide the location-based Conditional Access policy.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Low", "question": ""
+    },
+    {
+      "id": "ENT-APP-PERMISSIONS", "workload": "Entra ID", "severity": "High", "category": "Recreate in target",
+      "title": "{count} application(s) with broad application permissions in {tenant}",
+      "finding": "{permissions} sensitive permission(s): read or write on all mailboxes, all sites or the directory.",
+      "action": "For each application kept: register or consent it again in the target with the same permissions, after a review, and warn the vendor.",
+      "why": "An application with application permissions reads or writes for the whole tenant. It must be reviewed and granted again in the target.",
+      "owner": "Migration team", "moment": "Before cutover", "effort": "Medium", "question": "",
+      "variants": { "target": { "severity": "Medium", "category": "Security", "action": "Review each application with the customer and remove the permissions it does not need." } }
+    },
+    {
+      "id": "ENT-RISK", "workload": "Entra ID", "severity": "Critical", "category": "Security",
+      "title": "{count} risky or compromised account(s) in {tenant}",
+      "finding": "Identity Protection flags these accounts as at risk or compromised.",
+      "action": "Reset passwords, revoke sessions, and check mailbox rules and consents. Migrate them only once the risk is cleared.",
+      "why": "Migrating a compromised account carries the attacker into the target.",
+      "owner": "Migration team", "moment": "Now", "effort": "Low", "question": "",
+      "variants": { "target": { "severity": "High" } }
+    },
+    {
+      "id": "ENT-SYNC-ERRORS", "workload": "Entra ID", "severity": "Medium", "category": "Cleanup",
+      "title": "{count} account(s) with a synchronization error in {tenant}",
+      "finding": "Duplicate addresses or identifiers between on-premises AD and Entra ID.",
+      "action": "Fix them in on-premises AD (proxyAddresses and userPrincipalName attributes) before migrated addresses are assigned.",
+      "why": "An account in sync error keeps wrong attributes (addresses, UPN) and can block the assignment of migrated addresses.",
+      "owner": "Customer", "moment": "Preparation", "effort": "Low", "question": ""
+    },
+
+    {
+      "id": "EXO-FORWARDING", "workload": "Exchange Online", "severity": "High", "category": "Security",
+      "title": "{count} mailbox(es) with automatic forwarding",
+      "finding": "{external} forward(s) to an external address.",
+      "action": "Have the customer confirm each forward. Recreate it in the target only if it is justified (the outbound anti-spam policy must allow it), otherwise delete it.",
+      "why": "A forward to the outside is a potential leak. It often breaks at cutover and must be recreated or dropped on purpose.",
+      "owner": "Customer", "moment": "Before cutover", "effort": "Low",
+      "question": "Which automatic forwards are legitimate and must be recreated?"
+    },
+    {
+      "id": "EXO-ARCHIVES", "workload": "Exchange Online", "severity": "Medium", "category": "Data",
+      "title": "{count} online archive(s) to migrate",
+      "finding": "Known archive volume: {volume} GB.",
+      "action": "Check that the copy tool migrates archives and that the target license includes archiving, then turn on the archive in the target before the pre-copy.",
+      "why": "Archives must be copied and the target license must accept them, otherwise the history is lost.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Medium", "question": ""
+    },
+    {
+      "id": "EXO-HOLDS", "workload": "Exchange Online", "severity": "High", "category": "Decision needed",
+      "title": "{holds} mailbox(es) on hold and {inactive} inactive mailbox(es) in {tenant}",
+      "finding": "Content on hold (litigation, retention, eDiscovery) must be preserved. Inactive mailboxes go away with the tenant.",
+      "action": "Get a legal decision before the tenant closes: reproduce the holds in the target after the copy, export to PST, or keep the source readable for the time required.",
+      "why": "Content on legal hold cannot disappear with the source tenant.",
+      "owner": "Customer", "moment": "Before cutover", "effort": "Medium",
+      "question": "How long do we keep the source or its exports for legal obligations?"
+    },
+    {
+      "id": "EXO-LARGE-MAILBOXES", "workload": "Exchange Online", "severity": "Medium", "category": "Data",
+      "title": "{count} mailbox(es) of {size} GB or more",
+      "finding": "Total mailbox volume: {volume} GB.",
+      "action": "Start the pre-copy with these mailboxes. Above 50 GB, the target license must offer 100 GB, and shared mailboxes over 50 GB need a license.",
+      "why": "Large mailboxes set the length of the pre-copy and the choice of license.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Medium", "question": "",
+      "variants": { "target": { "severity": "Low" } }
+    },
+    {
+      "id": "EXO-SHARED-LICENSED", "workload": "Exchange Online", "severity": "Medium", "category": "Licenses and capacity",
+      "title": "{count} shared mailbox(es) near or above 50 GB",
+      "finding": "A shared mailbox with no license is limited to 50 GB.",
+      "action": "Plan an Exchange Online Plan 2 or equivalent license for these mailboxes in the target, or archiving.",
+      "why": "A shared mailbox above 50 GB stops receiving mail without a license.",
+      "owner": "Customer", "moment": "Preparation", "effort": "Low", "question": ""
+    },
+    {
+      "id": "EXO-RULES", "workload": "Exchange Online", "severity": "Medium", "category": "Recreate in target",
+      "title": "{count} active transport rule(s) in {tenant}",
+      "finding": "Warnings, signatures, redirects and blocks applied to the mail flow of the source.",
+      "action": "Review each rule with the customer: recreate it in the target (scoped to the migrated domains) or drop it, and decide how signatures will be applied.",
+      "why": "Transport rules (notices, signatures, blocks) do not follow the migration.",
+      "owner": "Migration team and Customer", "moment": "Before cutover", "effort": "Medium",
+      "question": "Which transport rules of the source must exist in the target?"
+    },
+    {
+      "id": "EXO-CONNECTORS", "workload": "Exchange Online", "severity": "High", "category": "Decision needed",
+      "title": "{count} active mail connector(s) in {tenant}",
+      "finding": "Inbound or outbound mail flows through a third-party gateway.",
+      "action": "Decide the mail flow of the migrated domains after cutover: MX directly to Exchange Online in the target, or the gateway kept with an inbound connector in the target. Adapt the MX and SPF steps.",
+      "why": "The path of inbound and outbound mail changes at cutover. A forgotten connector rejects or diverts messages.",
+      "owner": "Migration team and Customer", "moment": "Now", "effort": "Medium",
+      "question": "After cutover, does mail of the migrated domains go through the third-party gateway or directly through Exchange Online?"
+    },
+    {
+      "id": "EXO-JOURNAL", "workload": "Exchange Online", "severity": "Medium", "category": "Decision needed",
+      "title": "{count} journal rule(s) in {tenant}",
+      "finding": "A copy of messages goes to an external archiving service.",
+      "action": "Confirm the archiving obligation, then recreate the rule in the target for migrated accounts or use Purview retention.",
+      "why": "A mail archiving obligation must not be interrupted during cutover.",
+      "owner": "Customer", "moment": "Before cutover", "effort": "Low",
+      "question": "Is journal archiving an obligation to maintain?"
+    },
+    {
+      "id": "EXO-RECIPIENTS", "workload": "Exchange Online", "severity": "Medium", "category": "Recreate in target",
+      "title": "{groups} distribution list(s), {dynamic} dynamic list(s), {contacts} contact(s)",
+      "finding": "Mailbox migration tools do not copy these objects, and dynamic filters depend on attributes of the source.",
+      "action": "Recreate the lists with a prefix, rewrite the filters, and recreate the useful contacts. Addresses are taken over at cutover.",
+      "why": "Mailbox migration tools do not copy lists, dynamic lists and contacts.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Medium", "question": ""
+    },
+    {
+      "id": "EXO-PERMISSIONS", "workload": "Exchange Online", "severity": "Medium", "category": "Recreate in target",
+      "title": "{count} mailbox delegation(s) (full access, send as, send on behalf)",
+      "finding": "The copy tool does not always take delegations over, and they rest on accounts that change tenant.",
+      "action": "Recreate the rights on shared mailboxes, check delegations on user mailboxes (assistants) and reproduce them once addresses are assigned.",
+      "why": "Delegations (assistants, shared mailboxes) break if they are not reproduced after addresses are assigned.",
+      "owner": "Migration team", "moment": "Cutover", "effort": "Medium", "question": ""
+    },
+    {
+      "id": "EXO-DKIM", "workload": "Exchange Online", "severity": "Medium", "category": "Security",
+      "title": "DKIM off for {count} domain(s) in {tenant}",
+      "finding": "Mail from these domains is not signed: deliverability and spoofing protection are reduced.",
+      "action": "Nothing to do in the source: DKIM is configured in the target at cutover.",
+      "why": "Without DKIM, mail from migrated domains lands in spam folders more often.",
+      "owner": "Migration team", "moment": "Cutover", "effort": "Low", "question": "",
+      "variants": { "target": { "severity": "High", "action": "Publish the two selector CNAME records, then turn on signing. Do the same for migrated domains at cutover." } }
+    },
+    {
+      "id": "EXO-AUDIT", "workload": "Exchange Online", "severity": "High", "category": "Security",
+      "title": "Unified audit log off in {tenant}",
+      "finding": "No trace of user and administrator actions: no proof and no investigation possible during the migration.",
+      "action": "Turn it on now (Set-AdminAuditLogConfig -UnifiedAuditLogIngestionEnabled $true). The effect shows after a few hours.",
+      "why": "Without an audit log, there is no proof or investigation if an incident happens during the migration.",
+      "owner": "Migration team", "moment": "Now", "effort": "Low", "question": ""
+    },
+    {
+      "id": "EXO-HYBRID", "workload": "Exchange Online", "severity": "High", "category": "Decision needed",
+      "title": "Exchange hybrid configuration present in {tenant}",
+      "finding": "Hybrid objects (on-premises organization, intra-organization connector) are still configured.",
+      "action": "Clarify the dependency on on-premises Exchange before releasing the domains.",
+      "why": "Hybrid leftovers still manage attributes from on-premises AD, and they cannot be removed without a procedure.",
+      "owner": "Migration team and Customer", "moment": "Before cutover", "effort": "Medium",
+      "question": "Do we retire the last on-premises Exchange server during the project?",
+      "variants": { "target": { "severity": "Medium", "action": "Decide whether to retire on-premises Exchange: Exchange attributes are still managed from on-premises AD, and the last server must not be removed without the Microsoft procedure." } }
+    },
+    {
+      "id": "EXO-AUTO-FORWARD", "workload": "Exchange Online", "severity": "Low", "category": "Security",
+      "title": "Automatic forwarding to the outside allowed for all domains",
+      "finding": "The default remote domain allows automatic forwarding.",
+      "action": "Block external automatic forwarding in the outbound anti-spam policy and allow only validated exceptions.",
+      "why": "Automatic forwarding open to all domains makes data exfiltration easier.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Low", "question": ""
+    },
+    {
+      "id": "EXO-PROTOCOLS", "workload": "Exchange Online", "severity": "Medium", "category": "Security",
+      "title": "{count} mailbox(es) with POP, IMAP or authenticated SMTP on in {tenant}",
+      "finding": "POP: {pop} - IMAP: {imap} - Authenticated SMTP: {smtp}.",
+      "action": "List the real uses (printers, scanners, applications): they must be reconfigured toward the target.",
+      "why": "POP, IMAP and authenticated SMTP are legacy protocols with no MFA, and each client that uses them must be reconfigured.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Low", "question": "",
+      "variants": { "target": { "action": "Turn them off by default (CAS plan of new mailboxes) and keep only justified exceptions (printers, applications)." } }
+    },
+    {
+      "id": "EXO-MOBILE", "workload": "Exchange Online", "severity": "Medium", "category": "Devices",
+      "title": "{count} mobile device(s) sync mail of {tenant}",
+      "finding": "Systems: {systems}.",
+      "action": "Each device must be reconfigured after cutover (new account in Outlook mobile or the native client). Include this in the user guide and plan the support.",
+      "why": "Each phone needs a new mail profile after cutover: it is the first reason people call support.",
+      "owner": "Customer", "moment": "After cutover", "effort": "Medium", "question": ""
+    },
+    {
+      "id": "EXO-INBOX-RULES", "workload": "Exchange Online", "severity": "High", "category": "Security",
+      "title": "{count} inbox rule(s) forward to the outside in {tenant}",
+      "finding": "{total} forwarding or redirect rule(s) in all.",
+      "action": "Check each rule with its owner, since this is a common sign of compromise. Delete unjustified rules. Legitimate rules must be recreated after the copy if the tool does not take them over.",
+      "why": "An inbox rule that forwards to the outside is the classic sign of compromise. The migration also loses or breaks it.",
+      "owner": "Migration team and Customer", "moment": "Now", "effort": "Low", "question": ""
+    },
+    {
+      "id": "EXO-ROOMS", "workload": "Exchange Online", "severity": "Medium", "category": "Recreate in target",
+      "title": "{count} room(s) or equipment with booking rules in {tenant}",
+      "finding": "Automatic processing, booking windows, maximum duration and delegates are not copied with the mailbox.",
+      "action": "Recreate the resource mailboxes in the target with the same rules (Set-CalendarProcessing), then migrate the calendar.",
+      "why": "Room booking rules and their delegates are not copied, so bookings fail from the first day.",
+      "owner": "Migration team", "moment": "Before cutover", "effort": "Low", "question": ""
+    },
+    {
+      "id": "EXO-PUBLIC-FOLDERS", "workload": "Exchange Online", "severity": "High", "category": "Migration complexity",
+      "title": "{count} public folder(s) in {tenant}, {mail} mail-enabled",
+      "finding": "Mailbox migration tools do not copy public folders, which need a separate method.",
+      "action": "Decide with the customer: convert them to shared mailboxes or Microsoft 365 groups, or migrate them with a tool that supports it.",
+      "why": "Public folders need a separate migration, poorly supported between tenants. Shared mailboxes or groups often replace them better.",
+      "owner": "Migration team and Customer", "moment": "Now", "effort": "High",
+      "question": "Do we migrate public folders as they are or convert them?",
+      "variants": { "target": { "severity": "Medium", "action": "Clarify their use: public folders of the sources cannot be merged with those of the target." } }
+    },
+
+    {
+      "id": "SPO-SHARING", "workload": "SharePoint and OneDrive", "severity": "Medium", "category": "Security",
+      "title": "Anyone links allowed in {tenant}",
+      "finding": "Tenant-level sharing: {capability}. {sites} site(s) allow anonymous links.",
+      "action": "Anonymous links of the source do not survive the copy: warn owners that external shares must be redone.",
+      "why": "The level of external sharing decides what migrated users can still do with their customers.",
+      "owner": "Migration team and Customer", "moment": "Preparation", "effort": "Low",
+      "question": "What level of external sharing do we allow in the target?",
+      "variants": { "target": { "severity": "High", "action": "Limit sharing to authenticated guests, or enforce a short expiry on anonymous links, before migrated sites arrive." } }
+    },
+    {
+      "id": "SPO-INACTIVE", "workload": "SharePoint and OneDrive", "severity": "Medium", "category": "Cleanup before copy",
+      "title": "{count} site(s) empty or inactive for over a year",
+      "finding": "Volume of these sites: {volume} GB.",
+      "action": "Have the customer confirm their exclusion from the copy: fewer sites to copy, less noise in the target.",
+      "why": "Copying empty or abandoned sites costs time, storage and noise in the target.",
+      "owner": "Customer", "moment": "Now", "effort": "Low",
+      "question": "Which inactive sites do we exclude from the copy?",
+      "variants": { "target": { "severity": "Low", "action": "Archive or delete them after validation, before migrated sites arrive." } }
+    },
+    {
+      "id": "SPO-LARGE-SITES", "workload": "SharePoint and OneDrive", "severity": "Medium", "category": "Data",
+      "title": "{count} site(s) of {size} GB or more",
+      "finding": "Total site volume: {volume} GB.",
+      "action": "Start the pre-copy with these sites, plan incremental passes, and consider splitting by library.",
+      "why": "Large sites set the length of the pre-copy and the risk of overrunning the cutover window.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Medium", "question": ""
+    },
+    {
+      "id": "SPO-CLASSIC", "workload": "SharePoint and OneDrive", "severity": "Medium", "category": "Migration complexity",
+      "title": "{count} classic site(s) or site(s) with custom scripts",
+      "finding": "Classic pages and customizations: rendering and behavior must be checked after the copy. Custom scripts are blocked by default in the target.",
+      "action": "Test one site of each type during the pilot, and decide to modernize (modern communication or team site) rather than copy as is.",
+      "why": "Classic sites and custom scripts copy badly and can be blocked in the target.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "High",
+      "question": "Do we modernize these sites or copy them as they are?"
+    },
+    {
+      "id": "SPO-HUBS", "workload": "SharePoint and OneDrive", "severity": "Medium", "category": "Recreate in target",
+      "title": "{count} hub site(s) in {tenant}",
+      "finding": "The hub structure (navigation, theme, search) is not copied with the content.",
+      "action": "Register the hubs in the target before the copy, then associate the migrated sites.",
+      "why": "Navigation and the hub structure do not follow the content.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Low", "question": ""
+    },
+    {
+      "id": "SPO-LABELS", "workload": "SharePoint and OneDrive", "severity": "Medium", "category": "Recreate in target",
+      "title": "{count} site(s) carry a sensitivity label",
+      "finding": "The site label of the source does not exist in the target.",
+      "action": "Build the label mapping (see Purview) and apply it to migrated sites.",
+      "why": "A site label unknown in the target leaves the site unprotected or misclassified.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Low", "question": ""
+    },
+    {
+      "id": "SPO-CUSTOMIZATIONS", "workload": "SharePoint and OneDrive", "severity": "Medium", "category": "Recreate in target",
+      "title": "{count} SharePoint customization(s), {spfx} SPFx app(s)",
+      "finding": "Catalog apps, site designs and site scripts belong to the tenant. Pages that use an SPFx component show empty if the app is missing in the target.",
+      "action": "Get the .sppkg packages and deploy them to the target app catalog before sites are copied, and recreate the useful designs and site scripts.",
+      "why": "Without the SPFx apps in the target catalog, migrated pages show empty.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Medium", "question": ""
+    },
+    {
+      "id": "SPO-TERMS", "workload": "SharePoint and OneDrive", "severity": "High", "category": "Recreate in target",
+      "title": "{count} term set(s) in the term store of {tenant}",
+      "finding": "Managed metadata columns point to terms of the source tenant: without them, values are lost in the copy.",
+      "action": "Copy the term store to the target BEFORE the content (the copy tool usually does this), keeping term IDs.",
+      "why": "Managed metadata points to terms of the source tenant: without them, values are lost.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Medium", "question": ""
+    },
+    {
+      "id": "SPO-ONEDRIVE", "workload": "SharePoint and OneDrive", "severity": "Info", "category": "Data",
+      "title": "{count} OneDrive, {volume} GB, {orphans} with no active owner",
+      "finding": "{large} OneDrive of {size} GB or more.",
+      "action": "For OneDrive of excluded or disabled accounts, decide with the customer (copy to the manager, export, abandon). Start the pre-copy with the largest ones.",
+      "why": "OneDrive of excluded accounts disappear with the source if nobody decides what happens to them.",
+      "owner": "Customer", "moment": "Before cutover", "effort": "Medium",
+      "question": "What do we do with the OneDrive of excluded or disabled accounts?"
+    },
+    {
+      "id": "SPO-EXTERNAL", "workload": "SharePoint and OneDrive", "severity": "Medium", "category": "Recreate in target",
+      "title": "{count} external user(s) have access to sites or OneDrive of {tenant}",
+      "finding": "Their access is tied to the source tenant.",
+      "action": "Have site owners validate which external users are still needed, then invite them again in the target after the copy.",
+      "why": "External users lose access to copied sites and must be invited again in the target.",
+      "owner": "Customer", "moment": "After cutover", "effort": "Medium", "question": ""
+    },
+    {
+      "id": "AUT-CONCEALED-REPORTS", "workload": "Other services", "severity": "Medium", "category": "Coverage",
+      "title": "Names concealed in the usage reports of {tenant}",
+      "finding": "Usage reports (sites, OneDrive, mailboxes, Teams) show anonymized identifiers: activity cannot be matched by account or by site.",
+      "action": "Microsoft 365 admin center, Settings, Org settings, Reports: clear the concealment for the time of the migration (the action is logged), then run the assessment again.",
+      "why": "With concealed names, activity cannot be matched by account and site, so exclusions cannot be decided.",
+      "owner": "Migration team", "moment": "Now", "effort": "Low", "question": ""
+    },
+
+    {
+      "id": "TMS-OWNERS", "workload": "Teams", "severity": "Medium", "category": "Governance",
+      "title": "{count} team(s) with one owner or none",
+      "finding": "Members cannot manage a team with no owner, and the copy takes over the owners of the source.",
+      "action": "Name at least two owners per team before the copy.",
+      "why": "Members can no longer manage a team with no owner, before or after the copy.",
+      "owner": "Customer", "moment": "Preparation", "effort": "Low", "question": ""
+    },
+    {
+      "id": "TMS-CHANNELS", "workload": "Teams", "severity": "Medium", "category": "Migration complexity",
+      "title": "{private} private channel(s) and {shared} shared channel(s)",
+      "finding": "Each private or shared channel has its own SharePoint site and members. Shared channels rest on B2B direct connect, and several tools handle them badly.",
+      "action": "Validate how the chosen tool handles private and shared channels during the pilot. For channels shared with other organizations, plan B2B direct connect in the target.",
+      "why": "Private and shared channels have their own sites and members: this is the most fragile part of a Teams copy.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "High", "question": ""
+    },
+    {
+      "id": "TMS-GUESTS", "workload": "Teams", "severity": "Medium", "category": "Recreate in target",
+      "title": "{count} team(s) have guests ({guests} in all)",
+      "finding": "Guests do not follow the copy of teams.",
+      "action": "Have owners validate the guest list and invite them again in the target after the copy.",
+      "why": "Team guests do not follow the copy.",
+      "owner": "Customer", "moment": "After cutover", "effort": "Medium", "question": ""
+    },
+    {
+      "id": "TMS-ARCHIVED", "workload": "Teams", "severity": "Low", "category": "Decision needed",
+      "title": "{count} archived team(s) in {tenant}",
+      "finding": "Read-only teams.",
+      "action": "Decide: copy them read-only to the target, export them, or abandon them.",
+      "why": "An archived team costs a copy for read-only use.",
+      "owner": "Customer", "moment": "Preparation", "effort": "Low",
+      "question": "Do we copy archived teams?"
+    },
+    {
+      "id": "TMS-POLICIES", "workload": "Teams", "severity": "Medium", "category": "Recreate in target",
+      "title": "{count} custom Teams policy(ies) in {tenant}",
+      "finding": "Meetings, messaging, apps, calling: these policies and their assignments do not follow users.",
+      "action": "For each policy, apply the target policy or recreate it, then assign it to migrated accounts (group assignment).",
+      "why": "Meetings, chats and apps change rules for migrated users.",
+      "owner": "Migration team and Customer", "moment": "Before cutover", "effort": "Medium",
+      "question": "Do migrated users get the target policies or policies of their own?"
+    },
+    {
+      "id": "TMS-APPS", "workload": "Teams", "severity": "Medium", "category": "Recreate in target",
+      "title": "{count} Teams app(s) of {tenant}",
+      "finding": "Apps uploaded to the organization catalog.",
+      "action": "Get the packages from the vendors or developers, publish them to the target catalog, and install them again in migrated teams.",
+      "why": "In-house Teams apps disappear from copied teams until they are published again.",
+      "owner": "Migration team", "moment": "Before cutover", "effort": "Medium", "question": ""
+    },
+    {
+      "id": "TMS-DEVICES", "workload": "Teams", "severity": "Medium", "category": "Recreate in target",
+      "title": "{count} Teams device(s) (phones, rooms)",
+      "finding": "Devices are signed in with accounts of the source tenant.",
+      "action": "Create resource accounts in the target, reset and reconnect each device after cutover, and check Teams Rooms or Shared Devices licenses.",
+      "why": "Teams phones and rooms stay connected to the old tenant and stop working at cutover.",
+      "owner": "Migration team and Customer", "moment": "Cutover", "effort": "Medium", "question": ""
+    },
+
+    {
+      "id": "TEL-NUMBERS", "workload": "Teams Phone", "severity": "Critical", "category": "Migration blocker",
+      "title": "{count} phone number(s) to transfer to the target",
+      "finding": "Breakdown: {breakdown}. {assigned} assigned.",
+      "action": "{actions}",
+      "why": "Moving numbers between tenants is not automatic and has its own lead times. It is often the critical path.",
+      "owner": "Migration team and Customer", "moment": "Now", "effort": "High",
+      "question": "Do we keep the current number provider or transfer the numbers to the provider of the target?",
+      "parts": {
+        "callingPlan": "Microsoft Calling Plan: there is no direct move between tenants. Ask the Microsoft number service or port the numbers, with lead times that depend on the country, and have Teams Phone and Calling Plan licenses in the target before the date.",
+        "directRouting": "Direct Routing: pair the SBC with the target (FQDN in a verified domain of the target), recreate routes and policies, then reassign the numbers.",
+        "operatorConnect": "Operator Connect: ask the operator to remove the numbers from the source and provision them in the target."
+      }
+    },
+    {
+      "id": "TEL-USERS", "workload": "Teams Phone", "severity": "High", "category": "Licenses and capacity",
+      "title": "{count} voice user(s) (Teams Phone) in {tenant}",
+      "finding": "{numbered} with an assigned number.",
+      "action": "Plan Teams Phone licenses (and a Calling Plan if needed) in the target, then assign number, dial plan, routing and calling policy at the phone cutover.",
+      "why": "Without a Teams Phone license in the target, voice users have no number after cutover.",
+      "owner": "Customer", "moment": "Preparation", "effort": "Low", "question": ""
+    },
+    {
+      "id": "TEL-VOICE-APPS", "workload": "Teams Phone", "severity": "High", "category": "Recreate in target",
+      "title": "{attendants} auto attendant(s), {queues} call queue(s), {accounts} resource account(s)",
+      "finding": "Menus, schedules, holidays, greetings, agents and overflow belong to the tenant.",
+      "action": "Export the configuration (audio files and holidays included), recreate resource accounts (Teams Phone Resource Account license), then attendants and queues in the target. Agents must already exist in the target.",
+      "why": "Auto attendants and call queues are the front door for customer calls. They must be recreated as they are before the numbers arrive.",
+      "owner": "Migration team", "moment": "Before cutover", "effort": "High", "question": ""
+    },
+    {
+      "id": "TEL-EMERGENCY", "workload": "Teams Phone", "severity": "High", "category": "Recreate in target",
+      "title": "{count} emergency address(es) in {tenant}",
+      "finding": "A validated emergency address is required to assign a Calling Plan number, and it does not move.",
+      "action": "Recreate and validate the addresses (and locations) in the target before receiving the numbers.",
+      "why": "A validated emergency address is mandatory for Calling Plan numbers.",
+      "owner": "Migration team", "moment": "Before cutover", "effort": "Low", "question": ""
+    },
+    {
+      "id": "TEL-DIRECT-ROUTING", "workload": "Teams Phone", "severity": "High", "category": "Recreate in target",
+      "title": "{count} Direct Routing gateway(s) (SBC)",
+      "finding": "SBCs, voice routes, usages and routing policies belong to the tenant.",
+      "action": "Plan the phone cutover after the domain cutover (or use an FQDN of a domain already verified in the target), recreate routes, PSTN usages, translation rules and routing policies, and coordinate with the SBC provider.",
+      "why": "The SBC must be paired with the target on a verified domain, so the order of operations is imposed.",
+      "owner": "Migration team", "moment": "Before cutover", "effort": "High", "question": "",
+      "variants": { "bound": { "severity": "Critical", "category": "Migration blocker",
+        "finding": "The FQDN of {bound} SBC(s) belongs to a domain leaving {tenant}: it can only be paired with the target once the domain is verified there." } }
+    },
+    {
+      "id": "TEL-DIAL-PLANS", "workload": "Teams Phone", "severity": "Medium", "category": "Recreate in target",
+      "title": "{plans} dial plan(s), {routes} voice route(s), {policies} routing policy(ies)",
+      "finding": "Normalization and routing rules of the source.",
+      "action": "Recreate them in the target (checking name conflicts with target rules), then assign them to migrated voice users.",
+      "why": "Dial and routing rules decide whether outbound calls connect.",
+      "owner": "Migration team", "moment": "Before cutover", "effort": "Medium", "question": ""
+    },
+    {
+      "id": "TEL-CONFERENCING", "workload": "Teams Phone", "severity": "Low", "category": "Information",
+      "title": "Audio conferencing numbers of the source",
+      "finding": "Meetings scheduled before cutover carry the access numbers of the source.",
+      "action": "Warn organizers: recurring invitations must be sent again after cutover, with the target numbers.",
+      "why": "Existing invitations carry the old access numbers.",
+      "owner": "Customer", "moment": "After cutover", "effort": "Low", "question": ""
+    },
+    {
+      "id": "TEL-CALLING-SETTINGS", "workload": "Teams Phone", "severity": "Medium", "category": "Recreate in target",
+      "title": "{count} user(s) with forwarding, delegation or a call group",
+      "finding": "Personal calling settings are not taken over with the account.",
+      "action": "Reproduce them in the target (Set-CsUserCallingSettings) after numbers are assigned, or warn the users.",
+      "why": "Personal forwarding, delegation and call groups do not follow the account.",
+      "owner": "Migration team", "moment": "After cutover", "effort": "Low", "question": ""
+    },
+    {
+      "id": "TEL-ROUTING-TARGET", "workload": "Teams Phone", "severity": "Info", "category": "Decision needed",
+      "title": "The target already uses third-party phone routing",
+      "finding": "Routing domains: {domains}. {gateways} SBC(s) paired.",
+      "action": "Decide whether source numbers join this provider (ported to it) or keep their current provider, and align the dial plans.",
+      "why": "The target already has a phone provider: attaching source numbers to it simplifies operations.",
+      "owner": "Customer", "moment": "Now", "effort": "Low",
+      "question": "Do the source numbers join the phone provider of the target?"
+    },
+    {
+      "id": "TEL-SCHEDULES", "workload": "Teams Phone", "severity": "Medium", "category": "Recreate in target",
+      "title": "{count} schedule(s) and holiday calendar(s) in {tenant}",
+      "finding": "Business hours and holidays drive auto attendants.",
+      "action": "Export them (Export-CsAutoAttendantHolidays) and recreate them in the target before the attendants.",
+      "why": "Schedules and holidays drive the attendant: a miss sends calls to the wrong place.",
+      "owner": "Migration team", "moment": "Before cutover", "effort": "Low", "question": ""
+    },
+    {
+      "id": "TEL-NETWORK", "workload": "Teams Phone", "severity": "Medium", "category": "Recreate in target",
+      "title": "{count} network topology item(s) in {tenant}",
+      "finding": "Sites, subnets and IP addresses serve dynamic emergency calling and location-based routing.",
+      "action": "Recreate them in the target (merging with its own topology) before assigning numbers.",
+      "why": "The network topology serves dynamic emergency calling and location-based routing.",
+      "owner": "Migration team", "moment": "Before cutover", "effort": "Medium", "question": ""
+    },
+
+    {
+      "id": "INT-AUTOPILOT", "workload": "Intune", "severity": "High", "category": "Devices",
+      "title": "{count} device(s) registered in the Autopilot of {tenant}",
+      "finding": "Group tags: {tags}.",
+      "action": "Export the hardware IDs, remove the devices from the source Autopilot, register them in the target with the planned tag, then reset them. A device can only be registered in one tenant.",
+      "why": "A device can only be registered in one Autopilot tenant, and its registration governs the reset.",
+      "owner": "Migration team and Customer", "moment": "Before cutover", "effort": "High", "question": ""
+    },
+    {
+      "id": "INT-STALE", "workload": "Intune", "severity": "Low", "category": "Cleanup",
+      "title": "{count} managed device(s) with no sync for 90 days or more",
+      "finding": "Devices that were probably retired.",
+      "action": "Exclude them from the list of devices to enroll again.",
+      "why": "Ghost devices distort the count of workstations to reset.",
+      "owner": "Customer", "moment": "Preparation", "effort": "Low", "question": "",
+      "variants": { "target": { "action": "Remove these devices from Intune after validation." } }
+    },
+    {
+      "id": "INT-NONCOMPLIANT", "workload": "Intune", "severity": "Medium", "category": "Security",
+      "title": "{count} noncompliant device(s) in {tenant}",
+      "finding": "These devices will be blocked if a Conditional Access policy requires a compliant device.",
+      "action": "Fix them before requiring compliance, and check the policies involved.",
+      "why": "A compliant device requirement would block these workstations.",
+      "owner": "Customer", "moment": "Preparation", "effort": "Low", "question": ""
+    },
+    {
+      "id": "INT-POLICIES", "workload": "Intune", "severity": "Medium", "category": "Recreate in target",
+      "title": "{count} Intune policy(ies) in {tenant}",
+      "finding": "{missing} have no equivalent of the same name in the target.",
+      "action": "Compare with the target configuration, recreate only what is missing (security, Wi-Fi, VPN, certificates, scripts), and assign it to the group of migrated devices before the pilot device is reset.",
+      "why": "Devices registered again in the target only receive the target policies.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Medium", "question": ""
+    },
+    {
+      "id": "INT-APPS", "workload": "Intune", "severity": "Medium", "category": "Recreate in target",
+      "title": "{count} application(s) deployed by Intune in {tenant}",
+      "finding": "Packages (win32, MSI, line-of-business apps) and their settings are not copied.",
+      "action": "Get the source packages (.intunewin) and recreate them in the target, then validate on the pilot device.",
+      "why": "Applications deployed by Intune must be published again before workstations are reset.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Medium", "question": ""
+    },
+    {
+      "id": "INT-MAM", "workload": "Intune", "severity": "Low", "category": "Recreate in target",
+      "title": "{count} app protection policy(ies)",
+      "finding": "Data protection on mobile devices (MAM).",
+      "action": "Recreate them in the target if its rules do not cover them.",
+      "why": "Company data on personal mobile devices would no longer be protected.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Low", "question": ""
+    },
+    {
+      "id": "INT-CONNECTORS", "workload": "Intune", "severity": "High", "category": "Devices",
+      "title": "{count} Apple connector(s) in the Intune of {tenant}",
+      "finding": "Managed iPhone and iPad devices depend on the Apple certificate and Apple Business Manager tokens of the source tenant.",
+      "action": "Plan the enrollment of Apple devices in the target: assign them to the target MDM server in Apple Business Manager, get a new token, then reset them or have users enroll again.",
+      "why": "Managed iPhone and iPad devices depend on the Apple certificate and token of the tenant, and must be removed and enrolled again.",
+      "owner": "Migration team and Customer", "moment": "Before cutover", "effort": "Medium", "question": "",
+      "variants": { "expiring": { "title": "{count} Intune connector(s) expire in less than 45 days in {tenant}",
+        "finding": "An expired Apple certificate cuts off the management of all Apple devices.",
+        "action": "Renew it with the same Apple ID, otherwise all devices must enroll again." } }
+    },
+
+    {
+      "id": "PUR-ENCRYPTION", "workload": "Purview", "severity": "Critical", "category": "Migration blocker",
+      "title": "{count} sensitivity label(s) with encryption in {tenant}",
+      "finding": "A document or message encrypted by a source label stays tied to the keys of the source: copied as it is, it becomes unreadable in the target once the source closes.",
+      "action": "Before the copy: find the encrypted content (content explorer), decrypt or relabel it with a super user account, or check that the copy tool handles encryption. Create equivalent labels in the target.",
+      "why": "Content encrypted by a source label becomes unreadable when the source closes.",
+      "owner": "Migration team and Customer", "moment": "Now", "effort": "High",
+      "question": "Do we decrypt the content before the copy, or does the copy tool handle encryption?"
+    },
+    {
+      "id": "PUR-LABELS", "workload": "Purview", "severity": "High", "category": "Recreate in target",
+      "title": "{count} label(s) of {tenant} with no equivalent in the target",
+      "finding": "Labeled content arrives in the target with an unknown label, or none.",
+      "action": "Build the label mapping with the customer and give it to the copy tool.",
+      "why": "Without a mapping, content arrives with an unknown label or none.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Medium", "question": ""
+    },
+    {
+      "id": "PUR-RETENTION", "workload": "Purview", "severity": "High", "category": "Decision needed",
+      "title": "{policies} retention policy(ies) and {cases} open eDiscovery case(s) in {tenant}",
+      "finding": "Content under retention or an eDiscovery hold must not be deleted, and these rules do not follow the copy.",
+      "action": "Get the agreement of the customer (and legal) on how long the source is kept, reproduce the needed policies in the target before the copy, and close or export the eDiscovery cases.",
+      "why": "Content under retention or an eDiscovery hold must not be deleted.",
+      "owner": "Customer", "moment": "Before cutover", "effort": "Medium",
+      "question": "How long do we keep the source for retention obligations?"
+    },
+    {
+      "id": "PUR-DLP", "workload": "Purview", "severity": "Medium", "category": "Recreate in target",
+      "title": "{count} active DLP policy(ies) in {tenant}",
+      "finding": "Data loss prevention rules do not follow users.",
+      "action": "Include them in the Purview design of the target. Until then, check that the target gives equivalent protection to migrated data.",
+      "why": "Data loss prevention rules do not follow users.",
+      "owner": "Migration team", "moment": "After cutover", "effort": "Medium", "question": ""
+    },
+
+    {
+      "id": "POW-RESOURCES", "workload": "Power Platform", "severity": "High", "category": "Recreate in target",
+      "title": "{apps} Power Apps application(s) and {flows} Power Automate flow(s) in {tenant}",
+      "finding": "{environments} environment(s), {dataverse} with Dataverse.",
+      "action": "Nothing moves by itself: export apps and flows as solutions, import them in the target, and recreate the connections with migrated accounts. Dataverse environments need a tenant-to-tenant migration requested from Microsoft, or a data export and import.",
+      "why": "Apps and flows stop with the source, and rebuilding them is planned separately.",
+      "owner": "Migration team and Customer", "moment": "Now", "effort": "High",
+      "question": "Which apps and flows are critical, and who rebuilds them?"
+    },
+    {
+      "id": "AZR-SUBSCRIPTIONS", "workload": "Azure", "severity": "High", "category": "Decision needed",
+      "title": "{count} Azure subscription(s) attached to {tenant}",
+      "finding": "{types} resource type(s), Azure Virtual Desktop: {desktop}.",
+      "action": "Decide with the customer: transfer the subscription to the target directory (all RBAC assignments, managed identities and key vault access are reset and must be redone), or rebuild. For Azure Virtual Desktop, confirm the use before deciding.",
+      "why": "A subscription attached to the source must change directory or be rebuilt, and its rights are reset.",
+      "owner": "Customer", "moment": "Now", "effort": "High",
+      "question": "Do we transfer the Azure subscription to the target or rebuild it?"
+    },
+    {
+      "id": "AUT-SERVICES", "workload": "Other services", "severity": "Medium", "category": "Recreate in target",
+      "title": "Other services used in {tenant}: {bookings} Bookings, {communities} Viva Engage community(ies), {plans} Planner plan(s)",
+      "finding": "Bookings and Viva Engage have no native migration. Planner follows teams depending on the copy tool.",
+      "action": "Recreate Bookings pages (services, staff, availability), decide for Viva Engage (export, abandon or recreate), and validate the Planner copy during the pilot.",
+      "why": "Bookings and Viva Engage have no native migration.",
+      "owner": "Customer", "moment": "Before cutover", "effort": "Medium", "question": ""
+    },
+    {
+      "id": "AUT-COPILOT", "workload": "Other services", "severity": "Medium", "category": "Licenses and capacity",
+      "title": "{count} Copilot license(s) in use in {tenant}",
+      "finding": "Copilot licenses and agents do not follow accounts.",
+      "action": "Plan the licenses in the target, after Purview governance, and list the Copilot Studio agents to recreate.",
+      "why": "Copilot licenses and agents do not follow accounts.",
+      "owner": "Customer", "moment": "Before cutover", "effort": "Low", "question": ""
+    },
+    {
+      "id": "AUT-SECURE-SCORE", "workload": "Other services", "severity": "Info", "category": "Security",
+      "title": "Microsoft Secure Score of {tenant}: {percent} %",
+      "finding": "Score {score} out of {maximum}.",
+      "action": "Indicator of the maturity gap with the target.",
+      "why": "The score sums up security maturity and the gap to close.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Medium", "question": "",
+      "variants": { "target": { "action": "The actions with the largest gain are listed. They join the security baseline required before the first cutover." } }
+    },
+    {
+      "id": "INV-COVERAGE", "workload": "Coverage", "severity": "Medium", "category": "Coverage",
+      "title": "{count} collector(s) not collected in {tenant}",
+      "finding": "The report says nothing about these areas: no data does not mean no issue.",
+      "action": "See the coverage: each collector says which module to install, or which role or configuration to get. Then run again with -Workload to complete.",
+      "why": "A collector that did not run can hide a blocker.",
+      "owner": "Migration team", "moment": "Now", "effort": "Low", "question": ""
+    },
+
+    {
+      "id": "DNS-SPF", "workload": "Domains and DNS", "severity": "High", "category": "Security",
+      "title": "SPF missing or invalid for {count} domain(s) in {tenant}",
+      "finding": "Messages from these domains risk being rejected or marked as spam.",
+      "action": "Publish a single SPF record that includes spf.protection.outlook.com and the other legitimate senders.",
+      "why": "A missing or invalid SPF record gets the domain's mail rejected.",
+      "owner": "Migration team", "moment": "Before cutover", "effort": "Low", "question": ""
+    },
+    {
+      "id": "DNS-DMARC", "workload": "Domains and DNS", "severity": "Medium", "category": "Security",
+      "title": "DMARC missing or not enforced for {count} domain(s) in {tenant}",
+      "finding": "With no DMARC policy, anyone can spoof the domain.",
+      "action": "Publish DMARC at p=none with reports, then move to quarantine or reject once the cutover is stable.",
+      "why": "Without an enforced DMARC record, the domain can be spoofed and recipients have no instruction.",
+      "owner": "Migration team and Customer", "moment": "After cutover", "effort": "Low", "question": ""
+    },
+    {
+      "id": "DNS-TTL", "workload": "Domains and DNS", "severity": "High", "category": "Preparation",
+      "title": "MX TTL above {ttl} s for {count} domain(s) of {tenant}",
+      "finding": "The MX change at cutover can take up to the length of the TTL to spread.",
+      "action": "Lower the TTL to {ttl} s at least 48 hours before cutover.",
+      "why": "A long TTL delays the MX change by hours, and mail goes astray for that long.",
+      "owner": "Migration team", "moment": "Before cutover", "effort": "Low", "question": ""
+    },
+    {
+      "id": "DNS-HOST", "workload": "Domains and DNS", "severity": "Info", "category": "Preparation",
+      "title": "DNS hosts of the domains of {tenant}",
+      "finding": "The DNS host of each domain sets the method: API or manual entry.",
+      "action": "Get access to each DNS host before cutover (an API token where there is one, otherwise an account to enter records by hand).",
+      "why": "Each DNS host needs its own access and method on cutover night.",
+      "owner": "Customer", "moment": "Now", "effort": "Low", "question": ""
+    },
+    {
+      "id": "DNS-SKYPE", "workload": "Domains and DNS", "severity": "Medium", "category": "Cutover",
+      "title": "Legacy Skype or Teams records for {count} domain(s)",
+      "finding": "lyncdiscover, sip and the federation SRV records point to the service of the old tenant.",
+      "action": "At cutover, check that they point to the generic Microsoft values, or remove them if they are no longer used.",
+      "why": "Legacy Skype or Teams records point to the old tenant and disturb federation after cutover.",
+      "owner": "Migration team", "moment": "Cutover", "effort": "Low", "question": ""
+    },
+    {
+      "id": "DNS-GATEWAY", "workload": "Domains and DNS", "severity": "Medium", "category": "Decision needed",
+      "title": "The MX of {count} domain(s) points to a third-party gateway",
+      "finding": "Inbound mail goes through a gateway before Exchange Online.",
+      "action": "Decide the mail flow after cutover (see EXO-CONNECTORS). If the gateway is kept, reconfigure it toward the target on cutover night.",
+      "why": "The MX does not point to Exchange Online: the gateway must learn about the target.",
+      "owner": "Migration team and Customer", "moment": "Now", "effort": "Medium", "question": ""
+    },
+
+    {
+      "id": "CMP-CROSS-TENANT", "workload": "Entra ID", "severity": "High", "category": "Coexistence",
+      "title": "No cross-tenant access setting for {tenant} in the target",
+      "finding": "During the migration, both organizations collaborate (invitations, meetings, teams) with the default settings: MFA asked again, invitations to accept.",
+      "action": "Create a partner configuration in each tenant: inbound MFA trust, automatic invitation redemption, B2B collaboration. Remove it at closure.",
+      "why": "During coexistence, collaboration between tenants means repeated MFA and invitations without partner settings.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Low", "question": ""
+    },
+    {
+      "id": "CMP-CROSS-GUESTS", "workload": "Entra ID", "severity": "High", "category": "Migration blocker",
+      "title": "{count} guest account(s) of {tenant} in the target",
+      "finding": "These guests carry addresses of the migrated domains: they conflict with migrated accounts (addresses, UPN) and duplicate identities.",
+      "action": "In the matrix, decide each one (delete the guest at cutover, or convert it to a member). Delete the guests before addresses are assigned, otherwise the assignment fails, and take over their access on the migrated account.",
+      "why": "Source guests in the target carry the addresses that migrated accounts will get: a certain conflict at cutover.",
+      "owner": "Migration team and Customer", "moment": "Before cutover", "effort": "Medium",
+      "question": "For each cross guest: do we delete it at cutover or convert it to a member?"
+    },
+    {
+      "id": "CMP-LICENSES", "workload": "Entra ID", "severity": "High", "category": "Licenses and capacity",
+      "title": "Not enough {sku} licenses in the target: {available} available for {needed} licensed account(s) in {tenant}",
+      "finding": "High estimate: all active licensed member accounts of the source. The identity matrix gives the exact need.",
+      "action": "Order at least {missing} {sku} license(s) before target accounts are created, once the exclusions are known.",
+      "why": "Target accounts cannot be created and licensed without available licenses.",
+      "owner": "Customer", "moment": "Now", "effort": "Low", "question": ""
+    },
+    {
+      "id": "CMP-VOICE-LICENSES", "workload": "Teams Phone", "severity": "High", "category": "Licenses and capacity",
+      "title": "Teams Phone licenses: {available} available in the target for {needed} voice user(s) of {tenant}",
+      "finding": "E5 licenses include Teams Phone, E3 does not: each voice user needs a Teams Phone add-on, plus a Calling Plan if numbers stay with Microsoft.",
+      "action": "Order the Teams Phone add-ons (and Calling Plans or resource account licenses) before the phone cutover.",
+      "why": "Without Teams Phone add-ons, numbers cannot be assigned to migrated accounts.",
+      "owner": "Customer", "moment": "Now", "effort": "Low", "question": ""
+    },
+    {
+      "id": "CMP-SITE-URLS", "workload": "SharePoint and OneDrive", "severity": "High", "category": "Migration blocker",
+      "title": "{count} site address(es) of {tenant} already taken in the target",
+      "finding": "A copy to an existing address would merge two different sites.",
+      "action": "Give each site a prefixed target address in the mapping plan of the copy tool, and check that the prefixed addresses are free too.",
+      "why": "Copying to an address already taken would merge two different sites.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Low", "question": ""
+    },
+    {
+      "id": "CMP-CAPACITY", "workload": "SharePoint and OneDrive", "severity": "Info", "category": "Licenses and capacity",
+      "title": "SharePoint storage of the target after the copy: {total} GB of {quota} GB{estimated}",
+      "finding": "Used in the target: {used} GB. Sites of {tenant}: {source} GB. Target margin: {margin} %. OneDrive does not count toward this quota.",
+      "action": "Enough capacity for this source. Do the sum again across all sources.",
+      "why": "If the storage quota is exceeded, the copy stops in the middle of the pre-copy.",
+      "owner": "Customer", "moment": "Now", "effort": "Medium",
+      "question": "Do we buy storage, or exclude sites to stay within the quota?",
+      "parts": { "estimated": " (estimated quota)" },
+      "variants": { "short": { "action": "Exclude inactive sites, buy additional storage, or spread the sources. Settle this before the pre-copy." } }
+    },
+    {
+      "id": "CMP-TEAM-NAMES", "workload": "Teams", "severity": "Medium", "category": "Decision needed",
+      "title": "{count} team(s) of {tenant} use a name already used in the target",
+      "finding": "Two teams with the same name cause confusion and can make the copy fail (group alias).",
+      "action": "Apply a prefix to migrated teams and check the mail aliases.",
+      "why": "Two teams with the same name cause confusion, and the mail alias must be unique.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Low", "question": ""
+    },
+    {
+      "id": "CMP-TEAMS-FEDERATION", "workload": "Teams", "severity": "High", "category": "Coexistence",
+      "title": "Teams external access of the target is closed to the domains of {tenant}",
+      "finding": "Federation: {federation}. Allowed domains: {domains}.",
+      "action": "During coexistence, allow federation between the target and the source domains (in both tenants) so that chat, presence and calls work until cutover.",
+      "why": "Without federation, users of the two tenants no longer see each other in Teams during coexistence.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Low", "question": "",
+      "parts": { "allDomains": "all" }
+    },
+    {
+      "id": "CMP-FREE-BUSY", "workload": "Exchange Online", "severity": "Medium", "category": "Coexistence",
+      "title": "No free/busy sharing between the target and {tenant}",
+      "finding": "Users of the two organizations cannot see each other's availability to plan meetings during coexistence.",
+      "action": "Create an organization relationship (free/busy) in each tenant for the time of the migration. Remove it at closure.",
+      "why": "Without free/busy sharing, planning a meeting between organizations is done blind.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Low", "question": ""
+    },
+    {
+      "id": "CMP-SHARED-MAILBOXES", "workload": "Exchange Online", "severity": "High", "category": "Decision needed",
+      "title": "{count} shared or resource mailbox(es) of {tenant} have a counterpart in the target",
+      "finding": "Same local part of the address: merge them or keep them apart.",
+      "action": "Have the customer decide for each pair. If separate, rename the alias and display name with a prefix. If merged, copy to the target mailbox and add the original address at cutover.",
+      "why": "Two mailboxes with the same name in two organizations: decide to merge them or keep them apart.",
+      "owner": "Customer", "moment": "Now", "effort": "Low",
+      "question": "For each counterpart mailbox: merge, or a separate mailbox?"
+    },
+    {
+      "id": "CMP-AUTOPILOT-TARGET", "workload": "Intune", "severity": "High", "category": "Devices",
+      "title": "No Autopilot profile in the target",
+      "finding": "{count} device(s) of {tenant} must enroll again through Autopilot, and the target does not use it yet.",
+      "action": "Create the deployment profile (Entra ID join, naming convention, standard user), the enrollment status page and Windows Hello, and validate on the pilot device.",
+      "why": "Source devices cannot enroll again without an Autopilot profile in the target.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Medium", "question": ""
+    },
+    {
+      "id": "CMP-SETTINGS", "workload": "Consolidation", "severity": "Medium", "category": "Decision needed",
+      "title": "{count} sensitive setting(s) differ between {tenant} and the target",
+      "finding": "Sharing, external access, guests, meeting recording, authentication: migrated users move to the rules of the target.",
+      "action": "Review the settings with the customer, align the target, and tell users which capabilities change.",
+      "why": "Migrated users move to the rules of the target: what they could do may no longer be allowed.",
+      "owner": "Migration team and Customer", "moment": "Preparation", "effort": "Medium",
+      "question": "Do we align the target with the source for these settings, or announce the change to users?"
+    },
+
+    {
+      "id": "CON-IDENTITIES", "workload": "Consolidation", "severity": "High", "category": "Decision needed",
+      "title": "{count} person(s) have an account in several tenants",
+      "finding": "Active member accounts matched by first and last name, accents set aside. Confirm account by account, since people can share a name.",
+      "action": "For each person, enter Duplicate in the identity matrix of the source: the existing target account is kept, the source data is copied to it, and the original address is added to it.",
+      "why": "A person present in several tenants must end up with a single identity in the target.",
+      "owner": "Customer", "moment": "Now", "effort": "Medium",
+      "question": "For each duplicated person: which account becomes the single account?"
+    },
+    {
+      "id": "CON-SHARED-MAILBOXES", "workload": "Consolidation", "severity": "High", "category": "Decision needed",
+      "title": "{count} generic mailbox(es) exist in several tenants",
+      "finding": "Same local part of the address in at least two tenants.",
+      "action": "Decide for each name: one shared mailbox in the target (addresses of migrated domains as aliases), or one mailbox per business unit, renamed with a prefix.",
+      "why": "The same generic mailboxes exist in several tenants, and they cannot all keep the same name in the target.",
+      "owner": "Customer", "moment": "Now", "effort": "Low",
+      "question": "One single mailbox, or one per business unit?"
+    },
+    {
+      "id": "CON-ALIASES", "workload": "Consolidation", "severity": "Medium", "category": "Preparation",
+      "title": "{count} mail alias(es) used in several tenants",
+      "finding": "An alias (mailNickname) must be unique in the target: creating the second object fails.",
+      "action": "Prefix the aliases of source objects in the matrix and in the group configuration.",
+      "why": "A mail alias must be unique in the target: two objects with the same alias make creation fail.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Low", "question": ""
+    },
+    {
+      "id": "CON-SITES", "workload": "Consolidation", "severity": "Medium", "category": "Preparation",
+      "title": "{count} identical site path(s) in several sources",
+      "finding": "Two sources cannot land at the same address in the target.",
+      "action": "Prefix target addresses by business unit in the mapping plan of the copy tool, for every source.",
+      "why": "Two sources with the same site path cannot land in the same place in the target.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Low", "question": ""
+    },
+    {
+      "id": "CON-TEAMS", "workload": "Consolidation", "severity": "Medium", "category": "Preparation",
+      "title": "{count} team name(s) used in several tenants",
+      "finding": "Teams with the same name would arrive twice in the target.",
+      "action": "Apply a prefix to migrated teams, and check with the customer whether some should be merged.",
+      "why": "Teams with the same name in several sources arrive as duplicates in the target.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Low", "question": ""
+    },
+    {
+      "id": "CON-CAPACITY", "workload": "Consolidation", "severity": "Info", "category": "Licenses and capacity",
+      "title": "SharePoint storage of the target after all sources: {total} GB of {quota} GB{estimated}",
+      "finding": "Breakdown: {breakdown}. OneDrive does not count toward this quota.",
+      "action": "Enough capacity, margin included.",
+      "why": "Target storage must take in all the sources, not just the first.",
+      "owner": "Customer", "moment": "Now", "effort": "Medium",
+      "question": "How much storage do we buy for all the sources?",
+      "parts": { "estimated": " (estimated quota)" },
+      "variants": {
+        "short": { "action": "{missing} GB are missing ({margin} % margin included): buy additional storage or exclude inactive sites before the first pre-copy." },
+        "unread": {
+          "severity": "Medium",
+          "title": "SharePoint storage of the target after all sources: at least {total} GB of {quota} GB{estimated}",
+          "finding": "Breakdown: {breakdown}. This total is a minimum. OneDrive does not count toward this quota.",
+          "action": "Capacity cannot be concluded: read the sites of {unread}, then check it again."
+        },
+        "unreadShort": {
+          "title": "SharePoint storage of the target after all sources: at least {total} GB of {quota} GB{estimated}",
+          "finding": "Breakdown: {breakdown}. This total is a minimum. OneDrive does not count toward this quota.",
+          "action": "At least {missing} GB are missing ({margin} % margin included), before counting {unread}: buy additional storage or exclude inactive sites before the first pre-copy."
+        }
+      }
+    },
+    {
+      "id": "CON-LICENSES", "workload": "Consolidation", "severity": "Info", "category": "Licenses and capacity",
+      "title": "{sku} licenses for all sources: estimated need {needed}, available {available}",
+      "finding": "Active licensed member accounts: {breakdown}. The identity matrix gives the exact need (exclusions, duplicates kept in the target).",
+      "action": "Enough licenses.",
+      "why": "The need for licenses adds up from one source to the next.",
+      "owner": "Customer", "moment": "Now", "effort": "Low", "question": "",
+      "variants": {
+        "short": { "severity": "High", "action": "Plan to buy {missing} {sku} license(s), staged in the order of the cutovers." },
+        "unread": {
+          "severity": "Medium",
+          "title": "{sku} licenses for all sources: estimated need at least {needed}, available {available}",
+          "finding": "Active licensed member accounts: {breakdown}. This need is a minimum. The identity matrix gives the exact need (exclusions, duplicates kept in the target).",
+          "action": "Licenses cannot be concluded: read what is missing for {unread}, then compare the need with what is available."
+        },
+        "unreadShort": {
+          "severity": "High",
+          "title": "{sku} licenses for all sources: estimated need at least {needed}, available {available}",
+          "finding": "Active licensed member accounts: {breakdown}. This need is a minimum. The identity matrix gives the exact need (exclusions, duplicates kept in the target).",
+          "action": "Plan to buy at least {missing} {sku} license(s), before counting {unread}, staged in the order of the cutovers."
+        }
+      }
+    },
+    {
+      "id": "CON-VOICE", "workload": "Consolidation", "severity": "Info", "category": "Licenses and capacity",
+      "title": "Telephony of all sources: {users} voice user(s), {numbers} number(s)",
+      "finding": "Voice users: {breakdown}. Numbers by type: {types}. Teams Phone licenses available in the target: {available}.",
+      "action": "Build a single phone plan (provider, porting, licenses, attendants) for all sources rather than source by source.",
+      "why": "Telephony: licenses and numbers add up from one source to the next.",
+      "owner": "Customer", "moment": "Now", "effort": "Medium", "question": "",
+      "variants": {
+        "unread": {
+          "severity": "Medium",
+          "title": "Telephony of all sources: at least {users} voice user(s), {numbers} number(s)",
+          "finding": "Voice users: {breakdown}. Numbers by type: {types}. Teams Phone licenses available in the target: {available}. These counts are a minimum.",
+          "action": "Read what is missing for {unread}, then build a single phone plan (provider, porting, licenses, attendants) for all sources rather than source by source."
+        }
+      }
+    },
+    {
+      "id": "CON-APPLICATIONS", "workload": "Consolidation", "severity": "Medium", "category": "Recreate in target",
+      "title": "{count} distinct third-party application(s) in the sources, {present} already in the target",
+      "finding": "An application present in several sources is consented and configured once in the target. Those already in the target only need rights for migrated accounts.",
+      "action": "Build a single list of applications to carry over, with an owner per application and the date needed (cutover of the first source that uses it).",
+      "why": "A third-party application present in several sources is consented only once in the target.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Low", "question": ""
+    },
+    {
+      "id": "CON-DOMAINS", "workload": "Consolidation", "severity": "Info", "category": "Preparation",
+      "title": "{count} domain(s) to move to the target from {sources} source(s)",
+      "finding": "Each domain follows the cutover sequence of its source. The DNS host sets the method (API or manual steps).",
+      "action": "For each domain, confirm access to the DNS host and who can be reached on cutover night.",
+      "why": "Each domain to move imposes its own cutover sequence and DNS host.",
+      "owner": "Migration team", "moment": "Now", "effort": "Low", "question": ""
+    },
+    {
+      "id": "CON-TEAMS-POLICIES", "workload": "Consolidation", "severity": "Medium", "category": "Decision needed",
+      "title": "{count} custom Teams policy type(s) in several sources",
+      "finding": "Each source has its own meeting, messaging or calling rules.",
+      "action": "Design a single set of policies in the target (one per user profile, not one per source), then assign it by group.",
+      "why": "Equivalent policies in several sources must become a single set in the target.",
+      "owner": "Migration team", "moment": "Preparation", "effort": "Medium",
+      "question": "Do we harmonize the Teams policies of the sources into a single set?"
+    },
+    {
+      "id": "CON-SETTINGS", "workload": "Consolidation", "severity": "Medium", "category": "Decision needed",
+      "title": "{count} sensitive setting(s) set differently from one source to another",
+      "finding": "The sources do not have the same sharing, guest or meeting rules, and the target will have only one.",
+      "action": "Choose the single target rule with the customer and prepare the message for users whose capabilities change.",
+      "why": "The sources are not set the same way, and the target must choose a single rule.",
+      "owner": "Migration team and Customer", "moment": "Preparation", "effort": "Medium",
+      "question": "Which single rule do we keep in the target for these settings?"
+    }
+  ]
+}

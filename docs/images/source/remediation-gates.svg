@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640" role="img" aria-label="A remediation script shows a preview by default, which connects to nothing and proposes a decisions file. With -Apply it asks for the word UNTESTED, shows its plan, asks for the primary domain of each tenant it touches, and asks for the word REMOVE if it removes objects. Any other answer stops it with nothing changed. A person then signs in with only the permissions of the script, each action is tested and logged, and the journal lets you undo the run.">
+  <title>The gates of a remediation</title>
+  <style>
+    text { font-family: 'Instrument Sans', 'Segoe UI', sans-serif; fill: #14242A; }
+    .mono { font-family: 'JetBrains Mono', Consolas, monospace; font-size: 15.5px; }
+    .title { font-size: 30px; font-weight: 600; }
+    .lead { font-size: 19px; fill: #3B4D53; }
+    .side { font-size: 18px; font-weight: 600; fill: #5F7176; }
+    .name { font-size: 19px; font-weight: 600; }
+    .sub { font-size: 16.5px; fill: #3B4D53; }
+    .tag { font-size: 15.5px; fill: #5F7176; }
+    .card { fill: #FFFFFF; stroke: #BFCCC6; stroke-width: 1.5; }
+    .gate { fill: #FFFFFF; stroke: #12333B; stroke-width: 2.5; }
+    .ok { fill: #E2F3E9; stroke: #1B7A4A; stroke-width: 1.5; }
+    .stop { fill: #FBEBEA; stroke: #B42E2A; stroke-width: 1.5; }
+    .file { fill: #E9F1EF; stroke: #93ACA7; stroke-width: 1.5; }
+    .flow { stroke: #12333B; stroke-width: 2.5; fill: none; }
+    .halt { stroke: #B42E2A; stroke-width: 2.5; fill: none; }
+  </style>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#12333B"/></marker>
+    <marker id="r" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#B42E2A"/></marker>
+  </defs>
+
+  <rect width="1280" height="640" fill="#EFF3F1"/>
+  <text x="48" y="54" class="title">A remediation writes only after these gates</text>
+  <text x="48" y="86" class="lead">None of the 111 scripts has run on a real tenant, so nothing here has been proved on one.</text>
+
+  <!-- Preview. Six columns of 178, 23 apart. -->
+  <text x="48" y="130" class="side">By default</text>
+  <rect x="48" y="142" width="178" height="74" rx="8" class="card"/>
+  <text x="66" y="173" class="name">Preview</text>
+  <text x="66" y="199" class="sub">no -Apply</text>
+  <path d="M226 179 H 245" class="flow" marker-end="url(#a)"/>
+  <rect x="249" y="142" width="379" height="74" rx="8" class="card"/>
+  <text x="267" y="173" class="name">Shows the plan</text>
+  <text x="267" y="199" class="sub">Reads the snapshot, proposes a decisions file</text>
+  <path d="M628 179 H 647" class="flow" marker-end="url(#a)"/>
+  <rect x="651" y="142" width="580" height="74" rx="8" class="ok"/>
+  <text x="669" y="173" class="name" style="fill:#14523A">Connects to nothing</text>
+  <text x="669" y="199" class="sub" style="fill:#14523A">No sign-in, no question, no write to any tenant</text>
+
+  <path d="M338 216 V 288" class="flow" stroke-dasharray="7 6" marker-end="url(#a)"/>
+  <text x="352" y="256" class="sub">a person decides, row by row</text>
+
+  <!-- Apply: the gates, in order. -->
+  <text x="48" y="272" class="side">With -Apply</text>
+  <rect x="48" y="292" width="178" height="118" rx="8" class="gate"/>
+  <text x="66" y="324" class="name">1. UNTESTED</text>
+  <text x="66" y="350" class="sub">You type the word,</text>
+  <text x="66" y="373" class="sub">before any sign-in</text>
+
+  <path d="M226 350 H 245" class="flow" marker-end="url(#a)"/>
+  <rect x="249" y="292" width="178" height="118" rx="8" class="card"/>
+  <text x="267" y="324" class="name">2. The plan</text>
+  <text x="267" y="350" class="sub">Some scripts sign in</text>
+  <text x="267" y="373" class="sub">to read. No write yet</text>
+
+  <path d="M427 350 H 446" class="flow" marker-end="url(#a)"/>
+  <rect x="450" y="292" width="178" height="118" rx="8" class="gate"/>
+  <text x="468" y="324" class="name">3. Domains</text>
+  <text x="468" y="350" class="sub">You type the</text>
+  <text x="468" y="373" class="sub">primary domain</text>
+  <text x="468" y="396" class="sub">of each tenant</text>
+
+  <path d="M628 350 H 647" class="flow" marker-end="url(#a)"/>
+  <rect x="651" y="292" width="178" height="118" rx="8" class="gate"/>
+  <text x="669" y="324" class="name">4. REMOVE</text>
+  <text x="669" y="350" class="sub">You type the word,</text>
+  <text x="669" y="373" class="sub">if it removes objects</text>
+
+  <path d="M829 350 H 848" class="flow" marker-end="url(#a)"/>
+  <rect x="852" y="292" width="178" height="118" rx="8" class="card"/>
+  <text x="870" y="324" class="name">Sign-in</text>
+  <text x="870" y="350" class="sub">Only this script's</text>
+  <text x="870" y="373" class="sub">permissions</text>
+
+  <path d="M1030 350 H 1049" class="flow" marker-end="url(#a)"/>
+  <rect x="1053" y="292" width="178" height="118" rx="8" fill="#12333B"/>
+  <text x="1071" y="324" class="name" style="fill:#E7EFEC">Each action</text>
+  <text x="1071" y="350" class="sub" style="fill:#E7EFEC">Tested, then written.</text>
+  <text x="1071" y="373" class="sub" style="fill:#E7EFEC">Skipped if in place</text>
+
+  <!-- Every gate can stop the run. -->
+  <path d="M137 410 V 466" class="halt" marker-end="url(#r)"/>
+  <path d="M539 410 V 466" class="halt" marker-end="url(#r)"/>
+  <path d="M740 410 V 466" class="halt" marker-end="url(#r)"/>
+  <text x="151" y="444" class="sub" style="fill:#B42E2A">any other answer</text>
+  <rect x="48" y="472" width="781" height="58" rx="8" class="stop"/>
+  <text x="438" y="508" text-anchor="middle" style="font-size:19px;font-weight:600;fill:#B42E2A">The run stops here, with nothing changed</text>
+
+  <!-- The fence and the way back. -->
+  <text x="48" y="574" class="sub">Each domain you type opens writes to that tenant only. A write to any other tenant is refused.</text>
+  <text x="48" y="600" class="sub">An action that also writes to a second tenant declares it, so its domain is asked too.</text>
+
+  <path d="M1142 410 V 466" class="flow" marker-end="url(#a)"/>
+  <text x="1130" y="444" class="sub" text-anchor="end">before and after each</text>
+  <rect x="852" y="472" width="379" height="58" rx="8" class="file"/>
+  <text x="1041" y="507" class="mono" text-anchor="middle">operations.jsonl</text>
+  <path d="M1041 530 V 546" class="flow" marker-end="url(#a)"/>
+  <rect x="852" y="552" width="379" height="60" rx="8" class="card"/>
+  <text x="870" y="579" class="name">Undo-TcRemediation</text>
+  <text x="870" y="602" class="sub" style="font-size:15.5px">Latest first, with the same confirmations</text>
+</svg>

@@ -1,0 +1,6 @@
+#!/bin/sh
+# Checks what is about to be committed when this clone has a private terms file.
+# Without one, as for an outside contributor, there is nothing to check.
+terms=$(git config --get tenantconverge.termsfile)
+[ -z "$terms" ] && exit 0
+exec pwsh -NoProfile -File tools/Test-TcForbiddenTerm.ps1 -TermsPath "$terms" -Path . -Staged

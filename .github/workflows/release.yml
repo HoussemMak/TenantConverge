@@ -1,0 +1,74 @@
+name: Release
+
+# Pushing a tag such as v0.9.0-beta1 runs the tests, then publishes to the PowerShell Gallery.
+# A version cannot be taken back from the Gallery.
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions: {}
+
+jobs:
+  test:
+    runs-on: windows-latest
+    timeout-minutes: 120
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Check that the tag is the version of the manifest
+        shell: pwsh
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          $manifest = Test-ModuleManifest ./src/TenantConverge/TenantConverge.psd1 -ErrorAction Stop
+          $expected = "v$($manifest.Version)"
+          if ($manifest.PrivateData.PSData.Prerelease) { $expected += "-$($manifest.PrivateData.PSData.Prerelease)" }
+          if ($env:TAG -cne $expected) { throw "The tag $env:TAG is not the version of the manifest, $expected." }
+
+      - name: Install test tools
+        shell: pwsh
+        run: |
+          Install-Module Pester -RequiredVersion 6.2.0 -Force -Scope CurrentUser -SkipPublisherCheck
+          Install-Module ImportExcel -RequiredVersion 7.8.10 -Force -Scope CurrentUser
+
+      - name: Run tests
+        shell: pwsh
+        run: Invoke-Pester tests -CI -Output Detailed
+
+      - name: Check forbidden terms
+        shell: pwsh
+        env:
+          TC_FORBIDDEN_TERMS: ${{ secrets.TC_FORBIDDEN_TERMS }}
+        run: |
+          if (-not $env:TC_FORBIDDEN_TERMS) { throw 'The secret TC_FORBIDDEN_TERMS is missing: nothing is published without the term check.' }
+          $file = Join-Path $env:RUNNER_TEMP 'terms.txt'
+          Set-Content -Path $file -Value $env:TC_FORBIDDEN_TERMS
+          ./tools/Test-TcForbiddenTerm.ps1 -TermsPath $file -Path . -IncludeGitHistory
+          exit $LASTEXITCODE
+
+  publish:
+    needs: test
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: windows-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Publish to the PowerShell Gallery
+        shell: pwsh
+        env:
+          PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
+        run: |
+          if (-not $env:PSGALLERY_API_KEY) { throw 'The secret PSGALLERY_API_KEY is missing.' }
+          Publish-Module -Path ./src/TenantConverge -NuGetApiKey $env:PSGALLERY_API_KEY -Repository PSGallery -ErrorAction Stop

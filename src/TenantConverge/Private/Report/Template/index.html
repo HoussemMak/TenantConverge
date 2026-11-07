@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; style-src 'unsafe-inline'; font-src data:; script-src 'sha256-/*__SCRIPT_HASH__*/'; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="robots" content="noindex,nofollow">
+<meta name="generator" content="TenantConverge">
+<title>Consolidation report</title>
+<link rel="icon" href="data:,">
+<style>
+/*__STYLES__*/
+</style>
+</head>
+<body>
+<!--__ICONS__-->
+<button class="skip" data-do="content">Skip to content</button>
+<header class="topbar">
+  <div class="brand"><b>Tenant consolidation</b><span id="brand-name"></span></div>
+  <div class="search" role="search">
+    <svg class="i" aria-hidden="true"><use href="#i-search"/></svg>
+    <input id="search" type="search" placeholder="Search everything: action, account, site, product" aria-label="Search the whole report" autocomplete="off">
+    <kbd>/</kbd>
+    <div id="results" class="results" role="listbox" aria-label="Results"></div>
+  </div>
+  <div class="tools">
+    <select id="me" class="me" aria-label="Who are you?"></select>
+    <button id="link" class="link-csv none" data-do="link"><i aria-hidden="true"></i><span>Link tracking</span></button>
+    <button class="icon-btn" data-do="present" title="Presentation mode (P)" aria-label="Presentation mode"><svg class="i"><use href="#i-screen"/></svg></button>
+    <button class="icon-btn" data-do="export-tracking" title="Download a copy of the tracking file" aria-label="Download a copy of the tracking file"><svg class="i"><use href="#i-down"/></svg></button>
+    <button class="icon-btn" data-do="import-tracking" title="Import a tracking file" aria-label="Import a tracking file"><svg class="i"><use href="#i-up"/></svg></button>
+    <button class="icon-btn" data-do="print" title="Print this page" aria-label="Print"><svg class="i"><use href="#i-print"/></svg></button>
+    <button class="icon-btn" data-do="theme" title="Switch between light and dark" aria-label="Switch theme"><svg class="i"><use href="#i-sun"/></svg></button>
+    <input id="file" type="file" accept=".csv,text/csv" multiple hidden>
+  </div>
+</header>
+<nav class="tabs" id="tabs" aria-label="Report sections"></nav>
+<main id="page" tabindex="-1"></main>
+<footer class="footer"><span id="footer"></span></footer>
+<div id="presentation" class="pres-bar" hidden></div>
+<div id="tooltip" class="tooltip" role="tooltip" hidden></div>
+<div id="toast" class="toast" role="status"></div>
+<dialog id="who" class="who" aria-labelledby="who-title">
+  <h2 id="who-title">Who are you?</h2>
+  <p>Your updates will carry your name. You can change it in the top bar.</p>
+  <div id="who-names" class="who-names"></div>
+  <form id="who-free" class="filters"><input id="who-input" class="mini" type="text" maxlength="64" placeholder="Your name" aria-label="Your name"><button class="btn" type="submit">Use this name</button></form>
+  <button class="link" data-do="who-close">Read without giving a name</button>
+</dialog>
+<script id="report-data" type="application/json">/*__DATA__*/</script>
+<script id="report-tables" type="application/json">/*__TABLES__*/</script>
+<script>/*__SCRIPT__*/</script>
+</body>
+</html>

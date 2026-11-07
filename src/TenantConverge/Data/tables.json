@@ -1,0 +1,1752 @@
+{
+  "schemaVersion": 1,
+  "tables": [
+    {
+      "key": "organizationSettings",
+      "label": "Organization and sync",
+      "workload": "Entra ID",
+      "collectors": [
+        "ENT-01"
+      ],
+      "columns": [
+        "Setting",
+        "Value"
+      ]
+    },
+    {
+      "key": "domains",
+      "label": "Domains",
+      "workload": "Entra ID",
+      "collectors": [
+        "ENT-01"
+      ],
+      "columns": [
+        "Domain",
+        "Verified",
+        "Default",
+        "Initial",
+        "Authentication",
+        "Services"
+      ]
+    },
+    {
+      "key": "licenses",
+      "label": "Licenses and subscriptions",
+      "workload": "Entra ID",
+      "collectors": [
+        "ENT-02"
+      ],
+      "columns": [
+        "SKU",
+        "SkuId",
+        "State",
+        "Purchased",
+        "Consumed",
+        "Available",
+        "Suspended",
+        "In warning",
+        "Plans"
+      ]
+    },
+    {
+      "key": "users",
+      "label": "Users and guests",
+      "workload": "Entra ID",
+      "collectors": [
+        "ENT-03"
+      ],
+      "columns": [
+        "Id",
+        "UPN",
+        "Name",
+        "Type",
+        "Enabled",
+        "Created",
+        "Days since creation",
+        "Last sign-in",
+        "Days inactive",
+        "Licenses",
+        "License count",
+        "Synced",
+        "Email",
+        "Department",
+        "Job title",
+        "Company",
+        "Country",
+        "Invitation state",
+        "Creation type",
+        "License errors",
+        "Address count",
+        "First name",
+        "Last name",
+        "Employee ID",
+        "AD account",
+        "AD anchor",
+        "Sync errors",
+        "Mobile",
+        "Phone",
+        "Office",
+        "City",
+        "Addresses"
+      ]
+    },
+    {
+      "key": "groups",
+      "label": "Groups",
+      "workload": "Entra ID",
+      "collectors": [
+        "ENT-04"
+      ],
+      "columns": [
+        "Id",
+        "Name",
+        "Type",
+        "Team",
+        "Dynamic",
+        "Visibility",
+        "Synced",
+        "Group licenses",
+        "Owners",
+        "Email",
+        "Alias",
+        "Created",
+        "Members"
+      ]
+    },
+    {
+      "key": "groupSettings",
+      "label": "Group settings",
+      "workload": "Entra ID",
+      "collectors": [
+        "ENT-04"
+      ],
+      "columns": [
+        "Setting",
+        "Value"
+      ]
+    },
+    {
+      "key": "adminRoles",
+      "label": "Admin roles",
+      "workload": "Entra ID",
+      "collectors": [
+        "ENT-05"
+      ],
+      "columns": [
+        "Role",
+        "Principal",
+        "Principal type",
+        "Assignment",
+        "Scope"
+      ]
+    },
+    {
+      "key": "conditionalAccess",
+      "label": "Conditional Access",
+      "workload": "Entra ID",
+      "collectors": [
+        "ENT-06"
+      ],
+      "columns": [
+        "Name",
+        "State",
+        "Users",
+        "Exclusions",
+        "Applications",
+        "Client apps",
+        "Platforms",
+        "Locations",
+        "Controls",
+        "Session",
+        "MFA for all",
+        "Blocks legacy authentication"
+      ]
+    },
+    {
+      "key": "namedLocations",
+      "label": "Named locations",
+      "workload": "Entra ID",
+      "collectors": [
+        "ENT-06"
+      ],
+      "columns": [
+        "Name",
+        "Type",
+        "Trusted",
+        "Ranges or countries"
+      ]
+    },
+    {
+      "key": "securitySettings",
+      "label": "Security and authentication",
+      "workload": "Entra ID",
+      "collectors": [
+        "ENT-06"
+      ],
+      "columns": [
+        "Setting",
+        "Value"
+      ]
+    },
+    {
+      "key": "crossTenantSettings",
+      "label": "Cross-tenant access (default)",
+      "workload": "Entra ID",
+      "collectors": [
+        "ENT-07"
+      ],
+      "columns": [
+        "Setting",
+        "Value"
+      ]
+    },
+    {
+      "key": "crossTenantPartners",
+      "label": "Cross-tenant access (partners)",
+      "workload": "Entra ID",
+      "collectors": [
+        "ENT-07"
+      ],
+      "columns": [
+        "Tenant",
+        "Name",
+        "Domain",
+        "MFA trusted",
+        "Compliant device trusted",
+        "Inbound collaboration",
+        "Outbound collaboration",
+        "Inbound direct connect",
+        "Outbound direct connect",
+        "Inbound auto-redeem",
+        "Outbound auto-redeem",
+        "Inbound sync"
+      ]
+    },
+    {
+      "key": "applications",
+      "label": "App registrations",
+      "workload": "Entra ID",
+      "collectors": [
+        "ENT-08"
+      ],
+      "columns": [
+        "Name",
+        "AppId",
+        "Created",
+        "Audience",
+        "Secrets",
+        "Certificates",
+        "Days to expiry",
+        "Expired"
+      ]
+    },
+    {
+      "key": "servicePrincipals",
+      "label": "Enterprise applications",
+      "workload": "Entra ID",
+      "collectors": [
+        "ENT-08"
+      ],
+      "columns": [
+        "Name",
+        "AppId",
+        "Publisher",
+        "Origin",
+        "Enabled",
+        "Type",
+        "Id"
+      ]
+    },
+    {
+      "key": "delegatedConsents",
+      "label": "Delegated consents",
+      "workload": "Entra ID",
+      "collectors": [
+        "ENT-08"
+      ],
+      "columns": [
+        "Application",
+        "Consent type",
+        "Scopes",
+        "User"
+      ]
+    },
+    {
+      "key": "devices",
+      "label": "Entra ID devices",
+      "workload": "Entra ID",
+      "collectors": [
+        "ENT-09"
+      ],
+      "columns": [
+        "Name",
+        "OS",
+        "Version",
+        "Join type",
+        "Compliant",
+        "Managed",
+        "Enabled",
+        "Last sign-in",
+        "Days inactive"
+      ]
+    },
+    {
+      "key": "mfaRegistrations",
+      "label": "MFA registrations",
+      "workload": "Entra ID",
+      "collectors": [
+        "ENT-10"
+      ],
+      "columns": [
+        "UPN",
+        "Type",
+        "MFA registered",
+        "MFA capable",
+        "Passwordless",
+        "Methods",
+        "Default method",
+        "Admin"
+      ]
+    },
+    {
+      "key": "administrativeUnits",
+      "label": "Administrative units",
+      "workload": "Entra ID",
+      "collectors": [
+        "ENT-01"
+      ],
+      "columns": [
+        "Name",
+        "Description",
+        "Membership"
+      ]
+    },
+    {
+      "key": "signInSummary",
+      "label": "Recent sign-ins (summary)",
+      "workload": "Entra ID",
+      "collectors": [
+        "ENT-11"
+      ],
+      "columns": [
+        "Dimension",
+        "Value",
+        "Sign-ins",
+        "Users"
+      ]
+    },
+    {
+      "key": "legacySignIns",
+      "label": "Legacy authentication sign-ins",
+      "workload": "Entra ID",
+      "collectors": [
+        "ENT-11"
+      ],
+      "columns": [
+        "UPN",
+        "Client",
+        "Sign-ins",
+        "Last"
+      ]
+    },
+    {
+      "key": "applicationPermissions",
+      "label": "Application permissions",
+      "workload": "Entra ID",
+      "collectors": [
+        "ENT-12"
+      ],
+      "columns": [
+        "Application",
+        "Origin",
+        "Resource",
+        "Permission",
+        "Granted on"
+      ]
+    },
+    {
+      "key": "riskyUsers",
+      "label": "Risky users",
+      "workload": "Entra ID",
+      "collectors": [
+        "ENT-13"
+      ],
+      "columns": [
+        "UPN",
+        "Level",
+        "State",
+        "Detail",
+        "Updated"
+      ]
+    },
+    {
+      "key": "exchangeSettings",
+      "label": "Exchange settings",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-01"
+      ],
+      "columns": [
+        "Setting",
+        "Value"
+      ]
+    },
+    {
+      "key": "acceptedDomains",
+      "label": "Accepted domains",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-01"
+      ],
+      "columns": [
+        "Domain",
+        "Type",
+        "Default"
+      ]
+    },
+    {
+      "key": "remoteDomains",
+      "label": "Remote domains",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-01"
+      ],
+      "columns": [
+        "Name",
+        "Domain",
+        "Auto-forward",
+        "Automatic replies"
+      ]
+    },
+    {
+      "key": "exchangeHybrid",
+      "label": "Exchange hybrid",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-01"
+      ],
+      "columns": [
+        "Item",
+        "Name",
+        "Detail"
+      ]
+    },
+    {
+      "key": "organizationRelationships",
+      "label": "Organization relationships",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-01"
+      ],
+      "columns": [
+        "Name",
+        "Domains",
+        "Free/busy",
+        "Level",
+        "Enabled"
+      ]
+    },
+    {
+      "key": "sharingPolicies",
+      "label": "Sharing policies",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-01"
+      ],
+      "columns": [
+        "Name",
+        "Domains",
+        "Default",
+        "Enabled"
+      ]
+    },
+    {
+      "key": "emailAddressPolicies",
+      "label": "Email address policies",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-01"
+      ],
+      "columns": [
+        "Name",
+        "Priority",
+        "Templates",
+        "Filter"
+      ]
+    },
+    {
+      "key": "mrmPolicies",
+      "label": "MRM retention policies",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-01"
+      ],
+      "columns": [
+        "Name",
+        "Default",
+        "Tags"
+      ]
+    },
+    {
+      "key": "mailboxes",
+      "label": "Mailboxes",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-02"
+      ],
+      "columns": [
+        "UPN",
+        "Name",
+        "Type",
+        "Primary address",
+        "Alias",
+        "Address count",
+        "Addresses",
+        "Archive",
+        "Litigation hold",
+        "Holds",
+        "SMTP forwarding",
+        "Internal forwarding",
+        "Deliver and forward",
+        "Hidden",
+        "Created",
+        "Quota",
+        "MRM policy",
+        "ObjectId"
+      ]
+    },
+    {
+      "key": "mailboxUsage",
+      "label": "Mailbox usage",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-02"
+      ],
+      "columns": [
+        "UPN",
+        "Name",
+        "Type",
+        "Deleted",
+        "Last activity",
+        "Items",
+        "Size GB",
+        "Quota GB",
+        "Archive"
+      ]
+    },
+    {
+      "key": "archives",
+      "label": "Archives",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-02"
+      ],
+      "columns": [
+        "UPN",
+        "Size GB",
+        "Items"
+      ]
+    },
+    {
+      "key": "inactiveMailboxes",
+      "label": "Inactive mailboxes",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-02"
+      ],
+      "columns": [
+        "Name",
+        "Address",
+        "Type"
+      ]
+    },
+    {
+      "key": "mailboxPermissions",
+      "label": "Mailbox permissions",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-02",
+        "EXO-04"
+      ],
+      "columns": [
+        "Mailbox",
+        "User",
+        "Right"
+      ]
+    },
+    {
+      "key": "distributionGroups",
+      "label": "Distribution groups",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-03"
+      ],
+      "columns": [
+        "Name",
+        "Address",
+        "Alias",
+        "Type",
+        "External senders allowed",
+        "Managers",
+        "Hidden",
+        "Members"
+      ]
+    },
+    {
+      "key": "dynamicGroups",
+      "label": "Dynamic distribution groups",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-03"
+      ],
+      "columns": [
+        "Name",
+        "Address",
+        "Filter"
+      ]
+    },
+    {
+      "key": "microsoft365Groups",
+      "label": "Microsoft 365 groups",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-03"
+      ],
+      "columns": [
+        "Name",
+        "Address",
+        "Alias",
+        "Access",
+        "Team",
+        "Members",
+        "Guests",
+        "Site",
+        "Created"
+      ]
+    },
+    {
+      "key": "contacts",
+      "label": "Contacts and mail users",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-03"
+      ],
+      "columns": [
+        "Name",
+        "External address",
+        "Type"
+      ]
+    },
+    {
+      "key": "transportRules",
+      "label": "Transport rules",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-05"
+      ],
+      "columns": [
+        "Name",
+        "State",
+        "Priority",
+        "Mode",
+        "Description"
+      ]
+    },
+    {
+      "key": "connectors",
+      "label": "Connectors",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-05"
+      ],
+      "columns": [
+        "Name",
+        "Direction",
+        "Enabled",
+        "Type",
+        "Domains",
+        "Hosts or IPs",
+        "TLS"
+      ]
+    },
+    {
+      "key": "journalRules",
+      "label": "Journal rules",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-05"
+      ],
+      "columns": [
+        "Name",
+        "Recipient",
+        "Journal address",
+        "Scope",
+        "Enabled"
+      ]
+    },
+    {
+      "key": "dkim",
+      "label": "DKIM",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-05"
+      ],
+      "columns": [
+        "Domain",
+        "Enabled",
+        "Selector 1",
+        "Selector 2"
+      ]
+    },
+    {
+      "key": "protectionPolicies",
+      "label": "Protection",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-06"
+      ],
+      "columns": [
+        "Type",
+        "Name",
+        "Default",
+        "Enabled"
+      ]
+    },
+    {
+      "key": "mailboxProtocols",
+      "label": "Mailbox protocols",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-07"
+      ],
+      "columns": [
+        "Mailbox",
+        "POP",
+        "IMAP",
+        "ActiveSync",
+        "EWS",
+        "MAPI",
+        "OWA",
+        "Authenticated SMTP"
+      ]
+    },
+    {
+      "key": "mobileDevices",
+      "label": "Mobile devices (ActiveSync)",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-07"
+      ],
+      "columns": [
+        "User",
+        "Model",
+        "System",
+        "Type",
+        "Client",
+        "Access",
+        "First sync"
+      ]
+    },
+    {
+      "key": "inboxRules",
+      "label": "Inbox rules (forwarding)",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-08"
+      ],
+      "columns": [
+        "Mailbox",
+        "Rule",
+        "Enabled",
+        "To",
+        "External"
+      ]
+    },
+    {
+      "key": "roomsAndEquipment",
+      "label": "Rooms and equipment",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-09"
+      ],
+      "columns": [
+        "Resource",
+        "Address",
+        "Type",
+        "Processing",
+        "Open to all",
+        "Booking window (days)",
+        "Max duration (min)",
+        "Delegates",
+        "External accepted"
+      ]
+    },
+    {
+      "key": "publicFolders",
+      "label": "Public folders",
+      "workload": "Exchange Online",
+      "collectors": [
+        "EXO-10"
+      ],
+      "columns": [
+        "Path",
+        "Name",
+        "Email",
+        "Content mailbox",
+        "Subfolders"
+      ]
+    },
+    {
+      "key": "sharePointSettings",
+      "label": "SharePoint and OneDrive settings",
+      "workload": "SharePoint and OneDrive",
+      "collectors": [
+        "SPO-01"
+      ],
+      "columns": [
+        "Setting",
+        "Value"
+      ]
+    },
+    {
+      "key": "sites",
+      "label": "Sites",
+      "workload": "SharePoint and OneDrive",
+      "collectors": [
+        "SPO-02"
+      ],
+      "columns": [
+        "Url",
+        "Path",
+        "Title",
+        "Template",
+        "Storage MB",
+        "Quota MB",
+        "Last modified",
+        "Days inactive",
+        "Sharing",
+        "Lock state",
+        "Owner",
+        "Group",
+        "Teams",
+        "Hub",
+        "Hub association",
+        "Label",
+        "Custom scripts",
+        "Language"
+      ]
+    },
+    {
+      "key": "hubSites",
+      "label": "Hub sites",
+      "workload": "SharePoint and OneDrive",
+      "collectors": [
+        "SPO-02"
+      ],
+      "columns": [
+        "Title",
+        "Url",
+        "Associated sites"
+      ]
+    },
+    {
+      "key": "oneDrive",
+      "label": "OneDrive",
+      "workload": "SharePoint and OneDrive",
+      "collectors": [
+        "SPO-03"
+      ],
+      "columns": [
+        "Url",
+        "Owner",
+        "Storage MB",
+        "Quota MB",
+        "Last modified",
+        "Days inactive",
+        "Lock state"
+      ]
+    },
+    {
+      "key": "sharePointCustomizations",
+      "label": "Customizations",
+      "workload": "SharePoint and OneDrive",
+      "collectors": [
+        "SPO-01",
+        "SPO-04"
+      ],
+      "columns": [
+        "Type",
+        "Name",
+        "Detail"
+      ]
+    },
+    {
+      "key": "termStore",
+      "label": "Term store",
+      "workload": "SharePoint and OneDrive",
+      "collectors": [
+        "SPO-04"
+      ],
+      "columns": [
+        "Group",
+        "Term set",
+        "Terms",
+        "System or collection"
+      ]
+    },
+    {
+      "key": "siteUsage",
+      "label": "Site usage",
+      "workload": "SharePoint and OneDrive",
+      "collectors": [
+        "SPO-05"
+      ],
+      "columns": [
+        "Url",
+        "Owner",
+        "Template",
+        "Files",
+        "Active files",
+        "Storage GB",
+        "Page views",
+        "Last activity"
+      ]
+    },
+    {
+      "key": "oneDriveUsage",
+      "label": "OneDrive usage",
+      "workload": "SharePoint and OneDrive",
+      "collectors": [
+        "SPO-05"
+      ],
+      "columns": [
+        "Url",
+        "Owner",
+        "Files",
+        "Active files",
+        "Storage GB",
+        "Last activity"
+      ]
+    },
+    {
+      "key": "libraries",
+      "label": "Lists and libraries",
+      "workload": "SharePoint and OneDrive",
+      "collectors": [
+        "SPO-06"
+      ],
+      "columns": [
+        "Site",
+        "List",
+        "Template",
+        "Size MB",
+        "Last modified"
+      ]
+    },
+    {
+      "key": "sharePointExternalUsers",
+      "label": "External users",
+      "workload": "SharePoint and OneDrive",
+      "collectors": [
+        "SPO-07"
+      ],
+      "columns": [
+        "Name",
+        "Email",
+        "Accepted as",
+        "Invited by",
+        "Created"
+      ]
+    },
+    {
+      "key": "teams",
+      "label": "Teams",
+      "workload": "Teams",
+      "collectors": [
+        "TMS-01"
+      ],
+      "columns": [
+        "Id",
+        "Name",
+        "Visibility",
+        "Archived",
+        "Alias",
+        "Description"
+      ]
+    },
+    {
+      "key": "teamActivity",
+      "label": "Team activity",
+      "workload": "Teams",
+      "collectors": [
+        "TMS-01"
+      ],
+      "columns": [
+        "Team",
+        "Type",
+        "Last activity",
+        "Active users",
+        "Guests",
+        "Channel messages",
+        "Meetings"
+      ]
+    },
+    {
+      "key": "teamComposition",
+      "label": "Team composition",
+      "workload": "Teams",
+      "collectors": [
+        "TMS-02"
+      ],
+      "columns": [
+        "Team",
+        "Owners",
+        "Members",
+        "Guests",
+        "Standard channels",
+        "Private channels",
+        "Shared channels"
+      ]
+    },
+    {
+      "key": "channels",
+      "label": "Channels",
+      "workload": "Teams",
+      "collectors": [
+        "TMS-02"
+      ],
+      "columns": [
+        "Team",
+        "Channel",
+        "Type"
+      ]
+    },
+    {
+      "key": "teamsSettings",
+      "label": "Teams settings",
+      "workload": "Teams",
+      "collectors": [
+        "TMS-03"
+      ],
+      "columns": [
+        "Setting",
+        "Value"
+      ]
+    },
+    {
+      "key": "teamsPolicies",
+      "label": "Teams policies",
+      "workload": "Teams",
+      "collectors": [
+        "TMS-03"
+      ],
+      "columns": [
+        "Type",
+        "Identity",
+        "Custom",
+        "Description"
+      ]
+    },
+    {
+      "key": "teamsApps",
+      "label": "Organization apps",
+      "workload": "Teams",
+      "collectors": [
+        "TMS-03"
+      ],
+      "columns": [
+        "Name",
+        "Version",
+        "Publishing",
+        "Distribution"
+      ]
+    },
+    {
+      "key": "teamsDevices",
+      "label": "Teams devices",
+      "workload": "Teams",
+      "collectors": [
+        "TMS-03"
+      ],
+      "columns": [
+        "Type",
+        "Model",
+        "User",
+        "State",
+        "Activity"
+      ]
+    },
+    {
+      "key": "teamsUsers",
+      "label": "Teams users",
+      "workload": "Teams",
+      "collectors": [
+        "TMS-04"
+      ],
+      "columns": [
+        "UPN",
+        "Name",
+        "Enabled",
+        "Enterprise Voice",
+        "Number",
+        "Features",
+        "Teams mode",
+        "Policies",
+        "ObjectId"
+      ]
+    },
+    {
+      "key": "phoneNumbers",
+      "label": "Phone numbers",
+      "workload": "Teams Phone",
+      "collectors": [
+        "TEL-01"
+      ],
+      "columns": [
+        "Number",
+        "Type",
+        "Activation",
+        "Assignment",
+        "Assigned to",
+        "Capabilities",
+        "City",
+        "Country",
+        "Partner",
+        "Porting",
+        "Source",
+        "Emergency address"
+      ]
+    },
+    {
+      "key": "resourceAccounts",
+      "label": "Resource accounts",
+      "workload": "Teams Phone",
+      "collectors": [
+        "TEL-02"
+      ],
+      "columns": [
+        "UPN",
+        "Name",
+        "Number",
+        "Usage",
+        "ObjectId"
+      ]
+    },
+    {
+      "key": "autoAttendants",
+      "label": "Auto attendants",
+      "workload": "Teams Phone",
+      "collectors": [
+        "TEL-02"
+      ],
+      "columns": [
+        "Name",
+        "Language",
+        "Time zone",
+        "Resource accounts",
+        "Call flows",
+        "Schedules",
+        "Operator",
+        "Directory lookup",
+        "Identity"
+      ]
+    },
+    {
+      "key": "callQueues",
+      "label": "Call queues",
+      "workload": "Teams Phone",
+      "collectors": [
+        "TEL-02"
+      ],
+      "columns": [
+        "Name",
+        "Routing",
+        "Agents",
+        "Lists",
+        "Teams channel",
+        "Overflow",
+        "Expiration",
+        "Resource accounts",
+        "Presence"
+      ]
+    },
+    {
+      "key": "pstnGateways",
+      "label": "Gateways (Direct Routing)",
+      "workload": "Teams Phone",
+      "collectors": [
+        "TEL-03"
+      ],
+      "columns": [
+        "FQDN",
+        "Port",
+        "Enabled",
+        "Max sessions"
+      ]
+    },
+    {
+      "key": "voiceRoutes",
+      "label": "Voice routes",
+      "workload": "Teams Phone",
+      "collectors": [
+        "TEL-03"
+      ],
+      "columns": [
+        "Name",
+        "Pattern",
+        "Gateways",
+        "Usages",
+        "Priority"
+      ]
+    },
+    {
+      "key": "voiceRoutingPolicies",
+      "label": "Voice routing policies",
+      "workload": "Teams Phone",
+      "collectors": [
+        "TEL-03"
+      ],
+      "columns": [
+        "Name",
+        "PSTN usages"
+      ]
+    },
+    {
+      "key": "dialPlans",
+      "label": "Dial plans",
+      "workload": "Teams Phone",
+      "collectors": [
+        "TEL-03"
+      ],
+      "columns": [
+        "Name",
+        "Rules",
+        "Description"
+      ]
+    },
+    {
+      "key": "translationRules",
+      "label": "Translation rules",
+      "workload": "Teams Phone",
+      "collectors": [
+        "TEL-03"
+      ],
+      "columns": [
+        "Name",
+        "Pattern",
+        "Translation"
+      ]
+    },
+    {
+      "key": "emergencyAddresses",
+      "label": "Emergency addresses",
+      "workload": "Teams Phone",
+      "collectors": [
+        "TEL-04"
+      ],
+      "columns": [
+        "Description",
+        "Company",
+        "Address",
+        "City",
+        "State or province",
+        "Postal code",
+        "Country",
+        "Validation",
+        "Locations"
+      ]
+    },
+    {
+      "key": "conferenceBridges",
+      "label": "Conference bridges",
+      "workload": "Teams Phone",
+      "collectors": [
+        "TEL-04"
+      ],
+      "columns": [
+        "Name",
+        "Default number",
+        "Numbers"
+      ]
+    },
+    {
+      "key": "userCallingSettings",
+      "label": "User calling settings",
+      "workload": "Teams Phone",
+      "collectors": [
+        "TEL-05"
+      ],
+      "columns": [
+        "UPN",
+        "Forwarding",
+        "Unanswered",
+        "Delegates",
+        "Call group"
+      ]
+    },
+    {
+      "key": "phoneSchedules",
+      "label": "Schedules and holidays",
+      "workload": "Teams Phone",
+      "collectors": [
+        "TEL-06"
+      ],
+      "columns": [
+        "Name",
+        "Type",
+        "Used by"
+      ]
+    },
+    {
+      "key": "phoneNetworkTopology",
+      "label": "Network topology",
+      "workload": "Teams Phone",
+      "collectors": [
+        "TEL-06"
+      ],
+      "columns": [
+        "Type",
+        "Name",
+        "Detail"
+      ]
+    },
+    {
+      "key": "managedDevices",
+      "label": "Managed devices",
+      "workload": "Intune",
+      "collectors": [
+        "INT-01"
+      ],
+      "columns": [
+        "Name",
+        "OS",
+        "Version",
+        "Compliance",
+        "Ownership",
+        "Enrollment",
+        "Last sync",
+        "Days inactive",
+        "Model",
+        "Manufacturer",
+        "Serial number",
+        "User",
+        "Encrypted"
+      ]
+    },
+    {
+      "key": "autopilotDevices",
+      "label": "Autopilot devices",
+      "workload": "Intune",
+      "collectors": [
+        "INT-02"
+      ],
+      "columns": [
+        "Serial number",
+        "Model",
+        "Manufacturer",
+        "Group tag",
+        "Enrollment state",
+        "Last contact"
+      ]
+    },
+    {
+      "key": "autopilotProfiles",
+      "label": "Autopilot profiles",
+      "workload": "Intune",
+      "collectors": [
+        "INT-02"
+      ],
+      "columns": [
+        "Name",
+        "Type",
+        "Device name template",
+        "Created"
+      ]
+    },
+    {
+      "key": "intunePolicies",
+      "label": "Policies",
+      "workload": "Intune",
+      "collectors": [
+        "INT-03"
+      ],
+      "columns": [
+        "Category",
+        "Name",
+        "Platform",
+        "Assignments",
+        "Modified"
+      ]
+    },
+    {
+      "key": "intuneApps",
+      "label": "Apps",
+      "workload": "Intune",
+      "collectors": [
+        "INT-04"
+      ],
+      "columns": [
+        "Name",
+        "Type",
+        "Publisher",
+        "Assigned",
+        "Created"
+      ]
+    },
+    {
+      "key": "appProtectionPolicies",
+      "label": "App protection",
+      "workload": "Intune",
+      "collectors": [
+        "INT-04"
+      ],
+      "columns": [
+        "Name",
+        "Type",
+        "Modified"
+      ]
+    },
+    {
+      "key": "intuneConnectors",
+      "label": "Connectors and tokens",
+      "workload": "Intune",
+      "collectors": [
+        "INT-05"
+      ],
+      "columns": [
+        "Type",
+        "Name",
+        "Account",
+        "Expiration",
+        "Days remaining"
+      ]
+    },
+    {
+      "key": "sensitivityLabels",
+      "label": "Sensitivity labels",
+      "workload": "Purview",
+      "collectors": [
+        "PUR-01"
+      ],
+      "columns": [
+        "Name",
+        "Display name",
+        "Parent",
+        "Priority",
+        "Scope",
+        "Encryption",
+        "Marking",
+        "Disabled"
+      ]
+    },
+    {
+      "key": "labelPolicies",
+      "label": "Label policies",
+      "workload": "Purview",
+      "collectors": [
+        "PUR-01"
+      ],
+      "columns": [
+        "Name",
+        "Labels",
+        "Locations",
+        "Status"
+      ]
+    },
+    {
+      "key": "retentionPolicies",
+      "label": "Retention policies",
+      "workload": "Purview",
+      "collectors": [
+        "PUR-02"
+      ],
+      "columns": [
+        "Name",
+        "Enabled",
+        "Mode",
+        "Locations",
+        "Status"
+      ]
+    },
+    {
+      "key": "retentionLabels",
+      "label": "Retention labels",
+      "workload": "Purview",
+      "collectors": [
+        "PUR-02"
+      ],
+      "columns": [
+        "Name",
+        "Action",
+        "Duration",
+        "Record"
+      ]
+    },
+    {
+      "key": "dlpPolicies",
+      "label": "DLP policies",
+      "workload": "Purview",
+      "collectors": [
+        "PUR-03"
+      ],
+      "columns": [
+        "Name",
+        "Mode",
+        "Enabled",
+        "Workloads"
+      ]
+    },
+    {
+      "key": "ediscoveryCases",
+      "label": "eDiscovery cases",
+      "workload": "Purview",
+      "collectors": [
+        "PUR-03"
+      ],
+      "columns": [
+        "Name",
+        "Status",
+        "Type",
+        "Holds",
+        "Created"
+      ]
+    },
+    {
+      "key": "powerEnvironments",
+      "label": "Environments",
+      "workload": "Power Platform",
+      "collectors": [
+        "POW-01"
+      ],
+      "columns": [
+        "Name",
+        "Type",
+        "Region",
+        "Default",
+        "Dataverse",
+        "Created"
+      ]
+    },
+    {
+      "key": "powerApps",
+      "label": "Power Apps",
+      "workload": "Power Platform",
+      "collectors": [
+        "POW-01"
+      ],
+      "columns": [
+        "Name",
+        "Environment",
+        "Owner",
+        "Modified"
+      ]
+    },
+    {
+      "key": "powerFlows",
+      "label": "Power Automate flows",
+      "workload": "Power Platform",
+      "collectors": [
+        "POW-01"
+      ],
+      "columns": [
+        "Name",
+        "Environment",
+        "Owner",
+        "Enabled",
+        "Modified"
+      ]
+    },
+    {
+      "key": "powerDlpPolicies",
+      "label": "DLP policies",
+      "workload": "Power Platform",
+      "collectors": [
+        "POW-01"
+      ],
+      "columns": [
+        "Name",
+        "Scope",
+        "Environments"
+      ]
+    },
+    {
+      "key": "azureSubscriptions",
+      "label": "Subscriptions",
+      "workload": "Azure",
+      "collectors": [
+        "AZR-01"
+      ],
+      "columns": [
+        "Name",
+        "Id",
+        "State",
+        "RBAC assignments"
+      ]
+    },
+    {
+      "key": "azureResources",
+      "label": "Resources by type",
+      "workload": "Azure",
+      "collectors": [
+        "AZR-01"
+      ],
+      "columns": [
+        "Subscription",
+        "Type",
+        "Count",
+        "Regions"
+      ]
+    },
+    {
+      "key": "reportSettings",
+      "label": "Report privacy",
+      "workload": "Other services",
+      "collectors": [
+        "AUT-01"
+      ],
+      "columns": [
+        "Setting",
+        "Value"
+      ]
+    },
+    {
+      "key": "userActivity",
+      "label": "Microsoft 365 activity",
+      "workload": "Other services",
+      "collectors": [
+        "AUT-01"
+      ],
+      "columns": [
+        "UPN",
+        "Name",
+        "Exchange",
+        "OneDrive",
+        "SharePoint",
+        "Teams",
+        "Viva Engage",
+        "Products"
+      ]
+    },
+    {
+      "key": "secureScore",
+      "label": "Secure Score",
+      "workload": "Other services",
+      "collectors": [
+        "AUT-02"
+      ],
+      "columns": [
+        "Setting",
+        "Value"
+      ]
+    },
+    {
+      "key": "secureScoreActions",
+      "label": "Recommended security actions",
+      "workload": "Other services",
+      "collectors": [
+        "AUT-02"
+      ],
+      "columns": [
+        "Control",
+        "Category",
+        "Score",
+        "Maximum",
+        "Possible gain",
+        "Cost",
+        "User impact",
+        "Service"
+      ]
+    },
+    {
+      "key": "plannerPlans",
+      "label": "Planner",
+      "workload": "Other services",
+      "collectors": [
+        "AUT-03"
+      ],
+      "columns": [
+        "Group",
+        "Plan",
+        "Created"
+      ]
+    },
+    {
+      "key": "bookings",
+      "label": "Bookings",
+      "workload": "Other services",
+      "collectors": [
+        "AUT-04"
+      ],
+      "columns": [
+        "Name",
+        "Email",
+        "Type",
+        "Published"
+      ]
+    },
+    {
+      "key": "vivaCommunities",
+      "label": "Viva Engage",
+      "workload": "Other services",
+      "collectors": [
+        "AUT-04"
+      ],
+      "columns": [
+        "Name",
+        "Privacy",
+        "Description"
+      ]
+    },
+    {
+      "key": "manualProducts",
+      "label": "Products with no inventory API",
+      "workload": "Other services",
+      "collectors": [
+        "AUT-05"
+      ],
+      "columns": [
+        "Product",
+        "Inventory",
+        "Migration",
+        "To do"
+      ]
+    },
+    {
+      "key": "publicDns",
+      "label": "Public DNS records",
+      "workload": "Domains and DNS",
+      "collectors": [
+        "DNS-01"
+      ],
+      "columns": [
+        "Domain",
+        "Record",
+        "Type",
+        "Value",
+        "TTL"
+      ]
+    },
+    {
+      "key": "dnsSummary",
+      "label": "DNS summary by domain",
+      "workload": "Domains and DNS",
+      "collectors": [
+        "DNS-01"
+      ],
+      "columns": [
+        "Domain",
+        "DNS host",
+        "MX",
+        "Inbound mail flow",
+        "MX TTL",
+        "SPF",
+        "Microsoft SPF",
+        "DMARC",
+        "DKIM published",
+        "Autodiscover",
+        "Teams or legacy Skype",
+        "Intune enrollment"
+      ]
+    }
+  ]
+}

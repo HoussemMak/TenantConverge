@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640" role="img" aria-label="The output files stay on your computer. Five things cross its boundary: your sign-in and read requests go to your tenants; the primary domain goes to login.microsoftonline.com to find the tenant ID; your customer's domain names go to a public DNS server, 1.1.1.1 by default; a request for each missing module goes to the PowerShell Gallery, only with -Install; and a zone and a record go to Cloudflare, only for a remediation with -Apply. There is no telemetry and no update check, and the report connects to nothing.">
+  <title>What leaves the computer</title>
+  <style>
+    text { font-family: 'Instrument Sans', 'Segoe UI', sans-serif; fill: #14242A; }
+    .title { font-size: 30px; font-weight: 600; }
+    .lead { font-size: 19px; fill: #3B4D53; }
+    .side { font-size: 18px; font-weight: 600; fill: #5F7176; }
+    .name { font-size: 20px; font-weight: 600; }
+    .sub { font-size: 17px; fill: #3B4D53; }
+    .what { font-size: 17px; font-weight: 600; }
+    .when { font-size: 16px; fill: #5F7176; }
+    .card { fill: #FFFFFF; stroke: #BFCCC6; stroke-width: 1.5; }
+    .warn { fill: #FBEBEA; stroke: #B42E2A; stroke-width: 1.5; }
+    .zone { fill: #F6F9F7; stroke: #5F7176; stroke-width: 2; stroke-dasharray: 8 7; }
+    .flow { stroke: #12333B; stroke-width: 2.5; fill: none; }
+    .hot { stroke: #B42E2A; stroke-width: 3; fill: none; }
+    .rare { stroke: #12333B; stroke-width: 2.5; stroke-dasharray: 7 6; fill: none; }
+  </style>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#12333B"/></marker>
+    <marker id="r" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#B42E2A"/></marker>
+  </defs>
+
+  <rect width="1280" height="640" fill="#EFF3F1"/>
+  <text x="48" y="54" class="title">What leaves your computer, and what stays</text>
+  <text x="48" y="86" class="lead">Dashed arrows happen only when you ask for them.</text>
+
+  <!-- The computer. -->
+  <rect x="48" y="112" width="372" height="496" rx="12" class="zone"/>
+  <text x="68" y="146" class="side">Your computer</text>
+
+  <rect x="68" y="162" width="332" height="96" rx="10" fill="#12333B"/>
+  <text x="90" y="202" style="font-size:24px;font-weight:600;fill:#E7EFEC">TenantConverge</text>
+  <text x="90" y="232" style="font-size:17px;fill:#A9C2BE">No telemetry, no update check</text>
+
+  <rect x="68" y="276" width="332" height="160" rx="10" class="card"/>
+  <text x="90" y="312" class="name">The output folder stays here</text>
+  <text x="90" y="342" class="sub">Accounts, phone numbers, roles,</text>
+  <text x="90" y="367" class="sub">devices, forwarding rules.</text>
+  <text x="90" y="392" class="sub">Keep it on an encrypted disk,</text>
+  <text x="90" y="417" class="sub">out of any synced folder.</text>
+
+  <rect x="68" y="454" width="332" height="134" rx="10" class="card"/>
+  <text x="90" y="490" class="name">The report sends nothing</text>
+  <text x="90" y="520" class="sub">Its fonts, data and code are</text>
+  <text x="90" y="545" class="sub">inside the file. Its policy blocks</text>
+  <text x="90" y="570" class="sub">every outbound connection.</text>
+
+  <!-- Five crossings. Rows 100 apart. -->
+  <path d="M420 164 H 846" class="flow" marker-end="url(#a)"/>
+  <text x="440" y="150" class="what">Your sign-in and the read requests</text>
+  <text x="440" y="186" class="when">Collection, and remediation with -Apply</text>
+  <rect x="850" y="116" width="382" height="92" rx="8" class="card"/>
+  <text x="872" y="154" class="name">Your tenants</text>
+  <text x="872" y="182" class="sub">Graph, Exchange, Teams, SharePoint</text>
+
+  <path d="M420 264 H 846" class="flow" marker-end="url(#a)"/>
+  <text x="440" y="250" class="what">The primary domain of each tenant</text>
+  <text x="440" y="286" class="when">When a tenant starts, with no sign-in</text>
+  <rect x="850" y="216" width="382" height="92" rx="8" class="card"/>
+  <text x="872" y="254" class="name">login.microsoftonline.com</text>
+  <text x="872" y="282" class="sub">Finds the tenant ID</text>
+
+  <path d="M420 364 H 846" class="hot" marker-end="url(#r)"/>
+  <text x="440" y="350" class="what" style="fill:#B42E2A">Your customer's domain names, in plain DNS</text>
+  <text x="440" y="386" class="when">Collection, and remediations that read DNS</text>
+  <rect x="850" y="316" width="382" height="92" rx="8" class="warn"/>
+  <text x="872" y="354" class="name" style="fill:#B42E2A">Public DNS, 1.1.1.1 first</text>
+  <text x="872" y="382" class="sub">Then your usual resolver</text>
+
+  <path d="M420 464 H 846" class="rare" marker-end="url(#a)"/>
+  <text x="440" y="450" class="what">A request for each missing module</text>
+  <text x="440" y="486" class="when">Only with -Install</text>
+  <rect x="850" y="416" width="382" height="92" rx="8" class="card"/>
+  <text x="872" y="454" class="name">PowerShell Gallery</text>
+  <text x="872" y="482" class="sub">Installs the modules you lack</text>
+
+  <path d="M420 564 H 846" class="rare" marker-end="url(#a)"/>
+  <text x="440" y="550" class="what">The zone, the record, your token</text>
+  <text x="440" y="586" class="when">Only a remediation with -Apply</text>
+  <rect x="850" y="516" width="382" height="92" rx="8" class="card"/>
+  <text x="872" y="554" class="name">Cloudflare API</text>
+  <text x="872" y="582" class="sub">Other DNS hosts get instructions</text>
+</svg>

@@ -1,0 +1,6 @@
+#!/bin/sh
+# Last check before anything leaves this clone: the files and the whole history.
+# This also covers fast-forward merges, which run no other hook.
+terms=$(git config --get tenantconverge.termsfile)
+[ -z "$terms" ] && exit 0
+exec pwsh -NoProfile -File tools/Test-TcForbiddenTerm.ps1 -TermsPath "$terms" -Path . -IncludeGitHistory

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "name": "Summit consolidation",
+  "target": {
+    "displayName": "Summit Holdings",
+    "primaryDomain": "summit.example",
+    "tenantId": null,
+    "state": "New"
+  },
+  "sources": [
+    {
+      "role": "S1",
+      "displayName": "Alpine Group",
+      "primaryDomain": "alpine.example",
+      "tenantId": null,
+      "wave": 1
+    }
+  ],
+  "access": {
+    "mode": "Browser"
+  },
+  "output": {
+    "path": "./output"
+  },
+  "team": []
+}

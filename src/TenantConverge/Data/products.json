@@ -1,0 +1,369 @@
+{
+  "schemaVersion": 1,
+  "checkedOn": "2026-11-06",
+  "note": "Public facts about products often met in Microsoft 365 consolidations. Nothing here says that a tenant uses a product: the report computes that from the snapshot. No prices. Each fact keeps its source and the day it was read. A fact marked recheck could not be read again on checkedOn.",
+  "sources": {
+    "sg-teams": { "title": "Copy teams: limitations", "publisher": "ShareGate", "url": "https://help.sharegate.com/en/articles/10236201-copy-teams-limitations" },
+    "sg-mailboxes": { "title": "Copy mailboxes: limitations", "publisher": "ShareGate", "url": "https://help.sharegate.com/en/articles/10236222-copy-mailboxes-limitations" },
+    "sg-mailboxes-overview": { "title": "Copy mailboxes overview", "publisher": "ShareGate", "url": "https://help.sharegate.com/en/articles/10236221-copy-mailboxes-overview" },
+    "sg-ews": { "title": "Microsoft EWS change and impact on mailbox migrations", "publisher": "ShareGate", "url": "https://help.sharegate.com/en/articles/14136599-microsoft-exchange-web-services-ews-change-and-impact-on-mailbox-migrations" },
+    "sg-chats": { "title": "Migrate Teams private chats with ShareGate", "publisher": "ShareGate", "url": "https://sharegate.com/blog/migrate-teams-private-chats-between-tenants-with-sharegate" },
+    "sg-compare": { "title": "Comparing Microsoft 365 tenant-to-tenant migration tools", "publisher": "ShareGate", "url": "https://sharegate.com/blog/microsoft-365-tenant-to-tenant-migration-tools" },
+    "ms-mailboxes": { "title": "Cross-tenant mailbox migration", "publisher": "Microsoft", "url": "https://learn.microsoft.com/microsoft-365/migration/cross-tenant-mailbox-migration" },
+    "ms-onedrive": { "title": "Cross-tenant OneDrive migration", "publisher": "Microsoft", "url": "https://learn.microsoft.com/microsoft-365/migration/cross-tenant-onedrive-migration" },
+    "ms-sharepoint": { "title": "Cross-tenant SharePoint migration", "publisher": "Microsoft", "url": "https://learn.microsoft.com/microsoft-365/migration/cross-tenant-sharepoint-migration" },
+    "ms-orchestrator": { "title": "Tenant-to-tenant migration with orchestrator", "publisher": "Microsoft", "url": "https://learn.microsoft.com/microsoft-365/migration/migration-orchestrator-1-overview" },
+    "ms-ews": { "title": "Deprecation of Exchange Web Services in Exchange Online", "publisher": "Microsoft", "url": "https://learn.microsoft.com/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online" },
+    "ms-ews-blog": { "title": "Exchange Online EWS, Your Time is Almost Up", "publisher": "Microsoft", "url": "https://techcommunity.microsoft.com/blog/exchange/exchange-online-ews-your-time-is-almost-up/4492361" },
+    "ms-ews-list": { "title": "Introducing EWSAllowedAppIDs", "publisher": "Microsoft", "url": "https://techcommunity.microsoft.com/blog/exchange/introducing-ewsallowedappids-preparing-for-the-final-phase-of-ews-retirement/4529471" },
+    "ms-ews-report": { "title": "Exchange Web Services usage report", "publisher": "Microsoft", "url": "https://learn.microsoft.com/microsoft-365/admin/activity-reports/ews-usage" },
+    "ms-autopilot": { "title": "Windows Autopilot registration overview", "publisher": "Microsoft", "url": "https://learn.microsoft.com/en-us/autopilot/registration-overview" },
+    "ms-operator": { "title": "Plan for Operator Connect", "publisher": "Microsoft", "url": "https://learn.microsoft.com/en-us/microsoftteams/operator-connect-plan" },
+    "quest-license": { "title": "On Demand Migration license FAQs", "publisher": "Quest", "url": "https://support.quest.com/on-demand-migration/kb/4258900/on-demand-migration-license-faqs" },
+    "quest-chat": { "title": "License changes for Chat migration", "publisher": "Quest", "url": "https://support.quest.com/on-demand-migration/kb/4251204/on-demand-migration-license-changes-for-chat-migration" },
+    "quest-ews": { "title": "Explain EWS vs Graph", "publisher": "Quest", "url": "https://support.quest.com/on-demand-migration/kb/4381005/explain-ews-vs-graph-and-why-the-changes-for-quest-products" },
+    "quest-forum": { "title": "On Demand Migration for Teams: feature spotlight", "publisher": "Quest", "url": "https://www.quest.com/community/on-demand/f/forum/31769/on-demand-migration-for-teams-new-feature-spotlight" },
+    "bt-ews": { "title": "EWS Enters Its Final Phase", "publisher": "BitTitan", "url": "https://www.bittitan.com/blog/from-the-experts/ews-enters-its-final-phase-what-migrationwiz-users-need-to-know/" },
+    "bt-graph": { "title": "The Next Generation of MigrationWiz Mailbox Migrations", "publisher": "BitTitan", "url": "https://www.bittitan.com/blog/from-the-experts/the-next-generation-of-migrationwiz-mailbox-migrations-is-here/" },
+    "bt-items": { "title": "Migrated and Not Migrated Items", "publisher": "BitTitan", "url": "https://help.bittitan.com/hc/en-us/articles/360041736314-MigrationWiz-Migrated-and-Not-Migrated-Items" },
+    "bt-bundle": { "title": "Tenant Migration Bundle", "publisher": "BitTitan", "url": "https://www.bittitan.com/migrationwiz/tenant-migration-bundle/" },
+    "bt-chats": { "title": "Microsoft Teams Chat Migration Tool", "publisher": "BitTitan", "url": "https://www.bittitan.com/teams-chat-migrations/" },
+    "ave-backup": { "title": "AvePoint Cloud Backup", "publisher": "AvePoint", "url": "https://learn.avepoint.com/m365/about-avepoint-cloud-backup-for-microsoft-365/avepoint-cloud-backup.html" },
+    "datto-help": { "title": "What is Datto SaaS Protection?", "publisher": "Datto", "url": "https://saasprotection.datto.com/help/M365/Content/Getting_acquainted_with_Datto_SaaS_Protection/01A_What_is_Datto_SaaS_Protection.htm" },
+    "ct-domains": { "title": "Different signatures for different domains", "publisher": "CodeTwo", "url": "https://www.codetwo.com/kb/adding-different-signatures-office365-domains/" },
+    "ct-faq": { "title": "Email Signatures 365: FAQ", "publisher": "CodeTwo", "url": "https://www.codetwo.com/email-signatures/faq" },
+    "cp-connectors": { "title": "Connectors, Protect (Inline) mode", "publisher": "Check Point", "url": "https://sc1.checkpoint.com/documents/Harmony_Email_and_Collaboration//Email_Security/Admin_Guide/Topics/introduction-cp-manual-config-0365/step-8-connectors-protect-inline.html" },
+    "cp-rules": { "title": "Check Point - Protect", "publisher": "Check Point", "url": "https://sc1.checkpoint.com/documents/Harmony_Email_and_Collaboration/Email_Security/Admin_Guide/Topics/introduction-cp-manual-config-0365/protect.html" }
+  },
+  "families": [
+    { "id": "copy", "name": "Data copy", "icon": "folder", "description": "Move mailboxes, OneDrive, sites and teams from one tenant to another." },
+    { "id": "module", "name": "This module", "icon": "terminal", "description": "What TenantConverge itself does, and leaves behind." },
+    { "id": "backup", "name": "Backup", "icon": "database", "description": "Protect data before and after the migration." },
+    { "id": "security", "name": "Security and mail flow", "icon": "shield", "description": "Filter mail, protect devices and train users." },
+    { "id": "signature", "name": "Signatures", "icon": "mail", "description": "Add signatures to outgoing mail." },
+    { "id": "devices", "name": "Devices", "icon": "laptop", "description": "Inventory, enroll and reset devices." },
+    { "id": "dns", "name": "DNS hosts", "icon": "globe", "description": "Publish the records of the domains that move." },
+    { "id": "voice", "name": "Telephony", "icon": "phone", "description": "Carry the numbers and calls of Teams." },
+    { "id": "apps", "name": "Business applications", "icon": "grid", "description": "Use Entra ID or mail, and must be registered again in the target." }
+  ],
+  "products": [
+    {
+      "id": "sharegate", "name": "ShareGate Migrate", "publisher": "ShareGate", "family": "copy", "link": "https://sharegate.com/microsoft-migration", "verifiedOn": "2026-11-06",
+      "role": "Copies sites, OneDrive, teams and mailboxes between tenants, as a tool run by an administrator.",
+      "before": ["Add the application to the EWS allow list of the source and of the target.", "Create the target resource mailboxes first: the copy does not create them."],
+      "during": ["Run a pre-copy, then a final copy after the sources are frozen."],
+      "after": ["Reconcile the volumes, then redo by hand what the tool does not copy, such as calendar folder permissions."],
+      "license": { "text": "Copy mailboxes and PowerShell need the Pro or Enterprise plan: neither is in Essentials.", "source": "sg-mailboxes-overview", "verifiedOn": "2026-11-06" },
+      "rights": null, "dataLocation": null,
+      "limits": [
+        { "text": "A single mailbox moves at 1.5 GB per hour at most. The publisher advises against one copy action of more than 800,000 items.", "source": "sg-mailboxes", "verifiedOn": "2026-11-06" },
+        { "text": "Copy mailboxes goes through EWS: the application must be on the allow list of both tenants until the retirement.", "source": "sg-ews", "verifiedOn": "2026-11-06" },
+        { "text": "Shared channels are not supported.", "source": "sg-teams", "verifiedOn": "2026-11-06" },
+        { "text": "The 50 most recent conversations go to the Posts tab. A PowerShell parameter copies up to 500 messages there. All the conversations stay in an HTML archive page, in a new Message history tab.", "source": "sg-teams", "verifiedOn": "2026-11-06" },
+        { "text": "Resource mailboxes: only events organized by the resource are copied, and the target mailbox must already exist.", "source": "sg-mailboxes", "verifiedOn": "2026-11-06" },
+        { "text": "Private chats: in-chat file attachment links do not move, and meeting chats arrive as group chats.", "source": "sg-chats", "verifiedOn": "2026-11-06" }
+      ],
+      "tasks": ["TOOL-01", "TOOL-03", "PREP-02"], "decisions": ["TOOL-01"], "detection": "sharegate"
+    },
+    {
+      "id": "quest", "name": "Quest On Demand Migration", "publisher": "Quest", "family": "copy", "link": "https://www.quest.com/products/on-demand-migration/", "verifiedOn": "2026-11-05", "recheck": true,
+      "role": "Hosted service for migrations between tenants.",
+      "before": ["Ask the publisher whether mail tasks still use EWS."],
+      "during": ["Move OneDrive before private chats: chat attachments point to it."], "after": [],
+      "license": { "text": "Licensed per source account handled, consumed when the task starts. Confirm which plan includes chats.", "source": "quest-license", "verifiedOn": "2026-11-05", "recheck": true },
+      "rights": null, "dataLocation": null,
+      "limits": [
+        { "text": "Mail tasks still used EWS at the last publication read. Confirm the move to Graph.", "source": "quest-ews", "verifiedOn": "2026-11-05", "recheck": true },
+        { "text": "Move OneDrive first: chat attachments are linked to it.", "source": "quest-forum", "verifiedOn": "2026-11-05", "recheck": true }
+      ],
+      "tasks": ["TOOL-01", "TOOL-02"], "decisions": ["TOOL-01", "TOOL-02"], "detection": "\\bquest\\b|on demand migration"
+    },
+    {
+      "id": "bittitan", "name": "BitTitan MigrationWiz", "publisher": "BitTitan", "family": "copy", "link": "https://www.bittitan.com/migrationwiz/", "verifiedOn": "2026-11-06",
+      "role": "Hosted service that moves mail and data between tenants, by project.",
+      "before": ["Check whether an old project left an application or a consent in a tenant."], "during": [], "after": [],
+      "license": { "text": "The Tenant Migration Bundle includes the User Migration Bundle, and either Teams Migration or Shared Documents of 100 GB.", "source": "bt-bundle", "verifiedOn": "2026-11-06" },
+      "rights": null, "dataLocation": null,
+      "limits": [
+        { "text": "A Graph mailbox project is available. EWS stays in use for what Graph does not cover yet: some archives, public folders and group mailboxes.", "source": "bt-graph", "verifiedOn": "2026-11-06" },
+        { "text": "Shared channels are not migrated.", "source": "bt-items", "verifiedOn": "2026-11-05", "recheck": true },
+        { "text": "Private chats are part of the User Migration Bundle.", "source": "bt-chats", "verifiedOn": "2026-11-06" }
+      ],
+      "tasks": ["TOOL-01"], "decisions": ["TOOL-01"], "detection": "bittitan|migrationwiz"
+    },
+    {
+      "id": "microsoft-xt", "name": "Microsoft cross-tenant migration", "publisher": "Microsoft", "family": "copy", "link": "https://learn.microsoft.com/microsoft-365/migration/migration-orchestrator-1-overview", "verifiedOn": "2026-11-06",
+      "role": "Native move of mailboxes, OneDrive, chats and meetings, inside Microsoft 365. SharePoint is a separate service.",
+      "before": [], "during": [], "after": [],
+      "license": { "text": "Cross Tenant User Data Migration: a one-time license per user, on the source or the target user object. It also covers OneDrive.", "source": "ms-mailboxes", "verifiedOn": "2026-11-06" },
+      "rights": { "text": "The target account must exist as a mail user, prepared with the attributes of the source mailbox.", "source": "ms-mailboxes", "verifiedOn": "2026-11-06" },
+      "dataLocation": { "text": "The data never leaves the Microsoft 365 cloud.", "source": "ms-onedrive", "verifiedOn": "2026-11-06" },
+      "limits": [
+        { "text": "The target must be a mail user with no mailbox: it cannot merge into an existing account.", "source": "ms-mailboxes", "verifiedOn": "2026-11-06" },
+        { "text": "A OneDrive that already exists at the target makes the move fail.", "source": "ms-onedrive", "verifiedOn": "2026-11-06" },
+        { "text": "OneDrive moves once: no incremental or delta pass.", "source": "ms-onedrive", "verifiedOn": "2026-11-06" },
+        { "text": "The orchestrator covers four workloads: mailboxes, OneDrive, Teams chats and Teams meetings. Teams and channels are not among them.", "source": "ms-orchestrator", "verifiedOn": "2026-11-06" },
+        { "text": "Mailboxes on any hold are not migrated: the move is blocked.", "source": "ms-orchestrator", "verifiedOn": "2026-11-06" },
+        { "text": "SharePoint needs its own license, Cross-Tenant Shared Data Migration, offered per 100 GB of data moved and only to Enterprise Agreement customers.", "source": "ms-sharepoint", "verifiedOn": "2026-11-06" }
+      ],
+      "tasks": ["TOOL-01"], "decisions": ["TOOL-01"], "detection": "cross.?tenant.*migration|Mailbox\\.Migration"
+    },
+    {
+      "id": "tenantconverge", "name": "TenantConverge assessment", "publisher": "The TenantConverge Authors", "family": "module", "link": "", "verifiedOn": "2026-11-06",
+      "role": "Reads the tenants, then computes the findings, the score and the plan that this report shows.",
+      "before": ["Have the read-only application approved, when access is by application."], "during": [], "after": ["Remove the read-only application with Remove-TcAccess."],
+      "license": null, "rights": null, "dataLocation": null, "limits": [],
+      "tasks": ["ASSESS-01"], "decisions": [], "detection": "tenantconverge"
+    },
+    {
+      "id": "tenantconverge-remediation", "name": "TenantConverge remediations", "publisher": "The TenantConverge Authors", "family": "module", "link": "", "verifiedOn": "2026-11-06",
+      "role": "Separate scripts that act on a decisions file, with a preview by default.",
+      "before": ["Read each script, and try it on a test tenant."], "during": [], "after": [],
+      "license": null, "rights": null, "dataLocation": null, "limits": [],
+      "tasks": [], "decisions": [], "detection": null
+    },
+    {
+      "id": "avepoint", "name": "AvePoint Cloud Backup", "publisher": "AvePoint", "family": "backup", "link": "https://www.avepoint.com/products/cloud-backup", "verifiedOn": "2026-11-06",
+      "role": "Backup of Microsoft 365, including Teams chat as its own service.",
+      "before": ["Check the last backup and restore a test item.", "If chats stay readable through the backup, test that restore."], "during": [],
+      "after": ["Test access to the data after a tenant closes."],
+      "license": null, "rights": null, "dataLocation": null,
+      "limits": [
+        { "text": "Teams chat does not support a retention policy: its backups stay until the subscription ends.", "source": "ave-backup", "verifiedOn": "2026-11-06" },
+        { "text": "Exporting data before it is deleted is a paid service.", "source": "ave-backup", "verifiedOn": "2026-11-06" }
+      ],
+      "tasks": ["TOOL-02", "PREP-07", "CLOSE-02"], "decisions": ["TOOL-02"], "detection": "avepoint"
+    },
+    {
+      "id": "datto", "name": "Datto SaaS Protection", "publisher": "Datto", "family": "backup", "link": "https://www.datto.com/products/saas-protection/", "verifiedOn": "2026-11-06",
+      "role": "Backup of OneDrive, Exchange, SharePoint and Teams.",
+      "before": ["Confirm how new accounts join the backup."], "during": [], "after": ["Try a restore on a migrated account."],
+      "license": null, "rights": null, "dataLocation": null,
+      "limits": [
+        { "text": "1:1 Teams chats are not backed up.", "source": "datto-help", "verifiedOn": "2026-11-06" },
+        { "text": "Public folders and Planner are not covered.", "source": "datto-help", "verifiedOn": "2026-11-06" }
+      ],
+      "tasks": ["PREP-07", "CLOSE-02"], "decisions": [], "detection": "datto|backupify"
+    },
+    {
+      "id": "checkpoint", "name": "Check Point Harmony Email & Collaboration", "publisher": "Check Point", "family": "security", "link": "https://www.checkpoint.com/harmony/email-security/", "verifiedOn": "2026-11-06",
+      "role": "Mail security that can run inline, through connectors and mail flow rules.",
+      "before": ["Bring the domains and accounts that move into the protected scope."], "during": ["Test inbound and outbound flow for each domain that moves."], "after": ["Remove the connector and rules of a source when it closes."],
+      "license": null, "rights": null, "dataLocation": null,
+      "limits": [
+        { "text": "Inline protection needs the option that retains internal Exchange headers on the outbound connector. Keep it when reconfiguring.", "source": "cp-connectors", "verifiedOn": "2026-11-06" },
+        { "text": "In inline mode, its Protect rule goes first in the list of mail flow rules.", "source": "cp-rules", "verifiedOn": "2026-11-06" }
+      ],
+      "tasks": ["MAIL-02"], "decisions": [], "detection": "check ?point|avanan|cpmails"
+    },
+    {
+      "id": "knowbe4", "name": "KnowBe4 and PhishER", "publisher": "KnowBe4", "family": "security", "link": "https://www.knowbe4.com/", "verifiedOn": "2026-11-06",
+      "role": "Security awareness training, and handling of reported messages.",
+      "before": ["Validate the inbound connector for the domains that move."], "during": [], "after": ["Remove the integration of a source when it closes."],
+      "license": null, "rights": null, "dataLocation": null, "limits": [],
+      "tasks": ["MAIL-02"], "decisions": [], "detection": "knowbe4|phisher|phish rip"
+    },
+    {
+      "id": "crowdstrike", "name": "CrowdStrike Falcon", "publisher": "CrowdStrike", "family": "security", "link": "https://www.crowdstrike.com/", "verifiedOn": "2026-11-06",
+      "role": "Endpoint protection, often deployed through Intune.",
+      "before": ["Include the agent in the device reset test."], "during": [], "after": ["Remove the old devices from the console."],
+      "license": null, "rights": null, "dataLocation": null, "limits": [],
+      "tasks": ["DEV-02"], "decisions": [], "detection": "crowdstrike|falcon"
+    },
+    {
+      "id": "hornetsecurity", "name": "Hornetsecurity 365 Total Protection", "publisher": "Hornetsecurity", "family": "security", "link": "https://www.hornetsecurity.com/en/365-total-protection/", "verifiedOn": "2026-11-06",
+      "role": "Mail security for Microsoft 365, in MX, API or hybrid mode.",
+      "before": ["Confirm that it is in use. If not, remove its applications and its SPF entry."], "during": [], "after": [],
+      "license": null, "rights": null, "dataLocation": null, "limits": [],
+      "tasks": ["MAIL-02"], "decisions": [], "detection": "hornet"
+    },
+    {
+      "id": "retired-filters", "name": "Leftovers of former mail filters", "publisher": "Various", "family": "security", "link": "", "verifiedOn": "2026-11-06",
+      "role": "Disabled rules or connectors left by a mail filtering service that is gone.",
+      "before": ["Confirm that the service is gone, then remove what it left."], "during": [], "after": [],
+      "license": null, "rights": null, "dataLocation": null, "limits": [],
+      "tasks": ["MAIL-02"], "decisions": [], "detection": "\\b(former|old|legacy|retired) (mail|spam|anti-?spam)\\b"
+    },
+    {
+      "id": "codetwo", "name": "CodeTwo Email Signatures 365", "publisher": "CodeTwo", "family": "signature", "link": "https://www.codetwo.com/email-signatures/", "verifiedOn": "2026-11-05", "recheck": true,
+      "role": "Adds signatures to outgoing mail, at the server or in Outlook.",
+      "before": ["Recreate the signatures of the sources in the target, and test with an account of each group."], "during": [], "after": ["Remove the applications of a source when it closes."],
+      "license": null, "rights": null, "dataLocation": null,
+      "limits": [
+        { "text": "Rules move between tenants by export and import.", "source": "ct-faq", "verifiedOn": "2026-11-05", "recheck": true },
+        { "text": "Separate signatures per domain need one rule per domain.", "source": "ct-domains", "verifiedOn": "2026-11-05", "recheck": true }
+      ],
+      "tasks": ["MAIL-03"], "decisions": [], "detection": "codetwo|emailsignatures365"
+    },
+    {
+      "id": "ninjaone", "name": "NinjaOne", "publisher": "NinjaOne", "family": "devices", "link": "https://www.ninjaone.com/", "verifiedOn": "2026-11-06",
+      "role": "Endpoint management and remote access. It can list the applications installed on devices.",
+      "before": ["Export the installed applications and validate them with their owners."], "during": [], "after": ["Check that the agent comes back on reset devices."],
+      "license": null, "rights": null, "dataLocation": null, "limits": [],
+      "tasks": ["DEV-04"], "decisions": [], "detection": "ninja"
+    },
+    {
+      "id": "autopilot", "name": "Windows Autopilot and Intune", "publisher": "Microsoft", "family": "devices", "link": "https://learn.microsoft.com/en-us/autopilot/overview", "verifiedOn": "2026-11-06",
+      "role": "Resets Windows devices and enrolls them in a tenant from their hardware identity.",
+      "before": ["Try the reset on a pilot device."], "during": [], "after": ["Remove the old profiles of the source."],
+      "license": null, "rights": null, "dataLocation": null,
+      "limits": [
+        { "text": "A device that leaves an organization should be deregistered from Autopilot: delete it from Intune first, then deregister it.", "source": "ms-autopilot", "verifiedOn": "2026-11-06" }
+      ],
+      "tasks": ["DEV-02", "DEV-05"], "decisions": [], "detection": null
+    },
+    {
+      "id": "cloudflare", "name": "Cloudflare", "publisher": "Cloudflare", "family": "dns", "link": "https://www.cloudflare.com/", "verifiedOn": "2026-11-06",
+      "role": "DNS host with an API.",
+      "before": ["Get an API token limited to the zones that move."], "during": ["Update MX, SPF, Autodiscover and DKIM."], "after": ["Revoke the token."],
+      "license": null, "rights": null, "dataLocation": null, "limits": [],
+      "tasks": ["MAIL-01"], "decisions": [], "detection": "cloudflare"
+    },
+    {
+      "id": "godaddy", "name": "GoDaddy", "publisher": "GoDaddy", "family": "dns", "link": "https://www.godaddy.com/", "verifiedOn": "2026-11-05", "recheck": true,
+      "role": "Domain registrar and DNS host.",
+      "before": ["Get access to the zone."], "during": [], "after": [],
+      "license": null, "rights": null, "dataLocation": null, "limits": [],
+      "tasks": ["MAIL-01"], "decisions": [], "detection": "domaincontrol\\.com|godaddy"
+    },
+    {
+      "id": "route53", "name": "Amazon Route 53", "publisher": "Amazon Web Services", "family": "dns", "link": "https://aws.amazon.com/route53/", "verifiedOn": "2026-11-06",
+      "role": "DNS service of Amazon Web Services.",
+      "before": ["Get access to the hosted zone."], "during": [], "after": [],
+      "license": null, "rights": null, "dataLocation": null, "limits": [],
+      "tasks": ["MAIL-01"], "decisions": [], "detection": "awsdns"
+    },
+    {
+      "id": "calling-plans", "name": "Microsoft Calling Plans", "publisher": "Microsoft", "family": "voice", "link": "https://learn.microsoft.com/en-us/microsoftteams/calling-plans-for-office-365", "verifiedOn": "2026-11-06",
+      "role": "Microsoft as the telephony carrier for Teams.",
+      "before": ["Choose the target model, then order the porting."], "during": [], "after": ["Recreate auto attendants, call queues and schedules in the target."],
+      "license": null, "rights": null, "dataLocation": null, "limits": [],
+      "tasks": ["VOICE-01"], "decisions": ["VOICE-01"], "detection": null
+    },
+    {
+      "id": "direct-routing", "name": "Teams Direct Routing", "publisher": "Microsoft", "family": "voice", "link": "https://learn.microsoft.com/en-us/microsoftteams/direct-routing-landing-page", "verifiedOn": "2026-11-06",
+      "role": "Connects Teams to a carrier through a certified session border controller.",
+      "before": ["Identify the provider and its porting terms."], "during": [], "after": [],
+      "license": null, "rights": null, "dataLocation": null, "limits": [],
+      "tasks": ["VOICE-01"], "decisions": ["VOICE-01"], "detection": "direct routing"
+    },
+    {
+      "id": "operator-connect", "name": "Operator Connect", "publisher": "Microsoft and operators", "family": "voice", "link": "https://learn.microsoft.com/en-us/microsoftteams/operator-connect-plan", "verifiedOn": "2026-11-06",
+      "role": "Teams telephony run by a partner operator.",
+      "before": [], "during": [], "after": [],
+      "license": null, "rights": null, "dataLocation": null, "limits": [],
+      "tasks": ["VOICE-01"], "decisions": ["VOICE-01"], "detection": null
+    },
+    {
+      "id": "business-apps", "name": "Line-of-business applications", "publisher": "Various", "family": "apps", "link": "", "verifiedOn": "2026-11-06",
+      "role": "Applications that sign in through Entra ID or send mail for the business.",
+      "before": ["List them from the enterprise applications of each source."], "during": ["Give access to the migrated accounts that need it."], "after": [],
+      "license": null, "rights": null, "dataLocation": null, "limits": [],
+      "tasks": ["DEV-04", "GOV-01"], "decisions": [], "detection": null
+    },
+    {
+      "id": "monitoring", "name": "Security monitoring applications", "publisher": "Various", "family": "apps", "link": "", "verifiedOn": "2026-11-06",
+      "role": "Applications of a monitoring provider that read the logs of a tenant.",
+      "before": ["Confirm the scope once a source closes."], "during": [], "after": [],
+      "license": null, "rights": null, "dataLocation": null, "limits": [],
+      "tasks": ["GOV-01"], "decisions": [], "detection": "\\b(siem|soc monitoring|managed detection|log forwarder)\\b"
+    },
+    {
+      "id": "senders", "name": "Bulk mail platforms", "publisher": "Various", "family": "apps", "link": "", "verifiedOn": "2026-11-06",
+      "role": "Bulk mail platforms that domains allow through SPF.",
+      "before": ["Keep these entries when merging SPF, if they are still in use."], "during": [], "after": [],
+      "license": null, "rights": null, "dataLocation": null, "limits": [],
+      "tasks": ["MAIL-01"], "decisions": [], "detection": "mcsv\\.net|amazonses|sendgrid|mailgun|sendinblue|brevo"
+    }
+  ],
+  "matrixStates": {
+    "yes": { "label": "Covered", "tone": "ok", "icon": "check" },
+    "partial": { "label": "Covered with a limit", "tone": "warn", "icon": "half" },
+    "no": { "label": "Not covered", "tone": "blocking", "icon": "no" },
+    "check": { "label": "To check", "tone": "", "icon": "dash" }
+  },
+  "copyTools": [
+    { "id": "sharegate", "name": "ShareGate" }, { "id": "quest", "name": "Quest" }, { "id": "bittitan", "name": "BitTitan" }, { "id": "microsoft-xt", "name": "Microsoft" }
+  ],
+  "copyMatrix": [
+    { "id": "mailboxes", "name": "User mailboxes and calendars", "exposure": "userMailboxes", "cells": {
+      "sharegate": { "state": "partial", "note": "Covered, with the EWS allow list, at 1.5 GB per hour per mailbox.", "source": "sg-mailboxes", "verifiedOn": "2026-11-06" },
+      "quest": { "state": "partial", "note": "Covered. Confirm whether mail tasks still use EWS.", "source": "quest-ews", "verifiedOn": "2026-11-05", "recheck": true },
+      "bittitan": { "state": "yes", "note": "Covered, by a Graph or an EWS project.", "source": "bt-graph", "verifiedOn": "2026-11-06" },
+      "microsoft-xt": { "state": "partial", "note": "Covered if the target account has no mailbox yet.", "source": "ms-mailboxes", "verifiedOn": "2026-11-06" } } },
+    { "id": "shared", "name": "Shared mailboxes", "exposure": "sharedMailboxes", "cells": {
+      "sharegate": { "state": "yes", "note": "Covered.", "source": "sg-compare", "verifiedOn": "2026-11-06" },
+      "quest": { "state": "check", "note": "Confirm in the pilot." }, "bittitan": { "state": "check", "note": "Confirm in the pilot." }, "microsoft-xt": { "state": "check", "note": "Confirm in the pilot." } } },
+    { "id": "merge", "name": "Merge into an existing account", "exposure": "likelyDuplicates", "cells": {
+      "sharegate": { "state": "check", "note": "The destination exists by design. Try how the items are filed." }, "quest": { "state": "check", "note": "Confirm in the pilot." }, "bittitan": { "state": "check", "note": "Confirm in the pilot." },
+      "microsoft-xt": { "state": "no", "note": "Not possible: neither a mailbox nor a OneDrive may exist at the target.", "source": "ms-onedrive", "verifiedOn": "2026-11-06" } } },
+    { "id": "onedrive", "name": "OneDrive", "exposure": "oneDriveAccounts", "cells": {
+      "sharegate": { "state": "yes", "note": "Covered.", "source": "sg-compare", "verifiedOn": "2026-11-06" }, "quest": { "state": "check", "note": "Confirm in the pilot." },
+      "bittitan": { "state": "yes", "note": "Covered by the bundle.", "source": "bt-bundle", "verifiedOn": "2026-11-06" },
+      "microsoft-xt": { "state": "partial", "note": "One move, with no incremental pass.", "source": "ms-onedrive", "verifiedOn": "2026-11-06" } } },
+    { "id": "sites", "name": "SharePoint sites", "exposure": "sites", "cells": {
+      "sharegate": { "state": "yes", "note": "Covered.", "source": "sg-compare", "verifiedOn": "2026-11-06" }, "quest": { "state": "check", "note": "Confirm in the pilot." },
+      "bittitan": { "state": "partial", "note": "Through Shared Documents, 100 GB per license.", "source": "bt-bundle", "verifiedOn": "2026-11-06" },
+      "microsoft-xt": { "state": "partial", "note": "One move, for Enterprise Agreement customers.", "source": "ms-sharepoint", "verifiedOn": "2026-11-06" } } },
+    { "id": "teams", "name": "Teams and standard channels", "exposure": "teams", "cells": {
+      "sharegate": { "state": "yes", "note": "Covered, with the history in an HTML archive tab.", "source": "sg-teams", "verifiedOn": "2026-11-06" }, "quest": { "state": "check", "note": "Confirm in the pilot." },
+      "bittitan": { "state": "yes", "note": "Teams, channels and conversation history.", "source": "bt-bundle", "verifiedOn": "2026-11-06" },
+      "microsoft-xt": { "state": "no", "note": "Teams and channels are not a workload of the orchestrator.", "source": "ms-orchestrator", "verifiedOn": "2026-11-06" } } },
+    { "id": "private", "name": "Private channels", "exposure": "privateChannels", "cells": {
+      "sharegate": { "state": "yes", "note": "Covered.", "source": "sg-teams", "verifiedOn": "2026-11-06" }, "quest": { "state": "check", "note": "To confirm." }, "bittitan": { "state": "check", "note": "To confirm." },
+      "microsoft-xt": { "state": "no", "note": "Not covered.", "source": "ms-orchestrator", "verifiedOn": "2026-11-06" } } },
+    { "id": "shared-channels", "name": "Shared channels", "exposure": "sharedChannels", "cells": {
+      "sharegate": { "state": "no", "note": "Not supported: recreate them.", "source": "sg-teams", "verifiedOn": "2026-11-06" }, "quest": { "state": "check", "note": "To confirm." },
+      "bittitan": { "state": "no", "note": "Not migrated.", "source": "bt-items", "verifiedOn": "2026-11-05", "recheck": true },
+      "microsoft-xt": { "state": "no", "note": "Not covered.", "source": "ms-orchestrator", "verifiedOn": "2026-11-06" } } },
+    { "id": "chats", "name": "Private and group chats", "exposure": "", "cells": {
+      "sharegate": { "state": "partial", "note": "By PowerShell. In-chat attachment links do not move.", "source": "sg-chats", "verifiedOn": "2026-11-06" },
+      "quest": { "state": "yes", "note": "Confirm which plan includes it.", "source": "quest-chat", "verifiedOn": "2026-11-05", "recheck": true },
+      "bittitan": { "state": "yes", "note": "In the User Migration Bundle.", "source": "bt-chats", "verifiedOn": "2026-11-06" },
+      "microsoft-xt": { "state": "partial", "note": "Through the orchestrator.", "source": "ms-orchestrator", "verifiedOn": "2026-11-06" } } },
+    { "id": "planner", "name": "Planner", "exposure": "plannerPlans", "cells": {
+      "sharegate": { "state": "check", "note": "Confirm in the pilot." }, "quest": { "state": "check", "note": "To confirm." },
+      "bittitan": { "state": "partial", "note": "Limits on some details.", "source": "bt-items", "verifiedOn": "2026-11-05", "recheck": true },
+      "microsoft-xt": { "state": "no", "note": "Not covered.", "source": "ms-orchestrator", "verifiedOn": "2026-11-06" } } },
+    { "id": "meetings", "name": "Teams meeting links", "exposure": "", "cells": {
+      "sharegate": { "state": "check", "note": "To confirm." }, "quest": { "state": "check", "note": "To confirm." }, "bittitan": { "state": "check", "note": "To confirm." },
+      "microsoft-xt": { "state": "yes", "note": "The Teams meetings workload.", "source": "ms-orchestrator", "verifiedOn": "2026-11-06" } } },
+    { "id": "devices", "name": "Devices", "exposure": "autopilotDevices", "cells": {
+      "sharegate": { "state": "check", "note": "To confirm." }, "quest": { "state": "check", "note": "To confirm." }, "bittitan": { "state": "check", "note": "To confirm." },
+      "microsoft-xt": { "state": "no", "note": "Not a workload of the orchestrator.", "source": "ms-orchestrator", "verifiedOn": "2026-11-06" } } }
+  ],
+  "exposure": [
+    { "id": "largestMailbox", "label": "Largest mailbox", "unit": "GB", "source": "sg-mailboxes", "some": "At 1.5 GB per hour, a pre-copy of this mailbox takes about {hours} hours. Start it several days before the cutover.", "someTone": "info", "none": "No mailbox size was found.", "noneTone": "ok" },
+    { "id": "largeSites", "label": "Sites of 100 GB or more", "unit": "", "source": "", "some": "They hold {volume} GB: they shape the copy plan.", "someTone": "warn", "none": "No site reaches 100 GB.", "noneTone": "ok" },
+    { "id": "likelyDuplicates", "label": "Likely duplicate accounts", "unit": "", "source": "ms-onedrive", "some": "The native Microsoft move refuses them: a mailbox or OneDrive already at the target makes it fail.", "someTone": "warn", "none": "No likely duplicate.", "noneTone": "ok" },
+    { "id": "bookings", "label": "Bookings pages", "unit": "", "source": "", "some": "Plan to recreate or retire them, and check that none keeps a domain in use.", "someTone": "warn", "none": "No Bookings page.", "noneTone": "ok" },
+    { "id": "sharedChannels", "label": "Shared channels", "unit": "", "source": "sg-teams", "some": "ShareGate does not support them: recreate them by hand.", "someTone": "warn", "none": "No shared channel.", "noneTone": "ok" },
+    { "id": "plannerPlans", "label": "Planner plans", "unit": "", "source": "", "some": "Validate the copy during the pilot.", "someTone": "warn", "none": "No Planner plan.", "noneTone": "ok" },
+    { "id": "microsoft365Groups", "label": "Microsoft 365 groups", "unit": "", "source": "bt-graph", "some": "Check how the chosen tool copies group mailboxes: some still use EWS for them.", "someTone": "info", "none": "No Microsoft 365 group.", "noneTone": "ok" },
+    { "id": "archives", "label": "Mailboxes with an archive", "unit": "", "source": "bt-graph", "some": "Plan the archive copy: some tools still use EWS for it.", "someTone": "warn", "none": "No active archive: no archive copy to plan.", "noneTone": "ok" },
+    { "id": "holds", "label": "Mailboxes on hold", "unit": "", "source": "ms-orchestrator", "some": "The native Microsoft move blocks a mailbox on any hold.", "someTone": "warn", "none": "No hold: nothing blocks a native move on this ground.", "noneTone": "ok" },
+    { "id": "frontline", "label": "Kiosk, F1 or F3 licenses", "unit": "", "source": "sg-ews", "some": "These licenses have no EWS rights, even with the allow list: give them another license for the copy.", "someTone": "warn", "none": "No license without EWS rights.", "noneTone": "ok" }
+  ],
+  "ews": {
+    "milestones": [
+      { "date": "October 1, 2026", "title": "Blocked by default", "text": "EWS is disabled in tenants that did not keep it enabled with an allow list. Admins can turn it back on for a time.", "source": "ms-ews-blog", "verifiedOn": "2026-11-06" },
+      { "date": "April 1, 2027", "title": "Final shutdown", "text": "EWS is permanently disabled, whatever the tenant settings.", "source": "ms-ews-blog", "verifiedOn": "2026-11-06" }
+    ],
+    "dependencies": [
+      { "name": "ShareGate", "text": "Copy mailboxes goes through EWS. The publisher says it is working with Microsoft to stop needing it.", "source": "sg-ews", "verifiedOn": "2026-11-06" },
+      { "name": "Quest", "text": "Mail tasks still used EWS at the last publication read. Confirm the move to Graph.", "source": "quest-ews", "verifiedOn": "2026-11-05", "recheck": true },
+      { "name": "BitTitan", "text": "A Graph project is available. EWS stays in use for some archives, public folders and group mailboxes.", "source": "bt-graph", "verifiedOn": "2026-11-06" },
+      { "name": "Microsoft", "text": "The native move goes through the mailbox move service of Exchange Online. Its page does not list EWS as a requirement.", "source": "ms-mailboxes", "verifiedOn": "2026-11-06" }
+    ],
+    "readCommands": [
+      "Get-OrganizationConfig | Format-List EwsEnabled",
+      "Get-OrganizationConfig -RetrieveEwsOperationAccessPolicy | Format-List EwsAllowedAppIDs"
+    ],
+    "cautions": [
+      "Setting EwsAllowedAppIDs replaces the whole list each time: read it, complete it, then write it back.",
+      "This setting touches the whole tenant: get the agreement of its owner.",
+      "Kiosk, F1 and F3 licenses have no EWS rights, even with the list.",
+      "The assessment does not read EwsAllowedAppIDs: check it in each tenant."
+    ]
+  }
+}

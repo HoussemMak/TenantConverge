@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 500" width="1280" height="500" role="img" aria-label="The team shares one file, team-tracking.csv, next to the report. In Edge or Chrome, each person links the report to that file, and the report reads and writes it. Other browsers cannot write to a file. A new workbook reads what the file holds. Generating the report again never overwrites the file once it exists.">
+  <title>How a team tracks the work</title>
+  <style>
+    text { font-family: 'Instrument Sans', 'Segoe UI', sans-serif; fill: #14242A; }
+    .mono { font-family: 'JetBrains Mono', Consolas, monospace; }
+    .title { font-size: 30px; font-weight: 600; }
+    .lead { font-size: 19px; fill: #3B4D53; }
+    .name { font-size: 21px; font-weight: 600; }
+    .sub { font-size: 17px; fill: #3B4D53; }
+    .edge { font-size: 17px; font-weight: 600; }
+    .card { fill: #FFFFFF; stroke: #BFCCC6; stroke-width: 1.5; }
+    .flow { stroke: #12333B; stroke-width: 2.5; fill: none; }
+    .quiet { stroke: #5F7176; stroke-width: 2.5; stroke-dasharray: 7 6; fill: none; }
+  </style>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#12333B"/></marker>
+    <marker id="s" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto"><path d="M10 0 L0 5 L10 10 z" fill="#12333B"/></marker>
+    <marker id="q" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#5F7176"/></marker>
+  </defs>
+
+  <rect width="1280" height="500" fill="#EFF3F1"/>
+  <text x="48" y="54" class="title">One file carries the work of the team</text>
+  <text x="48" y="86" class="lead">The report needs no server. Everyone links it to the same file.</text>
+
+  <!-- People, on the left. -->
+  <rect x="48" y="122" width="300" height="104" rx="8" class="card"/>
+  <text x="68" y="160" class="name">You</text>
+  <text x="68" y="192" class="sub">The report, in Edge or Chrome</text>
+
+  <rect x="48" y="246" width="300" height="104" rx="8" class="card"/>
+  <text x="68" y="284" class="name">A colleague</text>
+  <text x="68" y="316" class="sub">The same report, linked too</text>
+
+  <path d="M352 174 H 500 V 212 H 516" class="flow" marker-start="url(#s)" marker-end="url(#a)"/>
+  <path d="M352 298 H 500 V 264 H 516" class="flow" marker-start="url(#s)" marker-end="url(#a)"/>
+  <text x="372" y="160" class="edge">reads and writes</text>
+
+  <!-- The shared file. -->
+  <rect x="520" y="150" width="340" height="176" rx="10" fill="#12333B"/>
+  <text x="690" y="200" class="mono" text-anchor="middle" style="font-size:20px;fill:#E7EFEC">team-tracking.csv</text>
+  <text x="690" y="238" text-anchor="middle" style="font-size:17px;fill:#A9C2BE">Next to the report,</text>
+  <text x="690" y="263" text-anchor="middle" style="font-size:17px;fill:#A9C2BE">in a folder the team shares:</text>
+  <text x="690" y="288" text-anchor="middle" style="font-size:17px;fill:#A9C2BE">statuses, assignees, notes, answers</text>
+
+  <!-- What reads it, on the right. -->
+  <path d="M860 196 H 932" class="flow" marker-end="url(#a)"/>
+  <text x="872" y="182" class="edge">reads</text>
+  <rect x="936" y="122" width="296" height="104" rx="8" class="card"/>
+  <text x="956" y="160" class="name">A new workbook</text>
+  <text x="956" y="192" class="sub">Shows what the file holds</text>
+
+  <path d="M860 280 H 932" class="flow" marker-end="url(#a)"/>
+  <text x="872" y="266" class="edge">reads</text>
+  <rect x="936" y="246" width="296" height="104" rx="8" class="card"/>
+  <text x="956" y="284" class="name">A new report</text>
+  <text x="956" y="316" class="sub">Never overwrites the file</text>
+
+  <!-- What the file keeps. -->
+  <text x="48" y="404" class="sub">A row the report cannot read stays in the file, shown as not recognised. It counts for nothing.</text>
+  <text x="48" y="432" class="sub">A row whose item left the plan stays too, as an orphan.</text>
+  <text x="48" y="460" class="sub">Other browsers can show the report, but they cannot write to a file.</text>
+</svg>

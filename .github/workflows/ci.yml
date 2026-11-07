@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    runs-on: windows-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Install test tools
+        shell: pwsh
+        run: |
+          Install-Module Pester -RequiredVersion 6.2.0 -Force -Scope CurrentUser -SkipPublisherCheck
+          Install-Module PSScriptAnalyzer -RequiredVersion 1.25.0 -Force -Scope CurrentUser
+          Install-Module ImportExcel -RequiredVersion 7.8.10 -Force -Scope CurrentUser
+
+      - name: Run tests
+        shell: pwsh
+        run: Invoke-Pester tests -CI -Output Detailed
+
+      - name: Run static analysis
+        shell: pwsh
+        run: |
+          $findings = foreach ($folder in 'src', 'tools') {
+              Invoke-ScriptAnalyzer -Path $folder -Recurse -Settings ./PSScriptAnalyzerSettings.psd1
+          }
+          $findings | Format-Table -AutoSize
+          if ($findings) { exit 1 }
+
+      - name: Scan for secrets
+        shell: pwsh
+        run: |
+          $version = '8.30.1'
+          $expected = 'd29144deff3a68aa93ced33dddf84b7fdc26070add4aa0f4513094c8332afc4e'
+          $archive = Join-Path $env:RUNNER_TEMP 'gitleaks.zip'
+          $folder = Join-Path $env:RUNNER_TEMP 'gitleaks'
+          Invoke-WebRequest "https://github.com/gitleaks/gitleaks/releases/download/v$version/gitleaks_${version}_windows_x64.zip" -OutFile $archive
+          if ((Get-FileHash $archive -Algorithm SHA256).Hash -ne $expected) { throw 'The gitleaks archive does not match its checksum.' }
+          Expand-Archive $archive -DestinationPath $folder
+          & (Join-Path $folder 'gitleaks.exe') git . --redact
+          exit $LASTEXITCODE
+
+      - name: Check forbidden terms
+        shell: pwsh
+        env:
+          TC_FORBIDDEN_TERMS: ${{ secrets.TC_FORBIDDEN_TERMS }}
+        run: |
+          if (-not $env:TC_FORBIDDEN_TERMS) {
+              Write-Output 'No terms list in this context. Skipping.'
+              exit 0
+          }
+          $file = Join-Path $env:RUNNER_TEMP 'terms.txt'
+          Set-Content -Path $file -Value $env:TC_FORBIDDEN_TERMS
+          ./tools/Test-TcForbiddenTerm.ps1 -TermsPath $file -Path . -IncludeGitHistory
+          exit $LASTEXITCODE

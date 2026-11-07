@@ -1,0 +1,2615 @@
+{
+  "schemaVersion": 1,
+  "notice": "UNTESTED: this script has never been run on a real tenant. Read it, try it on a test tenant first, and use it at your own risk.",
+  "remediations": [
+    {
+      "id": "ACCESS-REVIEW",
+      "title": "Define and set up the periodic review of access and guest accounts",
+      "workload": "Entra ID",
+      "ruleIds": [],
+      "nature": "Partial",
+      "risk": "Medium",
+      "reversible": true,
+      "permissions": [
+        "AccessReview.ReadWrite.All",
+        "User.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Target",
+      "roles": [],
+      "taskIds": [
+        "CLOSE-03"
+      ],
+      "removesObjects": false,
+      "path": "EntraID/ACCESS-REVIEW.ps1"
+    },
+    {
+      "id": "AUT-CONCEALED-REPORTS",
+      "title": "Show names in the usage reports",
+      "workload": "Other services",
+      "ruleIds": [
+        "AUT-CONCEALED-REPORTS"
+      ],
+      "nature": "Decision",
+      "risk": "Medium",
+      "reversible": true,
+      "permissions": [
+        "ReportSettings.ReadWrite.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "ID-01"
+      ],
+      "removesObjects": false,
+      "path": "OtherServices/AUT-CONCEALED-REPORTS.ps1"
+    },
+    {
+      "id": "AUT-COPILOT",
+      "title": "Plan the Copilot licenses in the target",
+      "workload": "Other services",
+      "ruleIds": [
+        "AUT-COPILOT"
+      ],
+      "nature": "Partial",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "None",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "LIC-01"
+      ],
+      "removesObjects": false,
+      "path": "OtherServices/AUT-COPILOT.ps1"
+    },
+    {
+      "id": "AUT-SECURE-SCORE",
+      "title": "Follow the maturity gap with the secure score",
+      "workload": "Other services",
+      "ruleIds": [
+        "AUT-SECURE-SCORE"
+      ],
+      "nature": "Report",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [
+        "SecurityEvents.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "BUILD-03"
+      ],
+      "removesObjects": false,
+      "path": "OtherServices/AUT-SECURE-SCORE.ps1"
+    },
+    {
+      "id": "AUT-SERVICES",
+      "title": "Carry over Bookings, Viva Engage and Planner",
+      "workload": "Other services",
+      "ruleIds": [
+        "AUT-SERVICES"
+      ],
+      "nature": "Partial",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [
+        "Bookings.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "BUILD-04"
+      ],
+      "removesObjects": false,
+      "path": "OtherServices/AUT-SERVICES.ps1"
+    },
+    {
+      "id": "CMP-CAPACITY",
+      "title": "Check the SharePoint capacity for a source",
+      "workload": "SharePoint and OneDrive",
+      "ruleIds": [
+        "CMP-CAPACITY"
+      ],
+      "nature": "Report",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Pnp",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "BUILD-02"
+      ],
+      "removesObjects": false,
+      "path": "SharePointAndOneDrive/CMP-CAPACITY.ps1"
+    },
+    {
+      "id": "CMP-CROSS-GUESTS",
+      "title": "Handle cross-tenant guests before the domains are assigned to target accounts",
+      "workload": "Entra ID",
+      "ruleIds": [
+        "CMP-CROSS-GUESTS"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": false,
+      "permissions": [
+        "User.ReadWrite.All",
+        "User.DeleteRestore.All",
+        "User-ConvertToInternal.ReadWrite.All",
+        "Directory.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [
+        "User Administrator"
+      ],
+      "taskIds": [
+        "ID-03"
+      ],
+      "removesObjects": true,
+      "path": "EntraID/CMP-CROSS-GUESTS.ps1"
+    },
+    {
+      "id": "CMP-CROSS-TENANT",
+      "title": "Set up cross-tenant access during the migration",
+      "workload": "Entra ID",
+      "ruleIds": [
+        "CMP-CROSS-TENANT"
+      ],
+      "nature": "Decision",
+      "risk": "Medium",
+      "reversible": true,
+      "permissions": [
+        "Policy.ReadWrite.CrossTenantAccess"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "ID-03"
+      ],
+      "removesObjects": false,
+      "path": "EntraID/CMP-CROSS-TENANT.ps1"
+    },
+    {
+      "id": "CMP-FREE-BUSY",
+      "title": "Share availability between the target and a source",
+      "workload": "Exchange Online",
+      "ruleIds": [
+        "CMP-FREE-BUSY"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": false,
+      "permissions": [
+        "Policy.ReadWrite.CrossTenantAccess",
+        "Policy.ReadWrite.CrossTenantCapability"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Exo",
+      "scope": "Source",
+      "roles": [],
+      "taskIds": [
+        "ID-03"
+      ],
+      "removesObjects": true,
+      "path": "ExchangeOnline/CMP-FREE-BUSY.ps1"
+    },
+    {
+      "id": "CMP-LICENSES",
+      "title": "Order the target license for a source",
+      "workload": "Entra ID",
+      "ruleIds": [
+        "CMP-LICENSES"
+      ],
+      "nature": "Partial",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [
+        "LicenseAssignment.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "LIC-01"
+      ],
+      "removesObjects": false,
+      "path": "EntraID/CMP-LICENSES.ps1"
+    },
+    {
+      "id": "CMP-SETTINGS",
+      "title": "Compare the sensitive settings of a source with the target",
+      "workload": "Consolidation",
+      "ruleIds": [
+        "CMP-SETTINGS"
+      ],
+      "nature": "Report",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "None",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "BUILD-03"
+      ],
+      "removesObjects": false,
+      "path": "Consolidation/CMP-SETTINGS.ps1"
+    },
+    {
+      "id": "CMP-SHARED-MAILBOXES",
+      "title": "Settle the matching shared mailboxes",
+      "workload": "Exchange Online",
+      "ruleIds": [
+        "CMP-SHARED-MAILBOXES"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Exo",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "GOV-03"
+      ],
+      "removesObjects": true,
+      "path": "ExchangeOnline/CMP-SHARED-MAILBOXES.ps1"
+    },
+    {
+      "id": "CMP-SITE-URLS",
+      "title": "Resolve the site addresses already taken in the target",
+      "workload": "SharePoint and OneDrive",
+      "ruleIds": [
+        "CMP-SITE-URLS"
+      ],
+      "nature": "Report",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Pnp",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "BUILD-04"
+      ],
+      "removesObjects": false,
+      "path": "SharePointAndOneDrive/CMP-SITE-URLS.ps1"
+    },
+    {
+      "id": "CMP-VOICE-LICENSES",
+      "title": "Order the Teams Phone licenses for a source",
+      "workload": "Teams Phone",
+      "ruleIds": [
+        "CMP-VOICE-LICENSES"
+      ],
+      "nature": "Partial",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [
+        "Organization.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "VOICE-01"
+      ],
+      "removesObjects": false,
+      "path": "TeamsPhone/CMP-VOICE-LICENSES.ps1"
+    },
+    {
+      "id": "CON-ALIASES",
+      "title": "Prefix the colliding aliases",
+      "workload": "Consolidation",
+      "ruleIds": [
+        "CON-ALIASES"
+      ],
+      "nature": "Decision",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Exo",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "ID-02"
+      ],
+      "removesObjects": false,
+      "path": "Consolidation/CON-ALIASES.ps1"
+    },
+    {
+      "id": "CON-APPLICATIONS",
+      "title": "Build the single list of applications to carry over",
+      "workload": "Consolidation",
+      "ruleIds": [
+        "CON-APPLICATIONS"
+      ],
+      "nature": "Report",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "None",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "GOV-01"
+      ],
+      "removesObjects": false,
+      "path": "Consolidation/CON-APPLICATIONS.ps1"
+    },
+    {
+      "id": "CON-CAPACITY",
+      "title": "Add up the SharePoint capacity of all sources",
+      "workload": "Consolidation",
+      "ruleIds": [
+        "CON-CAPACITY"
+      ],
+      "nature": "Report",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Pnp",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "BUILD-02"
+      ],
+      "removesObjects": false,
+      "path": "Consolidation/CON-CAPACITY.ps1"
+    },
+    {
+      "id": "CON-DOMAINS",
+      "title": "Confirm the DNS access for the domains to move",
+      "workload": "Consolidation",
+      "ruleIds": [
+        "CON-DOMAINS"
+      ],
+      "nature": "Report",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [
+        "Domain.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "MAIL-01"
+      ],
+      "removesObjects": false,
+      "path": "Consolidation/CON-DOMAINS.ps1"
+    },
+    {
+      "id": "CON-IDENTITIES",
+      "title": "Designate the single account of duplicate people",
+      "workload": "Consolidation",
+      "ruleIds": [
+        "CON-IDENTITIES"
+      ],
+      "nature": "Decision",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [
+        "User.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "ID-02"
+      ],
+      "removesObjects": false,
+      "path": "Consolidation/CON-IDENTITIES.ps1"
+    },
+    {
+      "id": "CON-LICENSES",
+      "title": "Plan the overall purchase of the target license",
+      "workload": "Consolidation",
+      "ruleIds": [
+        "CON-LICENSES"
+      ],
+      "nature": "Report",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "None",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "LIC-01"
+      ],
+      "removesObjects": false,
+      "path": "Consolidation/CON-LICENSES.ps1"
+    },
+    {
+      "id": "CON-SETTINGS",
+      "title": "Choose the single rule of the target",
+      "workload": "Consolidation",
+      "ruleIds": [
+        "CON-SETTINGS"
+      ],
+      "nature": "Partial",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "None",
+      "scope": "Target",
+      "roles": [],
+      "taskIds": [
+        "BUILD-03"
+      ],
+      "removesObjects": false,
+      "path": "Consolidation/CON-SETTINGS.ps1"
+    },
+    {
+      "id": "CON-SETTINGS-SPO",
+      "title": "Apply the single rule to SharePoint",
+      "workload": "Consolidation",
+      "ruleIds": [
+        "CON-SETTINGS"
+      ],
+      "nature": "Decision",
+      "risk": "Medium",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Pnp",
+      "scope": "Target",
+      "roles": [],
+      "taskIds": [
+        "BUILD-03"
+      ],
+      "removesObjects": false,
+      "path": "Consolidation/CON-SETTINGS-SPO.ps1"
+    },
+    {
+      "id": "CON-SETTINGS-TEAMS",
+      "title": "Apply the single rule to Teams",
+      "workload": "Consolidation",
+      "ruleIds": [
+        "CON-SETTINGS"
+      ],
+      "nature": "Decision",
+      "risk": "Medium",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Teams",
+      "scope": "Target",
+      "roles": [],
+      "taskIds": [
+        "BUILD-03"
+      ],
+      "removesObjects": false,
+      "path": "Consolidation/CON-SETTINGS-TEAMS.ps1"
+    },
+    {
+      "id": "CON-SHARED-MAILBOXES",
+      "title": "Decide on the common generic mailboxes",
+      "workload": "Consolidation",
+      "ruleIds": [
+        "CON-SHARED-MAILBOXES"
+      ],
+      "nature": "Decision",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "None",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "GOV-03"
+      ],
+      "removesObjects": false,
+      "path": "Consolidation/CON-SHARED-MAILBOXES.ps1"
+    },
+    {
+      "id": "CON-SITES",
+      "title": "Prefix the target addresses of the sites",
+      "workload": "Consolidation",
+      "ruleIds": [
+        "CON-SITES"
+      ],
+      "nature": "Report",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "None",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "BUILD-04"
+      ],
+      "removesObjects": false,
+      "path": "Consolidation/CON-SITES.ps1"
+    },
+    {
+      "id": "CON-TEAMS-POLICIES",
+      "title": "Design a single set of Teams policies",
+      "workload": "Consolidation",
+      "ruleIds": [
+        "CON-TEAMS-POLICIES"
+      ],
+      "nature": "Decision",
+      "risk": "Medium",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Teams",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "GOV-02"
+      ],
+      "removesObjects": false,
+      "path": "Consolidation/CON-TEAMS-POLICIES.ps1"
+    },
+    {
+      "id": "CON-VOICE",
+      "title": "Build the single telephony plan",
+      "workload": "Consolidation",
+      "ruleIds": [
+        "CON-VOICE"
+      ],
+      "nature": "Report",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "None",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "VOICE-01"
+      ],
+      "removesObjects": false,
+      "path": "Consolidation/CON-VOICE.ps1"
+    },
+    {
+      "id": "DEVICE-BATCHES",
+      "title": "Reset the devices by batches and follow their return through Autopilot",
+      "workload": "Intune",
+      "ruleIds": [],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": false,
+      "permissions": [
+        "DeviceManagementManagedDevices.PrivilegedOperations.All",
+        "DeviceManagementManagedDevices.Read.All",
+        "DeviceManagementServiceConfig.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Source",
+      "roles": [],
+      "taskIds": [
+        "CUT-02"
+      ],
+      "removesObjects": false,
+      "path": "Intune/DEVICE-BATCHES.ps1"
+    },
+    {
+      "id": "DEVICE-PROFILES",
+      "title": "Prepare the profile reconfiguration of unmanaged devices",
+      "workload": "Intune",
+      "ruleIds": [],
+      "nature": "Partial",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "None",
+      "scope": "Source",
+      "roles": [],
+      "taskIds": [
+        "DEV-06"
+      ],
+      "removesObjects": false,
+      "path": "Intune/DEVICE-PROFILES.ps1"
+    },
+    {
+      "id": "DNS-DMARC",
+      "title": "Publish DMARC, then harden it after stabilization",
+      "workload": "Domains and DNS",
+      "ruleIds": [
+        "DNS-DMARC"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Dns",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "MAIL-01"
+      ],
+      "removesObjects": false,
+      "path": "DomainsAndDNS/DNS-DMARC.ps1"
+    },
+    {
+      "id": "DNS-HOST",
+      "title": "Get access to the DNS host of each domain",
+      "workload": "Domains and DNS",
+      "ruleIds": [
+        "DNS-HOST"
+      ],
+      "nature": "Partial",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Dns",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "MAIL-01"
+      ],
+      "removesObjects": true,
+      "path": "DomainsAndDNS/DNS-HOST.ps1"
+    },
+    {
+      "id": "DNS-SERVICES",
+      "title": "Point MX, SPF and Autodiscover to the target",
+      "workload": "Domains and DNS",
+      "ruleIds": [],
+      "nature": "Report",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [
+        "Domain.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Source",
+      "roles": [],
+      "taskIds": [
+        "CUT-01"
+      ],
+      "removesObjects": false,
+      "path": "DomainsAndDNS/DNS-SERVICES.ps1"
+    },
+    {
+      "id": "DNS-SKYPE",
+      "title": "Handle the legacy Skype and Teams records",
+      "workload": "Domains and DNS",
+      "ruleIds": [
+        "DNS-SKYPE"
+      ],
+      "nature": "Partial",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [
+        "Domain.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "MAIL-01"
+      ],
+      "removesObjects": true,
+      "path": "DomainsAndDNS/DNS-SKYPE.ps1"
+    },
+    {
+      "id": "DNS-SPF",
+      "title": "Publish a single SPF record per domain",
+      "workload": "Domains and DNS",
+      "ruleIds": [
+        "DNS-SPF"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Dns",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "MAIL-01"
+      ],
+      "removesObjects": false,
+      "path": "DomainsAndDNS/DNS-SPF.ps1"
+    },
+    {
+      "id": "DNS-TTL",
+      "title": "Lower the TTL of the records to 300 s",
+      "workload": "Domains and DNS",
+      "ruleIds": [
+        "DNS-TTL"
+      ],
+      "nature": "Partial",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Dns",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "MAIL-01"
+      ],
+      "removesObjects": false,
+      "path": "DomainsAndDNS/DNS-TTL.ps1"
+    },
+    {
+      "id": "EMERGENCY-ACCESS",
+      "title": "Create the FIDO2 emergency accounts in the target",
+      "workload": "Entra ID",
+      "ruleIds": [],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [
+        "User.Create",
+        "User.Read.All",
+        "Group.ReadWrite.All",
+        "GroupMember.ReadWrite.All",
+        "RoleManagement.ReadWrite.Directory",
+        "Policy.ReadWrite.AuthenticationMethod",
+        "Policy.Read.All",
+        "Policy.ReadWrite.ConditionalAccess",
+        "Application.Read.All",
+        "UserAuthMethod-TAP.ReadWrite.All",
+        "UserAuthMethod-Passkey.Read.All",
+        "CustomDetection.ReadWrite.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [
+        "Privileged Authentication Administrator"
+      ],
+      "taskIds": [
+        "SEC-02"
+      ],
+      "removesObjects": true,
+      "path": "EntraID/EMERGENCY-ACCESS.ps1"
+    },
+    {
+      "id": "ENT-ADMINS",
+      "title": "Reduce permanent Global Administrators",
+      "workload": "Entra ID",
+      "ruleIds": [
+        "ENT-ADMINS"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [
+        "RoleManagement.ReadWrite.Directory"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "SEC-06"
+      ],
+      "removesObjects": true,
+      "path": "EntraID/ENT-ADMINS.ps1"
+    },
+    {
+      "id": "ENT-APP-PERMISSIONS",
+      "title": "Review applications with broad permissions",
+      "workload": "Entra ID",
+      "ruleIds": [
+        "ENT-APP-PERMISSIONS"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [
+        "AppRoleAssignment.ReadWrite.All",
+        "Application.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "GOV-01"
+      ],
+      "removesObjects": true,
+      "path": "EntraID/ENT-APP-PERMISSIONS.ps1"
+    },
+    {
+      "id": "ENT-APP-REGISTRATIONS",
+      "title": "Recreate the application registrations in the target",
+      "workload": "Entra ID",
+      "ruleIds": [
+        "ENT-APP-REGISTRATIONS"
+      ],
+      "nature": "Partial",
+      "risk": "Medium",
+      "reversible": false,
+      "permissions": [
+        "Application.ReadWrite.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "GOV-01"
+      ],
+      "removesObjects": false,
+      "path": "EntraID/ENT-APP-REGISTRATIONS.ps1"
+    },
+    {
+      "id": "ENT-AUTHORIZATION",
+      "title": "Restrict user permissions",
+      "workload": "Entra ID",
+      "ruleIds": [
+        "ENT-AUTHORIZATION"
+      ],
+      "nature": "Decision",
+      "risk": "Medium",
+      "reversible": true,
+      "permissions": [
+        "Policy.ReadWrite.Authorization"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "GOV-01"
+      ],
+      "removesObjects": false,
+      "path": "EntraID/ENT-AUTHORIZATION.ps1"
+    },
+    {
+      "id": "ENT-COUNTRIES",
+      "title": "Validate the sign-in countries",
+      "workload": "Entra ID",
+      "ruleIds": [
+        "ENT-COUNTRIES"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [
+        "Policy.Read.All",
+        "Policy.ReadWrite.ConditionalAccess",
+        "User.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "SEC-03"
+      ],
+      "removesObjects": false,
+      "path": "EntraID/ENT-COUNTRIES.ps1"
+    },
+    {
+      "id": "ENT-DISABLED-LICENSED",
+      "title": "Handle disabled accounts that keep a license",
+      "workload": "Entra ID",
+      "ruleIds": [
+        "ENT-DISABLED-LICENSED"
+      ],
+      "nature": "Decision",
+      "risk": "Medium",
+      "reversible": true,
+      "permissions": [
+        "LicenseAssignment.ReadWrite.All",
+        "User.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "ID-01"
+      ],
+      "removesObjects": false,
+      "path": "EntraID/ENT-DISABLED-LICENSED.ps1"
+    },
+    {
+      "id": "ENT-GROUP-CREATION",
+      "title": "Control the creation of groups and teams",
+      "workload": "Entra ID",
+      "ruleIds": [
+        "ENT-GROUP-CREATION"
+      ],
+      "nature": "Decision",
+      "risk": "Medium",
+      "reversible": true,
+      "permissions": [
+        "Group.ReadWrite.All",
+        "GroupSettings.ReadWrite.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "GOV-02"
+      ],
+      "removesObjects": false,
+      "path": "EntraID/ENT-GROUP-CREATION.ps1"
+    },
+    {
+      "id": "ENT-GUESTS",
+      "title": "Carry over the useful guests into the target",
+      "workload": "Entra ID",
+      "ruleIds": [
+        "ENT-GUESTS"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [
+        "User.Invite.All",
+        "User.Read.All",
+        "User.ReadWrite.All",
+        "User.DeleteRestore.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [
+        "User Administrator"
+      ],
+      "taskIds": [
+        "ID-01"
+      ],
+      "removesObjects": true,
+      "path": "EntraID/ENT-GUESTS.ps1"
+    },
+    {
+      "id": "ENT-INACTIVE",
+      "title": "Settle the inactive accounts in the identity matrix",
+      "workload": "Entra ID",
+      "ruleIds": [
+        "ENT-INACTIVE"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [
+        "User.EnableDisableAccount.All",
+        "User.Read.All",
+        "User.ReadWrite.All",
+        "User.DeleteRestore.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [
+        "User Administrator"
+      ],
+      "taskIds": [
+        "ID-01"
+      ],
+      "removesObjects": true,
+      "path": "EntraID/ENT-INACTIVE.ps1"
+    },
+    {
+      "id": "ENT-LEGACY-AUTH",
+      "title": "Block legacy authentication",
+      "workload": "Entra ID",
+      "ruleIds": [
+        "ENT-LEGACY-AUTH"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [
+        "Policy.Read.All",
+        "Policy.ReadWrite.ConditionalAccess",
+        "User.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "SEC-03"
+      ],
+      "removesObjects": false,
+      "path": "EntraID/ENT-LEGACY-AUTH.ps1"
+    },
+    {
+      "id": "ENT-LEGACY-SIGN-INS",
+      "title": "Inventory and replace legacy sign-ins",
+      "workload": "Entra ID",
+      "ruleIds": [
+        "ENT-LEGACY-SIGN-INS"
+      ],
+      "nature": "Report",
+      "risk": "Medium",
+      "reversible": false,
+      "permissions": [
+        "AuditLog.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "SEC-03"
+      ],
+      "removesObjects": false,
+      "path": "EntraID/ENT-LEGACY-SIGN-INS.ps1"
+    },
+    {
+      "id": "ENT-MFA",
+      "title": "Require MFA for all users",
+      "workload": "Entra ID",
+      "ruleIds": [
+        "ENT-MFA"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [
+        "Policy.Read.All",
+        "Policy.ReadWrite.ConditionalAccess",
+        "User.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "SEC-03"
+      ],
+      "removesObjects": false,
+      "path": "EntraID/ENT-MFA.ps1"
+    },
+    {
+      "id": "ENT-MFA-REGISTRATION",
+      "title": "Run the MFA registration campaign",
+      "workload": "Entra ID",
+      "ruleIds": [
+        "ENT-MFA-REGISTRATION"
+      ],
+      "nature": "Partial",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [
+        "Policy.ReadWrite.AuthenticationMethod",
+        "AuditLog.Read.All",
+        "User.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Target",
+      "roles": [],
+      "taskIds": [
+        "SEC-03",
+        "CUT-03"
+      ],
+      "removesObjects": false,
+      "path": "EntraID/ENT-MFA-REGISTRATION.ps1"
+    },
+    {
+      "id": "ENT-RISK",
+      "title": "Handle at-risk or compromised accounts",
+      "workload": "Entra ID",
+      "ruleIds": [
+        "ENT-RISK"
+      ],
+      "nature": "Decision",
+      "risk": "Medium",
+      "reversible": false,
+      "permissions": [
+        "IdentityRiskyUser.ReadWrite.All",
+        "User.Read.All",
+        "User-PasswordProfile.ReadWrite.All",
+        "User.RevokeSessions.All",
+        "MailboxSettings.Read",
+        "Directory.Read.All",
+        "UserAuthenticationMethod.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [
+        "User Administrator"
+      ],
+      "taskIds": [
+        "SEC-06"
+      ],
+      "removesObjects": false,
+      "path": "EntraID/ENT-RISK.ps1"
+    },
+    {
+      "id": "ENT-SECRETS",
+      "title": "Handle application secrets and certificates",
+      "workload": "Entra ID",
+      "ruleIds": [
+        "ENT-SECRETS"
+      ],
+      "nature": "Decision",
+      "risk": "Medium",
+      "reversible": false,
+      "permissions": [
+        "Application.ReadWrite.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "GOV-01"
+      ],
+      "removesObjects": false,
+      "path": "EntraID/ENT-SECRETS.ps1"
+    },
+    {
+      "id": "ENT-STALE-DEVICES",
+      "title": "Clean up stale devices",
+      "workload": "Entra ID",
+      "ruleIds": [
+        "ENT-STALE-DEVICES"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": false,
+      "permissions": [
+        "Directory.AccessAsUser.All",
+        "BitlockerKey.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "All",
+      "roles": [
+        "Cloud Device Administrator"
+      ],
+      "taskIds": [
+        "ID-01",
+        "DEV-03"
+      ],
+      "removesObjects": true,
+      "path": "EntraID/ENT-STALE-DEVICES.ps1"
+    },
+    {
+      "id": "ENT-THIRD-PARTY-APPS",
+      "title": "Carry over the third-party applications into the target",
+      "workload": "Entra ID",
+      "ruleIds": [
+        "ENT-THIRD-PARTY-APPS"
+      ],
+      "nature": "Partial",
+      "risk": "Medium",
+      "reversible": true,
+      "permissions": [
+        "Application.ReadWrite.All",
+        "DelegatedPermissionGrant.ReadWrite.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "GOV-01"
+      ],
+      "removesObjects": false,
+      "path": "EntraID/ENT-THIRD-PARTY-APPS.ps1"
+    },
+    {
+      "id": "EXO-AUTO-FORWARD",
+      "title": "Block automatic forwarding to external recipients",
+      "workload": "Exchange Online",
+      "ruleIds": [
+        "EXO-AUTO-FORWARD"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Exo",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "MAIL-02"
+      ],
+      "removesObjects": true,
+      "path": "ExchangeOnline/EXO-AUTO-FORWARD.ps1"
+    },
+    {
+      "id": "EXO-CONNECTORS",
+      "title": "Decide and set up the email flow for the migrated domains",
+      "workload": "Exchange Online",
+      "ruleIds": [
+        "EXO-CONNECTORS"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Exo",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "MAIL-02"
+      ],
+      "removesObjects": true,
+      "path": "ExchangeOnline/EXO-CONNECTORS.ps1"
+    },
+    {
+      "id": "EXO-DKIM",
+      "title": "Set up and enable DKIM",
+      "workload": "Exchange Online",
+      "ruleIds": [
+        "EXO-DKIM"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": false,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Exo",
+      "scope": "Target",
+      "roles": [],
+      "taskIds": [
+        "MAIL-01",
+        "CUT-01"
+      ],
+      "removesObjects": true,
+      "path": "ExchangeOnline/EXO-DKIM.ps1"
+    },
+    {
+      "id": "EXO-FORWARDING",
+      "title": "Validate the automatic forwardings of the mailboxes",
+      "workload": "Exchange Online",
+      "ruleIds": [
+        "EXO-FORWARDING"
+      ],
+      "nature": "Decision",
+      "risk": "Medium",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Exo",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "MAIL-02"
+      ],
+      "removesObjects": false,
+      "path": "ExchangeOnline/EXO-FORWARDING.ps1"
+    },
+    {
+      "id": "EXO-HYBRID",
+      "title": "Decide on the removal of the on-premises Exchange server",
+      "workload": "Exchange Online",
+      "ruleIds": [
+        "EXO-HYBRID"
+      ],
+      "nature": "Decision",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Exo",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "MAIL-02"
+      ],
+      "removesObjects": false,
+      "path": "ExchangeOnline/EXO-HYBRID.ps1"
+    },
+    {
+      "id": "EXO-JOURNAL",
+      "title": "Carry over or replace journaling",
+      "workload": "Exchange Online",
+      "ruleIds": [
+        "EXO-JOURNAL"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Exo",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "MAIL-02"
+      ],
+      "removesObjects": true,
+      "path": "ExchangeOnline/EXO-JOURNAL.ps1"
+    },
+    {
+      "id": "EXO-LARGE-MAILBOXES",
+      "title": "Handle the large mailboxes",
+      "workload": "Exchange Online",
+      "ruleIds": [
+        "EXO-LARGE-MAILBOXES"
+      ],
+      "nature": "Decision",
+      "risk": "Medium",
+      "reversible": false,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Exo",
+      "scope": "Target",
+      "roles": [],
+      "taskIds": [
+        "BUILD-02",
+        "PREP-02"
+      ],
+      "removesObjects": false,
+      "path": "ExchangeOnline/EXO-LARGE-MAILBOXES.ps1"
+    },
+    {
+      "id": "EXO-MOBILE",
+      "title": "Prepare the reconfiguration of mobile devices",
+      "workload": "Exchange Online",
+      "ruleIds": [
+        "EXO-MOBILE"
+      ],
+      "nature": "Partial",
+      "risk": "Medium",
+      "reversible": false,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Exo",
+      "scope": "Source",
+      "roles": [],
+      "taskIds": [
+        "STAB-01"
+      ],
+      "removesObjects": false,
+      "path": "ExchangeOnline/EXO-MOBILE.ps1"
+    },
+    {
+      "id": "EXO-PERMISSIONS",
+      "title": "Reproduce the mailbox delegations in the target",
+      "workload": "Exchange Online",
+      "ruleIds": [
+        "EXO-PERMISSIONS"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Exo",
+      "scope": "Source",
+      "roles": [],
+      "taskIds": [
+        "PREP-03"
+      ],
+      "removesObjects": true,
+      "path": "ExchangeOnline/EXO-PERMISSIONS.ps1"
+    },
+    {
+      "id": "EXO-PROTOCOLS",
+      "title": "Inventory the use of POP, IMAP and authenticated SMTP",
+      "workload": "Exchange Online",
+      "ruleIds": [
+        "EXO-PROTOCOLS"
+      ],
+      "nature": "Decision",
+      "risk": "Medium",
+      "reversible": false,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Exo",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "SEC-03"
+      ],
+      "removesObjects": false,
+      "path": "ExchangeOnline/EXO-PROTOCOLS.ps1"
+    },
+    {
+      "id": "EXO-PUBLIC-FOLDERS",
+      "title": "Settle what happens to the public folders",
+      "workload": "Exchange Online",
+      "ruleIds": [
+        "EXO-PUBLIC-FOLDERS"
+      ],
+      "nature": "Decision",
+      "risk": "Medium",
+      "reversible": false,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Exo",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "BUILD-01"
+      ],
+      "removesObjects": false,
+      "path": "ExchangeOnline/EXO-PUBLIC-FOLDERS.ps1"
+    },
+    {
+      "id": "EXO-RECIPIENTS",
+      "title": "Recreate the lists and contacts in the target",
+      "workload": "Exchange Online",
+      "ruleIds": [
+        "EXO-RECIPIENTS"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": false,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Exo",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "BUILD-01"
+      ],
+      "removesObjects": true,
+      "path": "ExchangeOnline/EXO-RECIPIENTS.ps1"
+    },
+    {
+      "id": "EXO-ROOMS",
+      "title": "Recreate the rooms and equipment in the target",
+      "workload": "Exchange Online",
+      "ruleIds": [
+        "EXO-ROOMS"
+      ],
+      "nature": "Partial",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Exo",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "BUILD-01"
+      ],
+      "removesObjects": true,
+      "path": "ExchangeOnline/EXO-ROOMS.ps1"
+    },
+    {
+      "id": "EXO-RULES",
+      "title": "Review and recreate the transport rules",
+      "workload": "Exchange Online",
+      "ruleIds": [
+        "EXO-RULES"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": false,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Exo",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "MAIL-02"
+      ],
+      "removesObjects": true,
+      "path": "ExchangeOnline/EXO-RULES.ps1"
+    },
+    {
+      "id": "FINAL-AUDIT",
+      "title": "Run the final audit of the old tenants",
+      "workload": "Coverage",
+      "ruleIds": [],
+      "nature": "Report",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "None",
+      "scope": "Source",
+      "roles": [],
+      "taskIds": [
+        "CLOSE-01"
+      ],
+      "removesObjects": false,
+      "path": "Coverage/FINAL-AUDIT.ps1"
+    },
+    {
+      "id": "GO-NOGO",
+      "title": "Run the go/no-go decision",
+      "workload": "Consolidation",
+      "ruleIds": [],
+      "nature": "Report",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "None",
+      "scope": "Source",
+      "roles": [],
+      "taskIds": [
+        "PREP-05"
+      ],
+      "removesObjects": false,
+      "path": "Consolidation/GO-NOGO.ps1"
+    },
+    {
+      "id": "IDENTITY-MATRIX",
+      "title": "Have the identity matrix produced and validated",
+      "workload": "Consolidation",
+      "ruleIds": [],
+      "nature": "Decision",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "None",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "ID-02"
+      ],
+      "removesObjects": false,
+      "path": "Consolidation/IDENTITY-MATRIX.ps1"
+    },
+    {
+      "id": "INT-APPS",
+      "title": "Add the missing applications to Intune",
+      "workload": "Intune",
+      "ruleIds": [
+        "INT-APPS"
+      ],
+      "nature": "Partial",
+      "risk": "Medium",
+      "reversible": true,
+      "permissions": [
+        "DeviceManagementApps.ReadWrite.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Target",
+      "roles": [],
+      "taskIds": [
+        "DEV-01"
+      ],
+      "removesObjects": false,
+      "path": "Intune/INT-APPS.ps1"
+    },
+    {
+      "id": "INT-AUTOPILOT",
+      "title": "Move the Autopilot devices to the target",
+      "workload": "Intune",
+      "ruleIds": [
+        "INT-AUTOPILOT"
+      ],
+      "nature": "Partial",
+      "risk": "High",
+      "reversible": false,
+      "permissions": [
+        "DeviceManagementServiceConfig.ReadWrite.All",
+        "Group.ReadWrite.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "DEV-02"
+      ],
+      "removesObjects": true,
+      "path": "Intune/INT-AUTOPILOT.ps1"
+    },
+    {
+      "id": "INT-CONNECTORS",
+      "title": "Re-enroll the Apple devices in the target",
+      "workload": "Intune",
+      "ruleIds": [
+        "INT-CONNECTORS"
+      ],
+      "nature": "Partial",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [
+        "DeviceManagementServiceConfig.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "DEV-05"
+      ],
+      "removesObjects": false,
+      "path": "Intune/INT-CONNECTORS.ps1"
+    },
+    {
+      "id": "INT-MAM",
+      "title": "Recreate the app protection policies",
+      "workload": "Intune",
+      "ruleIds": [
+        "INT-MAM"
+      ],
+      "nature": "Decision",
+      "risk": "Medium",
+      "reversible": true,
+      "permissions": [
+        "DeviceManagementApps.ReadWrite.All",
+        "Group.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "SEC-07"
+      ],
+      "removesObjects": false,
+      "path": "Intune/INT-MAM.ps1"
+    },
+    {
+      "id": "INT-NONCOMPLIANT",
+      "title": "Fix the noncompliant devices of the target",
+      "workload": "Intune",
+      "ruleIds": [
+        "INT-NONCOMPLIANT"
+      ],
+      "nature": "Report",
+      "risk": "Medium",
+      "reversible": false,
+      "permissions": [
+        "DeviceManagementConfiguration.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "DEV-05"
+      ],
+      "removesObjects": false,
+      "path": "Intune/INT-NONCOMPLIANT.ps1"
+    },
+    {
+      "id": "INT-POLICIES",
+      "title": "Compare and recreate the Intune policies",
+      "workload": "Intune",
+      "ruleIds": [
+        "INT-POLICIES"
+      ],
+      "nature": "Decision",
+      "risk": "Medium",
+      "reversible": true,
+      "permissions": [
+        "DeviceManagementConfiguration.ReadWrite.All",
+        "Group.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "DEV-05"
+      ],
+      "removesObjects": false,
+      "path": "Intune/INT-POLICIES.ps1"
+    },
+    {
+      "id": "INT-STALE",
+      "title": "Exclude stale devices from re-enrollment",
+      "workload": "Intune",
+      "ruleIds": [
+        "INT-STALE"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": false,
+      "permissions": [
+        "DeviceManagementManagedDevices.ReadWrite.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "All",
+      "roles": [],
+      "taskIds": [
+        "DEV-03",
+        "DEV-05"
+      ],
+      "removesObjects": true,
+      "path": "Intune/INT-STALE.ps1"
+    },
+    {
+      "id": "INV-COVERAGE",
+      "title": "Complete the coverage of the assessment",
+      "workload": "Coverage",
+      "ruleIds": [
+        "INV-COVERAGE"
+      ],
+      "nature": "Partial",
+      "risk": "Medium",
+      "reversible": false,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "None",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "BUILD-04"
+      ],
+      "removesObjects": false,
+      "path": "Coverage/INV-COVERAGE.ps1"
+    },
+    {
+      "id": "LICENSE-CHECK",
+      "title": "Check the available licenses before the pre-copy",
+      "workload": "Entra ID",
+      "ruleIds": [],
+      "nature": "Report",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [
+        "Organization.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Source",
+      "roles": [],
+      "taskIds": [
+        "PREP-01"
+      ],
+      "removesObjects": false,
+      "path": "EntraID/LICENSE-CHECK.ps1"
+    },
+    {
+      "id": "LICENSE-REMOVAL",
+      "title": "Remove the licenses of the source tenants",
+      "workload": "Entra ID",
+      "ruleIds": [],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [
+        "User.ReadWrite.All",
+        "Organization.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Source",
+      "roles": [],
+      "taskIds": [
+        "CLOSE-05"
+      ],
+      "removesObjects": false,
+      "path": "EntraID/LICENSE-REMOVAL.ps1"
+    },
+    {
+      "id": "MAIL-FLOW-TEST",
+      "title": "Prepare and check the mail flow test",
+      "workload": "Exchange Online",
+      "ruleIds": [],
+      "nature": "Partial",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Exo",
+      "scope": "Source",
+      "roles": [],
+      "taskIds": [
+        "CUT-01"
+      ],
+      "removesObjects": false,
+      "path": "ExchangeOnline/MAIL-FLOW-TEST.ps1"
+    },
+    {
+      "id": "POC-DEVICES",
+      "title": "Test report of the two test devices",
+      "workload": "Intune",
+      "ruleIds": [],
+      "nature": "Report",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [
+        "DeviceManagementManagedDevices.Read.All",
+        "DeviceManagementServiceConfig.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Source",
+      "roles": [],
+      "taskIds": [
+        "POC-05"
+      ],
+      "removesObjects": false,
+      "path": "Intune/POC-DEVICES.ps1"
+    },
+    {
+      "id": "POC-TEST-DOMAIN",
+      "title": "Move the test domain to the target",
+      "workload": "Domains and DNS",
+      "ruleIds": [],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": false,
+      "permissions": [
+        "Domain.ReadWrite.All",
+        "Directory.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Source",
+      "roles": [],
+      "taskIds": [
+        "POC-02"
+      ],
+      "removesObjects": true,
+      "path": "DomainsAndDNS/POC-TEST-DOMAIN.ps1"
+    },
+    {
+      "id": "POC-TEST-SET",
+      "title": "Create the POC test set",
+      "workload": "Entra ID",
+      "ruleIds": [],
+      "nature": "Automated",
+      "risk": "Medium",
+      "reversible": true,
+      "permissions": [
+        "User.ReadWrite.All",
+        "Group.ReadWrite.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Source",
+      "roles": [],
+      "taskIds": [
+        "POC-01"
+      ],
+      "removesObjects": false,
+      "path": "EntraID/POC-TEST-SET.ps1"
+    },
+    {
+      "id": "PUR-DLP",
+      "title": "Cover the DLP policies for the migrated data",
+      "workload": "Purview",
+      "ruleIds": [
+        "PUR-DLP"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": false,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Scc",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "BUILD-03"
+      ],
+      "removesObjects": true,
+      "path": "Purview/PUR-DLP.ps1"
+    },
+    {
+      "id": "REFRESH-ASSESSMENT",
+      "title": "Refresh the snapshots of the tenants",
+      "workload": "Coverage",
+      "ruleIds": [],
+      "nature": "Automated",
+      "risk": "Medium",
+      "reversible": false,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "None",
+      "scope": "All",
+      "roles": [],
+      "taskIds": [
+        "KICK-04"
+      ],
+      "removesObjects": false,
+      "path": "Coverage/REFRESH-ASSESSMENT.ps1"
+    },
+    {
+      "id": "RELEASE-DOMAIN",
+      "title": "Release the source domain from all its references",
+      "workload": "Domains and DNS",
+      "ruleIds": [],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": false,
+      "permissions": [
+        "Domain.ReadWrite.All",
+        "Directory.Read.All",
+        "User.ReadWrite.All",
+        "User.DeleteRestore.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Exo",
+      "scope": "Source",
+      "roles": [
+        "Privileged Authentication Administrator"
+      ],
+      "taskIds": [
+        "PREP-05"
+      ],
+      "removesObjects": true,
+      "path": "DomainsAndDNS/RELEASE-DOMAIN.ps1"
+    },
+    {
+      "id": "SPO-CUSTOMIZATIONS",
+      "title": "Deploy the SharePoint customizations in the target",
+      "workload": "SharePoint and OneDrive",
+      "ruleIds": [
+        "SPO-CUSTOMIZATIONS"
+      ],
+      "nature": "Partial",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Pnp",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "BUILD-04"
+      ],
+      "removesObjects": true,
+      "path": "SharePointAndOneDrive/SPO-CUSTOMIZATIONS.ps1"
+    },
+    {
+      "id": "SPO-DOWNLOAD-RESTRICTION",
+      "title": "Apply the download restriction policy for unmanaged devices",
+      "workload": "SharePoint and OneDrive",
+      "ruleIds": [],
+      "nature": "Decision",
+      "risk": "Medium",
+      "reversible": true,
+      "permissions": [
+        "Policy.Read.All",
+        "Policy.ReadWrite.ConditionalAccess",
+        "User.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Pnp",
+      "scope": "Target",
+      "roles": [],
+      "taskIds": [
+        "SEC-07"
+      ],
+      "removesObjects": false,
+      "path": "SharePointAndOneDrive/SPO-DOWNLOAD-RESTRICTION.ps1"
+    },
+    {
+      "id": "SPO-EXTERNAL",
+      "title": "Validate and reinvite the external users",
+      "workload": "SharePoint and OneDrive",
+      "ruleIds": [
+        "SPO-EXTERNAL"
+      ],
+      "nature": "Decision",
+      "risk": "Medium",
+      "reversible": true,
+      "permissions": [
+        "User.Invite.All",
+        "User.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Source",
+      "roles": [],
+      "taskIds": [
+        "CUT-04"
+      ],
+      "removesObjects": false,
+      "path": "SharePointAndOneDrive/SPO-EXTERNAL.ps1"
+    },
+    {
+      "id": "SPO-INACTIVE",
+      "title": "Have the inactive sites excluded from the copy",
+      "workload": "SharePoint and OneDrive",
+      "ruleIds": [
+        "SPO-INACTIVE"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [
+        "Group.ReadWrite.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Pnp",
+      "scope": "All",
+      "roles": [],
+      "taskIds": [
+        "SEC-05",
+        "PREP-09"
+      ],
+      "removesObjects": true,
+      "path": "SharePointAndOneDrive/SPO-INACTIVE.ps1"
+    },
+    {
+      "id": "SPO-LARGE-SITES",
+      "title": "Plan the copy of the sites of 100 GB or more",
+      "workload": "SharePoint and OneDrive",
+      "ruleIds": [
+        "SPO-LARGE-SITES"
+      ],
+      "nature": "Report",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Pnp",
+      "scope": "Source",
+      "roles": [],
+      "taskIds": [
+        "PREP-02"
+      ],
+      "removesObjects": false,
+      "path": "SharePointAndOneDrive/SPO-LARGE-SITES.ps1"
+    },
+    {
+      "id": "SPO-ONEDRIVE",
+      "title": "Decide what happens to the OneDrives and start their copy",
+      "workload": "SharePoint and OneDrive",
+      "ruleIds": [
+        "SPO-ONEDRIVE"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Pnp",
+      "scope": "Source",
+      "roles": [],
+      "taskIds": [
+        "PREP-02"
+      ],
+      "removesObjects": true,
+      "path": "SharePointAndOneDrive/SPO-ONEDRIVE.ps1"
+    },
+    {
+      "id": "SPO-SHARING",
+      "title": "Align external sharing and notify the owners",
+      "workload": "SharePoint and OneDrive",
+      "ruleIds": [
+        "SPO-SHARING"
+      ],
+      "nature": "Decision",
+      "risk": "Medium",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Pnp",
+      "scope": "Source",
+      "roles": [],
+      "taskIds": [
+        "SEC-05",
+        "PREP-10"
+      ],
+      "removesObjects": false,
+      "path": "SharePointAndOneDrive/SPO-SHARING.ps1"
+    },
+    {
+      "id": "SPO-TERMS",
+      "title": "Copy the term store before the content",
+      "workload": "SharePoint and OneDrive",
+      "ruleIds": [
+        "SPO-TERMS"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Pnp",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "BUILD-04"
+      ],
+      "removesObjects": true,
+      "path": "SharePointAndOneDrive/SPO-TERMS.ps1"
+    },
+    {
+      "id": "SYNCED-DUPLICATES",
+      "title": "Prepare the addresses of the synced accounts of the target",
+      "workload": "Exchange Online",
+      "ruleIds": [],
+      "nature": "Partial",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [
+        "Domain.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Exo",
+      "scope": "Source",
+      "roles": [],
+      "taskIds": [
+        "PREP-05"
+      ],
+      "removesObjects": false,
+      "path": "ExchangeOnline/SYNCED-DUPLICATES.ps1"
+    },
+    {
+      "id": "TARGET-DOMAIN",
+      "title": "Check the domains in the target",
+      "workload": "Domains and DNS",
+      "ruleIds": [],
+      "nature": "Report",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [
+        "Domain.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Exo",
+      "scope": "Source",
+      "roles": [],
+      "taskIds": [
+        "CUT-01"
+      ],
+      "removesObjects": false,
+      "path": "DomainsAndDNS/TARGET-DOMAIN.ps1"
+    },
+    {
+      "id": "TEL-CALLING-SETTINGS",
+      "title": "Reproduce the calling settings of users",
+      "workload": "Teams Phone",
+      "ruleIds": [
+        "TEL-CALLING-SETTINGS"
+      ],
+      "nature": "Partial",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Teams",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "VOICE-01"
+      ],
+      "removesObjects": true,
+      "path": "TeamsPhone/TEL-CALLING-SETTINGS.ps1"
+    },
+    {
+      "id": "TEL-DIAL-PLANS",
+      "title": "Recreate the dial plans and voice routing",
+      "workload": "Teams Phone",
+      "ruleIds": [
+        "TEL-DIAL-PLANS"
+      ],
+      "nature": "Decision",
+      "risk": "Medium",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Teams",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "VOICE-01"
+      ],
+      "removesObjects": false,
+      "path": "TeamsPhone/TEL-DIAL-PLANS.ps1"
+    },
+    {
+      "id": "TEL-EMERGENCY",
+      "title": "Recreate the emergency addresses in the target",
+      "workload": "Teams Phone",
+      "ruleIds": [
+        "TEL-EMERGENCY"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Teams",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "VOICE-01"
+      ],
+      "removesObjects": true,
+      "path": "TeamsPhone/TEL-EMERGENCY.ps1"
+    },
+    {
+      "id": "TEL-NUMBERS",
+      "title": "Transfer the phone numbers to the target",
+      "workload": "Teams Phone",
+      "ruleIds": [
+        "TEL-NUMBERS"
+      ],
+      "nature": "Partial",
+      "risk": "High",
+      "reversible": false,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Teams",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "VOICE-01"
+      ],
+      "removesObjects": true,
+      "path": "TeamsPhone/TEL-NUMBERS.ps1"
+    },
+    {
+      "id": "TEL-ROUTING-TARGET",
+      "title": "Decide on the telephony provider for the migrated numbers",
+      "workload": "Teams Phone",
+      "ruleIds": [
+        "TEL-ROUTING-TARGET"
+      ],
+      "nature": "Decision",
+      "risk": "Low",
+      "reversible": true,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Teams",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "VOICE-01"
+      ],
+      "removesObjects": false,
+      "path": "TeamsPhone/TEL-ROUTING-TARGET.ps1"
+    },
+    {
+      "id": "TEL-SCHEDULES",
+      "title": "Export and recreate the schedules and holidays",
+      "workload": "Teams Phone",
+      "ruleIds": [
+        "TEL-SCHEDULES"
+      ],
+      "nature": "Partial",
+      "risk": "High",
+      "reversible": false,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Teams",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "VOICE-01"
+      ],
+      "removesObjects": true,
+      "path": "TeamsPhone/TEL-SCHEDULES.ps1"
+    },
+    {
+      "id": "TEL-USERS",
+      "title": "Prepare the licenses and the assignment of voice users",
+      "workload": "Teams Phone",
+      "ruleIds": [
+        "TEL-USERS"
+      ],
+      "nature": "Decision",
+      "risk": "Medium",
+      "reversible": true,
+      "permissions": [
+        "LicenseAssignment.ReadWrite.All",
+        "User.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "VOICE-01"
+      ],
+      "removesObjects": false,
+      "path": "TeamsPhone/TEL-USERS.ps1"
+    },
+    {
+      "id": "TEL-VOICE-APPS",
+      "title": "Recreate the auto attendants, call queues and resource accounts",
+      "workload": "Teams Phone",
+      "ruleIds": [
+        "TEL-VOICE-APPS"
+      ],
+      "nature": "Partial",
+      "risk": "High",
+      "reversible": false,
+      "permissions": [
+        "User.ReadWrite.All",
+        "LicenseAssignment.ReadWrite.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Teams",
+      "scope": "Plan",
+      "roles": [
+        "User Administrator"
+      ],
+      "taskIds": [
+        "VOICE-01"
+      ],
+      "removesObjects": true,
+      "path": "TeamsPhone/TEL-VOICE-APPS.ps1"
+    },
+    {
+      "id": "TENANT-CLOSURE",
+      "title": "Clean up and close the source tenants",
+      "workload": "Entra ID",
+      "ruleIds": [],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": false,
+      "permissions": [
+        "User.ReadWrite.All",
+        "Group.ReadWrite.All",
+        "Application.ReadWrite.All",
+        "Domain.ReadWrite.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Source",
+      "roles": [
+        "Privileged Authentication Administrator"
+      ],
+      "taskIds": [
+        "CLOSE-04"
+      ],
+      "removesObjects": true,
+      "path": "EntraID/TENANT-CLOSURE.ps1"
+    },
+    {
+      "id": "TMS-CHANNELS",
+      "title": "Validate how private and shared channels are handled",
+      "workload": "Teams",
+      "ruleIds": [
+        "TMS-CHANNELS"
+      ],
+      "nature": "Partial",
+      "risk": "Medium",
+      "reversible": true,
+      "permissions": [
+        "Policy.ReadWrite.CrossTenantAccess",
+        "Channel.ReadBasic.All",
+        "ChannelMember.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Teams",
+      "scope": "Source",
+      "roles": [],
+      "taskIds": [
+        "PREP-03"
+      ],
+      "removesObjects": false,
+      "path": "Teams/TMS-CHANNELS.ps1"
+    },
+    {
+      "id": "TMS-GUESTS",
+      "title": "Validate and reinvite the team guests",
+      "workload": "Teams",
+      "ruleIds": [
+        "TMS-GUESTS"
+      ],
+      "nature": "Decision",
+      "risk": "Medium",
+      "reversible": true,
+      "permissions": [
+        "User.Invite.All",
+        "User.Read.All",
+        "GroupMember.ReadWrite.All",
+        "Group.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Source",
+      "roles": [],
+      "taskIds": [
+        "CUT-04"
+      ],
+      "removesObjects": false,
+      "path": "Teams/TMS-GUESTS.ps1"
+    },
+    {
+      "id": "TMS-OWNERS",
+      "title": "Name two owners per team",
+      "workload": "Teams",
+      "ruleIds": [
+        "TMS-OWNERS"
+      ],
+      "nature": "Decision",
+      "risk": "Medium",
+      "reversible": true,
+      "permissions": [
+        "TeamMember.ReadWrite.All",
+        "Group.Read.All",
+        "User.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Graph",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "BUILD-04"
+      ],
+      "removesObjects": false,
+      "path": "Teams/TMS-OWNERS.ps1"
+    },
+    {
+      "id": "TMS-POLICIES",
+      "title": "Apply a single set of Teams policies",
+      "workload": "Teams",
+      "ruleIds": [
+        "TMS-POLICIES"
+      ],
+      "nature": "Decision",
+      "risk": "High",
+      "reversible": true,
+      "permissions": [
+        "Group.Read.All"
+      ],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Teams",
+      "scope": "Plan",
+      "roles": [],
+      "taskIds": [
+        "GOV-02"
+      ],
+      "removesObjects": true,
+      "path": "Teams/TMS-POLICIES.ps1"
+    },
+    {
+      "id": "UNIFIED-AUDIT-LOG",
+      "title": "Confirm the unified audit log",
+      "workload": "Exchange Online",
+      "ruleIds": [
+        "EXO-AUDIT"
+      ],
+      "nature": "Automated",
+      "risk": "Medium",
+      "reversible": false,
+      "permissions": [],
+      "testedOnRealTenant": false,
+      "testedEvidence": null,
+      "service": "Exo",
+      "scope": "All",
+      "roles": [],
+      "taskIds": [
+        "SEC-01"
+      ],
+      "removesObjects": false,
+      "path": "ExchangeOnline/UNIFIED-AUDIT-LOG.ps1"
+    }
+  ]
+}
