@@ -1,0 +1,2 @@
+# A fictional token, in the test that proves the journal masks tokens. It decodes to {"alg":"RS256"} and {"sub":"123456"}.
+00cdfd4ab50a5dbd026369d6dd8c1dbef07ead2f:tests/Core.Tests.ps1:jwt:53
